@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import Comment from "../Comments/Comment";
 import DeletePostModal from "./DeletePostModal";
 import EditPostModal from "./EditPostModal";
 
 const Post = ({ post }) => {
+	const [showComments, setShowComments] = useState(false);
 	const curr_user = useSelector((state) => state.session.user);
 	return (
 		<div
@@ -20,9 +23,15 @@ const Post = ({ post }) => {
 					<DeletePostModal post={post} />
 				</>
 			)}{" "}
-			<h3>{post.name}</h3>
+			<Link to={`/users/${post.user_id}`}>
+				<h3>{post.name}</h3>
+			</Link>
 			<div>{post.post_body}</div>
-			<span>{post.comments.length} comments</span>
+			<span onClick={() => setShowComments(true)}>
+				{post.comments.length} comments
+			</span>
+			{showComments &&
+				post.comments.map((comment) => <Comment comment={comment} />)}
 			{/* <ul>
 				{post.comments.length > 0 &&
 					post.comments.map((comment) => (

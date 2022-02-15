@@ -39,3 +39,17 @@ class User(db.Model, UserMixin):
             'birthdate': self.birthdate,
             'gender': self.gender,
         }
+    def to_frontend_dict(self):
+        from app.models import Post
+        user_posts = Post.query.filter(Post.user_id == self.id).all()
+        posts = [post.to_frontend_dict() for post in user_posts]
+        return {
+            'id': self.id,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'phone': self.phone,
+            'email': self.email,
+            'birthdate': self.birthdate,
+            'gender': self.gender,
+            'posts': posts,
+        }
