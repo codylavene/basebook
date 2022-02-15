@@ -1,17 +1,15 @@
-from app.models import db, User
+from app.models import db, Post
 from faker import Faker
 from datetime import date, datetime
+from random import randint
 fake = Faker(locale='en-US')
 
 # Adds a demo user, you can add other users here if you want
-def seed_users():
-    demo = User(
-        first_name='Demo', last_name='User', phone='555-555-5555', email='demo@aa.io', birthdate=date(2000, 2, 22),password='password')
-    db.session.add(demo)
+def seed_posts():
     for _ in range(76):
-        user = User(
-            first_name=fake.first_name(), last_name=fake.last_name(), phone=fake.numerify('%##-###-####'), email=fake.email(), birthdate=fake.date_of_birth(minimum_age=18),password=fake.password(length=12))
-        db.session.add(user)
+        post = Post(
+            user_id=randint(1, 77), post_body=fake.text(max_nb_chars=280))
+        db.session.add(post)
 
 
 
@@ -23,6 +21,6 @@ def seed_users():
 # TRUNCATE Removes all the data from the table, and RESET IDENTITY
 # resets the auto incrementing primary key, CASCADE deletes any
 # dependent entities
-def undo_users():
+def undo_posts():
     db.session.execute('TRUNCATE users RESTART IDENTITY CASCADE;')
     db.session.commit()
