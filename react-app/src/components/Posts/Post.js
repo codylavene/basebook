@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import DeletePostModal from "./DeletePostModal";
 import EditPostModal from "./EditPostModal";
 
 const Post = ({ post }) => {
@@ -13,7 +14,12 @@ const Post = ({ post }) => {
 				padding: 20,
 			}}
 		>
-			{curr_user.id === post.user_id && <EditPostModal post={post} />}{" "}
+			{curr_user.id === post.user_id && (
+				<>
+					<EditPostModal post={post} />
+					<DeletePostModal post={post} />
+				</>
+			)}{" "}
 			<h3>{post.name}</h3>
 			<div>{post.post_body}</div>
 			<span>{post.comments.length} comments</span>

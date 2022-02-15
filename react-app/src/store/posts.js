@@ -64,7 +64,16 @@ export const editPost = (post, id) => async (dispatch) => {
 		console.log(data);
 	}
 };
-export const deletePost = (post) => async (dispatch) => {};
+export const deletePost = (id) => async (dispatch) => {
+	const res = await fetch(`/api/posts/${id}`, { method: "DELETE" });
+
+	const data = await res.json();
+	if (res.ok) {
+		dispatch(remove(data.post));
+	} else {
+		console.log("Uh Oh");
+	}
+};
 
 const initialState = {
 	posts: {},
@@ -91,6 +100,11 @@ const reducer = (state = initialState, action) => {
 			const newState = { ...state };
 			newState.posts[action.post.id] = action.post;
 
+			return newState;
+		}
+		case DELETE: {
+			const newState = { ...state };
+			delete newState.posts[action.post.id];
 			return newState;
 		}
 
