@@ -3,9 +3,9 @@ import { useDispatch } from "react-redux";
 import * as postActions from "../../store/posts";
 const DeletePost = ({ setShowModal, post }) => {
 	const dispatch = useDispatch();
-	const onSubmit = (e) => {
+	const onSubmit = async (e) => {
 		e.preventDefault();
-		dispatch(postActions.deletePost(post.id));
+		await dispatch(postActions.deletePost(post.id));
 		dispatch(postActions.getPosts());
 		setShowModal(false);
 	};

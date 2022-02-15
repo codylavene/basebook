@@ -7,7 +7,6 @@ const Posts = (props) => {
 	const dispatch = useDispatch();
 	const postsObj = useSelector((state) => state.posts.posts);
 	const posts = Object.values(postsObj);
-	console.log(posts);
 	useEffect(() => {
 		dispatch(postActions.getPosts());
 	}, []);

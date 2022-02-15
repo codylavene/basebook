@@ -19,7 +19,10 @@ app = Flask(__name__)
 # Setup login manager
 login = LoginManager(app)
 login.login_view = 'auth.unauthorized'
-
+#####################################################################
+# import logging
+# logging.getLogger('sqlalchemy.dialects.postgresql').setLevel(logging.ERROR)
+#####################################################################
 
 @login.user_loader
 def load_user(id):

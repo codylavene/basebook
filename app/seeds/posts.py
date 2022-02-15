@@ -6,7 +6,7 @@ fake = Faker(locale='en-US')
 
 # Adds a demo user, you can add other users here if you want
 def seed_posts():
-    for _ in range(76):
+    for _ in range(10):
         post = Post(
             user_id=randint(1, 77), post_body=fake.text(max_nb_chars=280))
         db.session.add(post)

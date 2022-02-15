@@ -60,9 +60,11 @@ def updatePost(id):
 @post_routes.route('/<int:id>', methods=["DELETE"])
 @login_required
 def deletePost(id):
+    click.echo(click.style("HIT ROUTE <><><><><><><><><><><><><>", bg='red', fg='white'))
     data = {}
-    post = Post.query.get(id)
-    click.secho(click.style(post, bg='red', fg='white'))
+    post = Post.query.get(int(id))
+    click.echo(click.style(f"{post}", bg='red', fg='white'))
     data['post'] = post.to_frontend_dict()
     db.session.delete(post)
+    db.session.commit()
     return data
