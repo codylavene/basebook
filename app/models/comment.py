@@ -1,3 +1,4 @@
+from app.models.user import User
 from .db import db
 from datetime import datetime
 
@@ -19,6 +20,18 @@ class Comment(db.Model):
         return {
             'id': self.id,
             'user_id': self.user_id,
+            'post_id': self.post_id,
+            'comment_body': self.comment_body,
+            'posted_at': self.posted_at,
+            'updated_at': self.updated_at,
+        }
+    def to_frontend_dict(self):
+        user = User.query.get(self.user_id)
+        name = f'{user.first_name} {user.last_name}'
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            'name': name,
             'post_id': self.post_id,
             'comment_body': self.comment_body,
             'posted_at': self.posted_at,
