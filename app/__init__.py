@@ -8,6 +8,7 @@ from flask_login import LoginManager
 from app.models import db, User
 from app.api.user_routes import user_routes
 from app.api.auth_routes import auth_routes
+from app.api.post_routes import post_routes
 
 from app.seeds import seed_commands
 
@@ -18,7 +19,10 @@ app = Flask(__name__)
 # Setup login manager
 login = LoginManager(app)
 login.login_view = 'auth.unauthorized'
-
+#####################################################################
+# import logging
+# logging.getLogger('sqlalchemy.dialects.postgresql').setLevel(logging.ERROR)
+#####################################################################
 
 @login.user_loader
 def load_user(id):
@@ -31,6 +35,7 @@ app.cli.add_command(seed_commands)
 app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
+app.register_blueprint(post_routes, url_prefix='/api/posts')
 db.init_app(app)
 Migrate(app, db)
 
