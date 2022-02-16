@@ -21,7 +21,10 @@ const Post = ({ post }) => {
 				<h4>{post.name}</h4>
 			</Link>
 			<div>{post.post_body}</div>
-			<span onClick={() => setShowComments(!showComments)}>
+			<span
+				className="comments-count"
+				onClick={() => setShowComments(!showComments)}
+			>
 				{post?.comments?.length} comments
 			</span>
 			{showComments &&

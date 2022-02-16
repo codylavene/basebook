@@ -8,8 +8,12 @@
 
 .single-post-container {
 	border: 1px solid black;
-	width: 680px;
+	width: 500px;
 	height: fit-content;
 	padding: 20px;
 	margin: 10px auto;
+}
+
+.comments-count:hover {
+	cursor: pointer;
 }

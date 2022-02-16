@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { login } from "../../store/session";
 import DemoLogin from "./DemoLogin";
+import SignUpFormModal from "./SignUpFormModal";
 
 const LoginForm = () => {
 	const [errors, setErrors] = useState([]);
@@ -28,7 +29,7 @@ const LoginForm = () => {
 	};
 
 	if (user) {
-		return <Redirect to="/timeline" />;
+		return <Redirect to="/feed" />;
 	}
 
 	return (
@@ -58,6 +59,7 @@ const LoginForm = () => {
 					onChange={updatePassword}
 				/>
 				<button type="submit">Login</button>
+				<SignUpFormModal />
 				<DemoLogin />
 			</div>
 		</form>
