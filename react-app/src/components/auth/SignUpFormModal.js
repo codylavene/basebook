@@ -6,7 +6,12 @@ const SignUpFormModal = ({ post, comment }) => {
 	const [showModal, setShowModal] = useState(false);
 	return (
 		<div>
-			<button onClick={() => setShowModal(true)}>
+			<button
+				onClick={(e) => {
+					e.preventDefault();
+					setShowModal(true);
+				}}
+			>
 				Create New Account
 			</button>
 			{showModal && (
