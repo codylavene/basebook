@@ -34,6 +34,14 @@ const Post = ({ post }) => {
 				post.comments.map((comment) => (
 					<Comment key={comment.id} comment={comment} post={post} />
 				))}
+			<div className="like-comment-action--container">
+				<div className="like-action action">
+					<i className="fa-regular fa-thumbs-up"></i> Like
+				</div>
+				<div className="comment-action action">
+					<i class="fa-regular fa-message"></i> Comment
+				</div>
+			</div>
 			<AddComment post={post} />
 		</div>
 	);

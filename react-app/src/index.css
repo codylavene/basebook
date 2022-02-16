@@ -8,6 +8,10 @@
 	--modal-bg: #ffffffcc;
 	--primary-text: #050505;
 	--secondary-text: #65676b;
+	--light-border: #00000033;
+	--light-grey-btn: #e4e6eb;
+	--light-grey-btn-hover: #d8dade;
+	--like-comment-hover: #f2f2f2;
 }
 
 * {

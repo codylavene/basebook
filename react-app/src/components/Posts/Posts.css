@@ -100,6 +100,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	outline: none;
 }
 .add-comment--btn {
 	background-color: #f0f0f0;
@@ -114,4 +115,124 @@
 .add-comment--btn:hover {
 	background-color: #d0d0d0;
 	cursor: pointer;
+}
+.modal-head {
+	width: 100%;
+}
+.modal-head > .modal-text--container {
+	width: 100%;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 20px 0;
+	font-size: 20px;
+	font-weight: bold;
+	border-bottom: 1px solid var(--light-grey-btn);
+}
+
+.modal-head > .close-create-post {
+	width: 36px;
+	height: 36px;
+	background-color: var(--light-grey-btn);
+	border-radius: 50%;
+	position: absolute;
+	right: 10px;
+	top: 12px;
+	z-index: 10;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.modal-head > .close-create-post:hover {
+	cursor: pointer;
+	background-color: var(--light-grey-btn-hover);
+}
+.create-post--card {
+	width: 500px;
+	min-height: 450px;
+	background-color: #fff;
+}
+
+.create-post--card > .user-info {
+	display: flex;
+	width: 100%;
+	padding: 15px;
+}
+.create-post--card > .create-post--form {
+	width: 100%;
+	/* height: 300px; */
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+}
+.create-post--card > .create-post--form > textarea {
+	width: 100%;
+	height: 250px;
+	border: none;
+	color: var(--primary-text);
+	font-size: 24px;
+	resize: none;
+	outline: none;
+}
+.create-post--card > .create-post--form > button {
+	height: 36px;
+	border: none;
+	border-radius: 8px;
+	font-weight: bold;
+	font-size: 16px;
+	background-color: var(--main-blue);
+	color: #fff;
+}
+.create-post--card > .create-post--form > textarea:focus {
+	appearance: none;
+}
+.like-comment-action--container {
+	display: flex;
+	width: 100%;
+	height: 44px;
+	justify-content: space-around;
+	padding: 4px 0px;
+	border-top: 1px solid var(--light-grey-btn);
+	border-bottom: 1px solid var(--light-grey-btn);
+	margin: 8px 0px;
+	color: var(--secondary-text);
+}
+.like-comment-action--container > .action {
+	width: 50%;
+	padding: 10px 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 16px;
+	border-radius: 8px;
+}
+.like-comment-action--container > .action > i {
+	margin-right: 6px;
+}
+.like-comment-action--container > .action:hover {
+	background-color: var(--like-comment-hover);
+	cursor: pointer;
+}
+
+.single-comment--container {
+	border: 1px solid black;
+	width: 80%;
+	margin: 10px;
+	padding: 8px 12px;
+	border-radius: 10px;
+	background-color: #fff;
+}
+.single-comment--container > a {
+	text-decoration: none;
+	color: var(--primary-text);
+}
+.single-comment--container > a:hover {
+	text-decoration: underline;
+	padding: 8px 12px;
+	border-radius: 10px;
+}
+
+.user-comment--wrapper {
+	display: flex;
 }
