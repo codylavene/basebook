@@ -13,14 +13,17 @@ const AddComment = ({ post }) => {
 		}
 	};
 	return (
-		<div>
-			<form onSubmit={onSubmit}>
-				<textarea
-					placeholder="Comment..."
+		<div className="add-comment--container">
+			<div className="image-placeholder"></div>
+			<form onSubmit={onSubmit} className="add-comment--form">
+				<input
+					type="text"
+					className="add-comment--input"
+					placeholder="Write a comment..."
 					value={comment}
 					onChange={(e) => setComment(e.target.value)}
-				></textarea>
-				<button>Submit</button>
+				></input>
+				<button className="add-comment--btn">Submit</button>
 			</form>
 		</div>
 	);
