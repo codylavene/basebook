@@ -2,11 +2,16 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { signUp } from "../../store/session";
+import DemoLogin from "./DemoLogin";
 
-const SignUpForm = () => {
+const SignUpForm = ({ setShowModal }) => {
 	const [errors, setErrors] = useState([]);
-	const [username, setUsername] = useState("");
+	const [firstName, setFirstName] = useState("");
+	const [lastName, setLastName] = useState("");
 	const [email, setEmail] = useState("");
+	const [phone, setPhone] = useState("");
+	const [birthdate, setBirthdate] = useState(new Date());
+	const [gender, setGender] = useState("");
 	const [password, setPassword] = useState("");
 	const [repeatPassword, setRepeatPassword] = useState("");
 	const user = useSelector((state) => state.session.user);
@@ -15,19 +20,43 @@ const SignUpForm = () => {
 	const onSignUp = async (e) => {
 		e.preventDefault();
 		if (password === repeatPassword) {
-			const data = await dispatch(signUp(username, email, password));
+			const data = await dispatch(
+				signUp(
+					firstName,
+					lastName,
+					email,
+					phone,
+					birthdate,
+					gender,
+					password
+				)
+			);
 			if (data) {
 				setErrors(data);
+			} else {
+				setShowModal(false);
 			}
 		}
 	};
 
-	const updateUsername = (e) => {
-		setUsername(e.target.value);
+	const updateFirstName = (e) => {
+		setFirstName(e.target.value);
+	};
+	const updateLastName = (e) => {
+		setLastName(e.target.value);
 	};
 
 	const updateEmail = (e) => {
 		setEmail(e.target.value);
+	};
+	const updatePhone = (e) => {
+		setPhone(e.target.value);
+	};
+	const updateBirthdate = (e) => {
+		setBirthdate(e.target.value);
+	};
+	const updateGender = (e) => {
+		setGender(e.target.value);
 	};
 
 	const updatePassword = (e) => {
@@ -39,7 +68,7 @@ const SignUpForm = () => {
 	};
 
 	if (user) {
-		return <Redirect to="/timeline" />;
+		return <Redirect to="/feed" />;
 	}
 
 	return (
@@ -50,21 +79,51 @@ const SignUpForm = () => {
 				))}
 			</div>
 			<div>
-				<label>User Name</label>
 				<input
 					type="text"
-					name="username"
-					onChange={updateUsername}
-					value={username}
+					placeholder="First Name"
+					onChange={updateFirstName}
+					value={firstName}
 				></input>
 			</div>
 			<div>
-				<label>Email</label>
 				<input
 					type="text"
-					name="email"
+					placeholder="Last Name"
+					onChange={updateLastName}
+					value={lastName}
+				></input>
+			</div>
+			<div>
+				<input
+					type="text"
+					placeholder="Email"
 					onChange={updateEmail}
 					value={email}
+				></input>
+			</div>
+			<div>
+				<input
+					type="text"
+					placeholder="Phone Number"
+					onChange={updatePhone}
+					value={phone}
+				></input>
+			</div>
+			<div>
+				<input
+					type="date"
+					placeholder="Birthday"
+					onChange={updateBirthdate}
+					value={birthdate}
+				></input>
+			</div>
+			<div>
+				<input
+					type="text"
+					placeholder="Gender"
+					onChange={updateGender}
+					value={gender}
 				></input>
 			</div>
 			<div>
@@ -87,6 +146,7 @@ const SignUpForm = () => {
 				></input>
 			</div>
 			<button type="submit">Sign Up</button>
+			<DemoLogin />
 		</form>
 	);
 };
