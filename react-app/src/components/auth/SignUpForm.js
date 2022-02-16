@@ -79,7 +79,10 @@ const SignUpForm = ({ setShowModal }) => {
 					<div className="modal-head--text">It's quick and easy.</div>
 				</div>
 				<div className="close-modal">
-					<i className="fa-solid fa-xmark"></i>
+					<i
+						className="fa-solid fa-xmark"
+						onClick={() => setShowModal(false)}
+					></i>
 				</div>
 			</div>
 
@@ -142,8 +145,14 @@ const SignUpForm = ({ setShowModal }) => {
 					onChange={updateGender}
 					value={gender}
 				></input>
-				<button type="submit">Sign Up</button>
-				<DemoLogin />
+				<div className="fake-terms--text">
+					By clicking Sign Up, you agree to absolutely nothing. We
+					will not harvest your data, as we are not a real company.
+					You will not recieve any SMS Notifications from us.
+				</div>
+				<button type="submit" className="signup-btn green-btn">
+					Sign Up
+				</button>
 			</form>
 		</div>
 	);

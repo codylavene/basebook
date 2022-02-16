@@ -1,11 +1,13 @@
 :root {
-	--base-font: "helvetica neue", sans-serif;
+	--base-font: system-ui, sans-serif;
 	--main-blue: #1877f2;
-	--main-green: #42b72a;
+	--main-green: #00a400;
 	--splash-bg: #f0f2f5;
 	--splash-text: #1c1e21;
 	--footer-text: #737373;
 	--modal-bg: #ffffffcc;
+	--primary-text: #050505;
+	--secondary-text: #65676b;
 }
 
 * {

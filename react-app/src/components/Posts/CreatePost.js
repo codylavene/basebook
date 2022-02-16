@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as postActions from "../../store/posts";
-const CreatePost = (props) => {
+const CreatePost = ({ setShowModal }) => {
 	const dispatch = useDispatch();
 	const [post, setPost] = useState("");
 	const curr_user = useSelector((state) => state.session.user);
-	const onSubmit = (e) => {
+	const onSubmit = async (e) => {
 		e.preventDefault();
 		if (post.length > 1 && post.length < 540) {
-			dispatch(postActions.addPost(post));
+			await dispatch(postActions.addPost(post));
 			setPost("");
+			setShowModal(false);
 		}
 	};
 	return (

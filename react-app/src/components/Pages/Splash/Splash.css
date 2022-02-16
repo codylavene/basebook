@@ -38,6 +38,7 @@
 	height: 350px;
 	background-color: #fff;
 	padding: 10px 10px;
+	padding-top: 14px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -89,7 +90,7 @@
 	background-color: #fff;
 	color: var(--main-blue);
 	width: 90%;
-	height: 48px;
+	height: 52px;
 	font-size: 15px;
 	border-radius: 6px;
 	padding: 14px 16px;
@@ -185,4 +186,19 @@
 }
 .modal-head > .close-modal > i:hover {
 	cursor: pointer;
+}
+.signup-form > .signup-btn {
+	height: 36px;
+	font-size: 20px;
+	font-weight: 500;
+	padding: 0 16px;
+	width: 40%;
+	margin-top: 10px;
+}
+
+.signup-form > .fake-terms--text {
+	font-size: 12px;
+	color: #777777;
+	width: 90%;
+	margin: 10px 0px;
 }

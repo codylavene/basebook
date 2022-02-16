@@ -18,15 +18,18 @@ const Post = ({ post }) => {
 				</>
 			)}{" "}
 			<Link to={`/users/${post.user_id}`}>
-				<h4>{post.name}</h4>
+				<div className="user-info--container">
+					<div className="image-placeholder"></div>
+					<h4>{post.name}</h4>
+				</div>
 			</Link>
-			<div>{post.post_body}</div>
-			<span
+			<div className="post-body">{post.post_body}</div>
+			<div
 				className="comments-count"
 				onClick={() => setShowComments(!showComments)}
 			>
 				{post?.comments?.length} comments
-			</span>
+			</div>
 			{showComments &&
 				post.comments.map((comment) => (
 					<Comment key={comment.id} comment={comment} post={post} />
