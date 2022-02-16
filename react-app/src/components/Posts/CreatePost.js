@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as postActions from "../../store/posts";
 const CreatePost = (props) => {
 	const dispatch = useDispatch();
 	const [post, setPost] = useState("");
+	const curr_user = useSelector((state) => state.session.user);
 	const onSubmit = (e) => {
 		e.preventDefault();
 		if (post.length > 1 && post.length < 540) {
@@ -15,7 +16,7 @@ const CreatePost = (props) => {
 		<div>
 			<form onSubmit={onSubmit}>
 				<textarea
-					placeholder="What's up?"
+					placeholder={`What's on your mind, ${curr_user.first_name}?`}
 					value={post}
 					onChange={(e) => setPost(e.target.value)}
 				></textarea>

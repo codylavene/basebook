@@ -10,14 +10,7 @@ const Post = ({ post }) => {
 	const [showComments, setShowComments] = useState(false);
 	const curr_user = useSelector((state) => state.session.user);
 	return (
-		<div
-			style={{
-				margin: 10,
-				border: "1px solid black",
-				width: 500,
-				padding: 20,
-			}}
-		>
+		<div className="single-post-container">
 			{curr_user.id === post.user_id && (
 				<>
 					<EditPostModal post={post} />
@@ -25,7 +18,7 @@ const Post = ({ post }) => {
 				</>
 			)}{" "}
 			<Link to={`/users/${post.user_id}`}>
-				<h3>{post.name}</h3>
+				<h4>{post.name}</h4>
 			</Link>
 			<div>{post.post_body}</div>
 			<span onClick={() => setShowComments(!showComments)}>
