@@ -1,11 +1,11 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import * as postActions from "../../store/posts";
-const DeletePost = ({ setShowModal, post }) => {
+const DeleteComment = ({ setShowModal, post, comment }) => {
 	const dispatch = useDispatch();
 	const onSubmit = async (e) => {
 		e.preventDefault();
-		await dispatch(postActions.deletePost(post.id));
+		await dispatch(postActions.deleteComment(post.id, comment.id));
 		dispatch(postActions.getPosts());
 		setShowModal(false);
 	};
@@ -18,7 +18,7 @@ const DeletePost = ({ setShowModal, post }) => {
 		<div>
 			<form onSubmit={onSubmit}>
 				<div>
-					<div>Are you sure you want to delete this post?</div>
+					<div>Are you sure you want to delete this comment?</div>
 					<div>This action cannot be undone.</div>
 				</div>
 				<div>
@@ -30,4 +30,4 @@ const DeletePost = ({ setShowModal, post }) => {
 	);
 };
 
-export default DeletePost;
+export default DeleteComment;

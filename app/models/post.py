@@ -1,7 +1,6 @@
 
-from app.models.user import User
-from app.models.comment import Comment
-from .db import db
+
+from app.models.db import db
 from datetime import datetime
 
 
@@ -26,6 +25,8 @@ class Post(db.Model):
             'updated_at': self.updated_at,
         }
     def to_frontend_dict(self):
+        from app.models import User
+        from app.models import Comment
         user = User.query.get(self.user_id)
         name = f'{user.first_name} {user.last_name}'
         comments = Comment.query.filter(Comment.post_id == self.id).all()
