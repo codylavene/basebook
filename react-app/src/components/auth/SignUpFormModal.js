@@ -5,12 +5,13 @@ import SignUpForm from "./SignUpForm";
 const SignUpFormModal = ({ post, comment }) => {
 	const [showModal, setShowModal] = useState(false);
 	return (
-		<div>
+		<>
 			<button
 				onClick={(e) => {
 					e.preventDefault();
 					setShowModal(true);
 				}}
+				className="green-btn show-signup-btn"
 			>
 				Create New Account
 			</button>
@@ -19,7 +20,7 @@ const SignUpFormModal = ({ post, comment }) => {
 					<SignUpForm setShowModal={setShowModal} />
 				</Modal>
 			)}
-		</div>
+		</>
 	);
 };
 

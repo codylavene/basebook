@@ -16,7 +16,7 @@ function DemoLogin() {
 	};
 
 	return (
-		<button className="demo-button" onClick={loginDemo}>
+		<button className="demo-btn" onClick={loginDemo}>
 			Demo User
 		</button>
 	);

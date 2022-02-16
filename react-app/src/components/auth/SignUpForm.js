@@ -72,82 +72,80 @@ const SignUpForm = ({ setShowModal }) => {
 	}
 
 	return (
-		<form onSubmit={onSignUp}>
-			<div>
-				{errors.map((error, ind) => (
-					<div key={ind}>{error}</div>
-				))}
+		<div className="signup-form-card">
+			<div className="modal-head">
+				<div className="modal-head--text-wrapper">
+					<div className="modal-head--main">Sign Up</div>
+					<div className="modal-head--text">It's quick and easy.</div>
+				</div>
+				<div className="close-modal">
+					<i className="fa-solid fa-xmark"></i>
+				</div>
 			</div>
-			<div>
-				<input
-					type="text"
-					placeholder="First Name"
-					onChange={updateFirstName}
-					value={firstName}
-				></input>
-			</div>
-			<div>
-				<input
-					type="text"
-					placeholder="Last Name"
-					onChange={updateLastName}
-					value={lastName}
-				></input>
-			</div>
-			<div>
+
+			<form onSubmit={onSignUp} className="signup-form">
+				<div className="errors">
+					{errors.map((error, ind) => (
+						<div key={ind}>{error}</div>
+					))}
+				</div>
+				<div className="name">
+					<input
+						type="text"
+						placeholder="First name"
+						onChange={updateFirstName}
+						value={firstName}
+					></input>
+					<input
+						type="text"
+						placeholder="Last name"
+						onChange={updateLastName}
+						value={lastName}
+					></input>
+				</div>
 				<input
 					type="text"
 					placeholder="Email"
 					onChange={updateEmail}
 					value={email}
 				></input>
-			</div>
-			<div>
 				<input
 					type="text"
-					placeholder="Phone Number"
+					placeholder="Mobile Number"
 					onChange={updatePhone}
 					value={phone}
 				></input>
-			</div>
-			<div>
+				<input
+					type="password"
+					placeholder="New password"
+					onChange={updatePassword}
+					value={password}
+				></input>
+				<input
+					type="password"
+					placeholder="Confirm new password"
+					onChange={updateRepeatPassword}
+					value={repeatPassword}
+					required={true}
+				></input>
+				<div className="label">Birthday</div>
 				<input
 					type="date"
 					placeholder="Birthday"
 					onChange={updateBirthdate}
 					value={birthdate}
 				></input>
-			</div>
-			<div>
+				<div className="label">Gender</div>
 				<input
 					type="text"
 					placeholder="Gender"
 					onChange={updateGender}
 					value={gender}
 				></input>
-			</div>
-			<div>
-				<label>Password</label>
-				<input
-					type="password"
-					name="password"
-					onChange={updatePassword}
-					value={password}
-				></input>
-			</div>
-			<div>
-				<label>Repeat Password</label>
-				<input
-					type="password"
-					name="repeat_password"
-					onChange={updateRepeatPassword}
-					value={repeatPassword}
-					required={true}
-				></input>
-			</div>
-			<button type="submit">Sign Up</button>
-			<DemoLogin />
-		</form>
+				<button type="submit">Sign Up</button>
+				<DemoLogin />
+			</form>
+		</div>
 	);
 };
 
