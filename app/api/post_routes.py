@@ -77,7 +77,8 @@ def createComment(id):
         comment = Comment(user_id=current_user.get_id(), post_id=id, comment_body=form['comment_body'].data)
         db.session.add(comment)
         db.session.commit()
-        return comment.to_frontend_dict()
+        post = Post.query.get(id)
+        return post.to_frontend_dict()
     return {'errors': [form['comment_body'].message]}
 
 @post_routes.route('/<int:post_id>/comments/<int:id>', methods=["DELETE"])

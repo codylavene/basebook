@@ -1,6 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import DeleteCommentModal from "./DeleteCommentModal";
+import EditCommentModal from "./EditCommentModal";
 
-const Comment = ({ comment }) => {
+const Comment = ({ comment, post }) => {
 	const curr_user = useSelector((state) => state.session.user);
 	return (
 		<div
@@ -15,8 +18,8 @@ const Comment = ({ comment }) => {
 			<div>{comment.comment_body}</div>
 			{curr_user.id === comment.user_id && (
 				<>
-					<EditCommentModal comment={comment} />
-					<DeleteCommentModal comment={comment} />
+					<EditCommentModal comment={comment} post={post} />
+					<DeleteCommentModal comment={comment} post={post} />
 				</>
 			)}
 		</div>

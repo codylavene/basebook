@@ -84,7 +84,7 @@ export const addComment = (post_id, comment_body) => async (dispatch) => {
 	});
 	const data = await res.json();
 	if (res.ok) {
-		dispatch(create(data));
+		dispatch(edit(data));
 	} else {
 		console.log(data);
 	}
@@ -110,7 +110,7 @@ export const deleteComment = (post_id, id) => async (dispatch) => {
 
 	const data = await res.json();
 	if (res.ok) {
-		dispatch(remove(data.post));
+		dispatch(edit(data.post));
 	} else {
 		console.log("Uh Oh");
 	}
