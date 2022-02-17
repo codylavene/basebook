@@ -1,22 +1,23 @@
 .splash-container {
 	display: flex;
-	justify-content: space-around;
+	justify-content: center;
 	align-items: center;
 	width: 100%;
 	height: 70vh;
 	background-color: var(--splash-bg);
 }
 .splash-right {
-	width: 50%;
+	width: 40%;
 	display: flex;
 	flex-direction: column;
 	padding: 80px;
 }
 .splash-left {
-	width: 50%;
+	width: 40%;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
+	justify-content: flex-start;
 	padding: 80px;
 }
 .splash-left > h2 {
@@ -34,11 +35,11 @@
 }
 
 .login-form-card {
-	width: 400px;
-	height: 350px;
+	width: 396px;
+	height: fit-content;
 	background-color: #fff;
-	padding: 10px 10px;
-	padding-top: 14px;
+	padding: 14px 14px;
+	/* padding-top: 14px; */
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -51,7 +52,7 @@
 	align-items: center;
 }
 .login-form > .login-btn {
-	width: 90%;
+	width: 100%;
 	height: 48px;
 	padding: 0px 16px;
 	font-size: 20px;
@@ -69,6 +70,7 @@
 .login-bottom-btns {
 	display: flex;
 	flex-direction: column;
+	width: 100%;
 	padding: 20px 50px;
 	justify-content: flex-end;
 	align-items: center;
@@ -89,7 +91,7 @@
 .login-form > input {
 	background-color: #fff;
 	color: var(--main-blue);
-	width: 90%;
+	width: 100%;
 	height: 52px;
 	font-size: 15px;
 	border-radius: 6px;
@@ -133,7 +135,7 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	padding-bottom: 20px;
+	padding-bottom: 30px;
 }
 .signup-form > input {
 	width: 90%;
