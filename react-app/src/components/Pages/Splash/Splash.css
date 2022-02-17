@@ -98,7 +98,15 @@
 	margin-bottom: 10px;
 	border: none;
 	border: 1px solid #dddfe2;
+	outline: none;
 }
+.login-form > input:focus {
+	outline: 0.5px solid var(--main-blue);
+	box-shadow: 0 0 2px 1px var(--main-blue);
+}
+/* .login-form > input:required:invalid {
+	outline: 1px solid var(--error-red);
+} */
 .login-bottom-btns > .show-signup-btn {
 	width: 200px;
 	height: 48px;
@@ -135,6 +143,7 @@
 	padding: 11px;
 	font-size: 15px;
 	margin-top: 10px;
+	outline: none;
 }
 
 .signup-form > .name {
@@ -153,6 +162,7 @@
 	padding: 11px;
 	font-size: 15px;
 	color: #1c1e21;
+	outline: none;
 }
 .signup-form-card > .modal-head {
 	width: 100%;

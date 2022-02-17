@@ -17,6 +17,7 @@ const LoginForm = () => {
 		const data = await dispatch(login(email, password));
 		if (data) {
 			setErrors(data);
+			console.log(data);
 		}
 	};
 
@@ -45,12 +46,15 @@ const LoginForm = () => {
 					placeholder="Email"
 					value={email}
 					onChange={updateEmail}
+					required
 				/>
+				{errors[0]?.email && <div>{errors[0].email}</div>}
 				<input
 					type="password"
 					placeholder="Password"
 					value={password}
 					onChange={updatePassword}
+					required
 				/>
 				<button type="submit" className="blue-btn login-btn">
 					Log In

@@ -10,13 +10,35 @@ const SignUpForm = ({ setShowModal }) => {
 	const [lastName, setLastName] = useState("");
 	const [email, setEmail] = useState("");
 	const [phone, setPhone] = useState("");
-	const [birthdate, setBirthdate] = useState(new Date());
+	const [month, setMonth] = useState(new Date().getMonth());
+	const [day, setDay] = useState(new Date().getDay());
+	const [year, setYear] = useState(new Date().getFullYear());
+	const [birthdate, setBirthdate] = useState(`${month}, ${day}, ${year}`);
 	const [gender, setGender] = useState("");
 	const [password, setPassword] = useState("");
 	const [repeatPassword, setRepeatPassword] = useState("");
 	const user = useSelector((state) => state.session.user);
 	const dispatch = useDispatch();
-
+	const months = [
+		"Jan",
+		"Feb",
+		"March",
+		"April",
+		"May",
+		"June",
+		"July",
+		"Aug",
+		"Sep",
+		"Oct",
+		"Nov",
+		"Dec",
+	];
+	const days = [
+		1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+		21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
+	];
+	const years = [];
+	console.log(month, day, year);
 	const onSignUp = async (e) => {
 		e.preventDefault();
 		if (password === repeatPassword) {
@@ -52,9 +74,9 @@ const SignUpForm = ({ setShowModal }) => {
 	const updatePhone = (e) => {
 		setPhone(e.target.value);
 	};
-	const updateBirthdate = (e) => {
-		setBirthdate(e.target.value);
-	};
+	// const updateBirthdate = (e) => {
+	// 	setBirthdate(e.target.value);
+	// };
 	const updateGender = (e) => {
 		setGender(e.target.value);
 	};
@@ -132,12 +154,26 @@ const SignUpForm = ({ setShowModal }) => {
 					required={true}
 				></input>
 				<div className="label">Birthday</div>
-				<input
-					type="date"
-					placeholder="Birthday"
-					onChange={updateBirthdate}
-					value={birthdate}
-				></input>
+				<div>
+					<select
+						onChange={(e) => setMonth(e.target.value)}
+						value={month}
+					>
+						<option></option>
+					</select>
+					<select
+						onChange={(e) => setDay(e.target.value)}
+						value={day}
+					>
+						<option></option>
+					</select>
+					<select
+						onChange={(e) => setYear(e.target.value)}
+						value={year}
+					>
+						<option></option>
+					</select>
+				</div>
 				<div className="label">Gender</div>
 				<input
 					type="text"
