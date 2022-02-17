@@ -99,12 +99,12 @@
 	border: none;
 	border: 1px solid #dddfe2;
 }
-.show-signup-btn {
+.login-bottom-btns > .show-signup-btn {
 	width: 200px;
 	height: 48px;
-
 	font-size: 18px;
 	font-weight: 500;
+	background-color: var(--signup-green);
 }
 
 .green-btn {
