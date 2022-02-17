@@ -12,7 +12,7 @@ const NavBar = () => {
 					<NavLink to="/" exact={true} activeClassName="active">
 						<div className="logo-b--container">
 							<img
-								src="/assets/images/basebook-b.png"
+								src="./assets/images/basebook-b.png"
 								alt="logo"
 								className="logo-b"
 							/>

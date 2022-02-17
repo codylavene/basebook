@@ -7,8 +7,9 @@ const SplashPage = (props) => {
 			<div className="splash-left">
 				<div className="basebook-wrapper">
 					<img
-						src={"/assets/images/basebook.png"}
+						src={"./assets/images/basebook.png"}
 						alt="text-logo-basebook"
+						required
 					/>
 				</div>
 				<h2>
