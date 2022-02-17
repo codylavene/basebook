@@ -108,6 +108,7 @@
 	background-color: var(--comment-bg);
 	border: none;
 	padding: 0 18px;
+	width: 80px;
 	border-radius: 40px;
 	margin-left: -18px;
 	color: var(--secondary-text);
@@ -131,7 +132,8 @@
 	border-bottom: 1px solid var(--light-grey-btn);
 }
 
-.modal-head > .close-create-post {
+.modal-head > .close-create-post,
+.modal-head > .close-delete-comment {
 	width: 36px;
 	height: 36px;
 	background-color: var(--light-grey-btn);
@@ -148,9 +150,9 @@
 	cursor: pointer;
 	background-color: var(--light-grey-btn-hover);
 }
-.create-post--card {
+.create-post--card,
+.delete-comment--card {
 	width: 500px;
-	min-height: 450px;
 	background-color: #fff;
 }
 
@@ -218,8 +220,8 @@
 .single-comment--container {
 	max-width: 60%;
 	position: relative;
-	padding: 8px 12px;
-	border-radius: 10px;
+	padding: 10px 14px;
+	border-radius: 20px;
 	background-color: var(--comment-bg);
 }
 .single-comment--container > a {
@@ -229,7 +231,7 @@
 .single-comment--container > a:hover {
 	text-decoration: underline;
 	padding: 8px 12px;
-	border-radius: 10px;
+	/* border-radius: 10px; */
 }
 
 .user-comment--wrapper {
@@ -244,11 +246,37 @@
 	font-weight: 300;
 }
 .single-comment--name {
+	font-size: 13px;
 	font-weight: 500;
 	margin-right: 40px;
 }
+.user-comment--wrapper {
+	position: relative;
+}
+.user-comment--wrapper > i {
+	display: flex;
+	align-self: center;
+	margin-left: 5px;
 
-.single-comment--container > i,
+	padding: 10px;
+	border-radius: 50%;
+}
+
+.user-comment--wrapper > i:hover {
+	background-color: var(--comment-bg);
+	cursor: pointer;
+}
+.edit-comment--esc {
+	font-size: 12px;
+	margin-left: 50px;
+}
+.edit-comment--cancel {
+	color: var(--main-blue);
+}
+.edit-comment--cancel:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
 .single-post-container > i {
 	position: absolute;
 	top: 2px;
@@ -256,7 +284,7 @@
 	padding: 5px;
 	border-radius: 50%;
 }
-.single-comment--container > i:hover,
+
 .single-post-container > i:hover {
 	cursor: pointer;
 	background-color: var(--light-grey-btn-hover);
@@ -296,4 +324,52 @@
 button#create-edit-post:disabled {
 	background-color: var(--light-grey-btn);
 	color: var(--light-border);
+}
+.delete-comment--form > .delete-comment--btns {
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+	padding: 0 10px 16px;
+}
+
+.delete-comment--form > .delete-comment--text {
+	padding: 10px 20px 40px;
+	font-weight: 300;
+	color: var(--primary-text);
+}
+.delete-comment--form > .delete-comment--btns > button {
+	width: 70px;
+	height: 36px;
+	margin: 0 3px;
+	padding: 4px;
+	border: none;
+	border-radius: 7px;
+	font-size: 15px;
+	font-weight: 500;
+}
+.delete-comment--form > .delete-comment--btns > button.delete-comment--delete {
+	background-color: var(--main-blue);
+	color: var(--main-white);
+}
+.delete-comment--form > .delete-comment--btns > button.delete-comment--cancel {
+	background-color: #fff;
+	color: var(--main-blue);
+	font-weight: 500;
+}
+.delete-comment--form
+	> .delete-comment--btns
+	> button.delete-comment--cancel:hover {
+	background-color: var(--comment-bg);
+	cursor: pointer;
+}
+.delete-comment--form
+	> .delete-comment--btns
+	> button.delete-comment--delete:hover {
+	background-color: var(--main-blue-hover);
+	cursor: pointer;
+}
+#delete-modal--head > .modal-text--container {
+	display: flex;
+	justify-content: flex-start;
+	margin-left: 20px;
 }

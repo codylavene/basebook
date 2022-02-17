@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as postActions from "../../store/posts";
-const EditPost = ({ setShowModal, post }) => {
+const EditPost = ({ setShowModal, post, setShowButtons }) => {
 	const dispatch = useDispatch();
 	const [newPost, setNewPost] = useState(post.post_body);
 	const [disabled, setDisabled] = useState(true);
@@ -12,9 +12,16 @@ const EditPost = ({ setShowModal, post }) => {
 			await dispatch(postActions.editPost(newPost, post.id));
 			dispatch(postActions.getPosts());
 			setNewPost("");
+			setShowButtons(false);
 			setShowModal(false);
 		}
 	};
+	useEffect(() => {
+		return () => {
+			setShowButtons(false);
+			setShowModal(false);
+		};
+	}, [setShowButtons, setShowModal]);
 	useEffect(() => {
 		if (newPost !== post.post_body && newPost.length > 0) {
 			setDisabled(false);
@@ -30,7 +37,10 @@ const EditPost = ({ setShowModal, post }) => {
 				</div>
 				<div
 					className="close-create-post"
-					onClick={() => setShowModal(false)}
+					onClick={() => {
+						setShowButtons(false);
+						setShowModal(false);
+					}}
 				>
 					<i className="fa-solid fa-xmark"></i>
 				</div>

@@ -2,14 +2,27 @@ import React, { useState } from "react";
 import { Modal } from "../../context/Modal";
 import DeleteComment from "./DeleteComment";
 
-const DeleteCommentModal = ({ post, comment }) => {
+const DeleteCommentModal = ({ post, comment, setShowButtons }) => {
 	const [showModal, setShowModal] = useState(false);
 	return (
 		<>
-			<button onClick={() => setShowModal(true)}>Delete</button>
+			<button
+				onClick={() => {
+					// setShowButtons(false);
+					setShowModal(true);
+				}}
+			>
+				Delete
+			</button>
 			{showModal && (
-				<Modal onClose={() => setShowModal(false)}>
+				<Modal
+					onClose={() => {
+						setShowButtons(false);
+						setShowModal(false);
+					}}
+				>
 					<DeleteComment
+						setShowButtons={setShowButtons}
 						setShowModal={setShowModal}
 						comment={comment}
 						post={post}

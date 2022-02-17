@@ -1,6 +1,9 @@
 :root {
 	--base-font: system-ui, sans-serif;
+	--main-white: #fff;
+	--main-black: #000;
 	--main-blue: #1877f2;
+	--main-blue-hover: #356cd1;
 	--main-green: #00a400;
 	--signup-green: #42b72a;
 	--splash-bg: #f0f2f5;

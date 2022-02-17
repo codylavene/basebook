@@ -20,8 +20,14 @@ const Post = ({ post }) => {
 			)}
 			{showButtons && (
 				<div className="edit-delete-btn--container">
-					<EditPostModal post={post} />
-					<DeletePostModal post={post} />
+					<EditPostModal
+						post={post}
+						setShowButtons={setShowButtons}
+					/>
+					<DeletePostModal
+						post={post}
+						setShowButtons={setShowButtons}
+					/>
 				</div>
 			)}
 			<Link to={`/users/${post.user_id}`}>
