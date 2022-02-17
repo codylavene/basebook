@@ -33,9 +33,12 @@ function User() {
 				<strong>Last Name</strong> {user.last_name}
 			</li>
 			<li>
-				<strong>Email</strong> {user.email}
+				<strong>Contact</strong> {user.contact}
 			</li>
-			{user?.posts?.length &&
+			<li>
+				<strong>Birthdate</strong> {user.birthdate}
+			</li>
+			{user?.posts?.length > 0 &&
 				user?.posts?.map((post) => <Post post={post} key={post.id} />)}
 		</ul>
 	);

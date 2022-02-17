@@ -7,22 +7,22 @@ import SignUpFormModal from "./SignUpFormModal";
 
 const LoginForm = () => {
 	const [errors, setErrors] = useState([]);
-	const [email, setEmail] = useState("");
+	const [contact, setContact] = useState("");
 	const [password, setPassword] = useState("");
 	const user = useSelector((state) => state.session.user);
 	const dispatch = useDispatch();
 
 	const onLogin = async (e) => {
 		e.preventDefault();
-		const data = await dispatch(login(email, password));
+		const data = await dispatch(login(contact, password));
 		if (data) {
 			setErrors(data);
 			console.log(data);
 		}
 	};
 
-	const updateEmail = (e) => {
-		setEmail(e.target.value);
+	const updateContact = (e) => {
+		setContact(e.target.value);
 	};
 
 	const updatePassword = (e) => {
@@ -43,12 +43,12 @@ const LoginForm = () => {
 				</div>
 				<input
 					type="text"
-					placeholder="Email"
-					value={email}
-					onChange={updateEmail}
+					placeholder="Mobile number or email"
+					value={contact}
+					onChange={updateContact}
 					required
 				/>
-				{errors[0]?.email && <div>{errors[0].email}</div>}
+				{/* {errors[0]?.email && <div>{errors[0].email}</div>} */}
 				<input
 					type="password"
 					placeholder="Password"

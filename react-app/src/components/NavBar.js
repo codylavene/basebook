@@ -35,7 +35,7 @@ const NavBar = () => {
 				</li>
 				<li>
 					<div className="user-menu--drop">
-						<i class="fa-solid fa-caret-down"></i>
+						<i className="fa-solid fa-caret-down"></i>
 					</div>
 					<LogoutButton />
 				</li>

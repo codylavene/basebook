@@ -46,7 +46,7 @@ const Post = ({ post }) => {
 					<i className="fa-regular fa-thumbs-up"></i> Like
 				</div>
 				<div className="comment-action action">
-					<i class="fa-regular fa-message"></i> Comment
+					<i className="fa-regular fa-message"></i> Comment
 				</div>
 			</div>
 			<AddComment post={post} />

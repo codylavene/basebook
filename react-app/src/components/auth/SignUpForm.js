@@ -8,8 +8,8 @@ const SignUpForm = ({ setShowModal }) => {
 	const [errors, setErrors] = useState([]);
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
-	const [email, setEmail] = useState("");
-	const [phone, setPhone] = useState("");
+	const [contact, setContact] = useState("");
+	// const [phone, setPhone] = useState("");
 	const [month, setMonth] = useState(new Date().getMonth());
 	const [day, setDay] = useState(new Date().getDate());
 	const [year, setYear] = useState(new Date().getFullYear());
@@ -52,14 +52,18 @@ const SignUpForm = ({ setShowModal }) => {
 	}, [year, month, day]);
 	const onSignUp = async (e) => {
 		e.preventDefault();
+		e.stopPropagation();
 		if (password === repeatPassword) {
 			const data = await dispatch(
 				signUp(
 					firstName,
 					lastName,
-					email,
-					phone,
-					birthdate,
+					// email,
+					// phone,
+					contact,
+					month,
+					day,
+					year,
 					gender,
 					password
 				)
@@ -79,12 +83,12 @@ const SignUpForm = ({ setShowModal }) => {
 		setLastName(e.target.value);
 	};
 
-	const updateEmail = (e) => {
-		setEmail(e.target.value);
+	const updateContact = (e) => {
+		setContact(e.target.value);
 	};
-	const updatePhone = (e) => {
-		setPhone(e.target.value);
-	};
+	// const updatePhone = (e) => {
+	// 	setPhone(e.target.value);
+	// };
 	// const updateBirthdate = (e) => {
 	// 	setBirthdate(e.target.value);
 	// };
@@ -141,16 +145,16 @@ const SignUpForm = ({ setShowModal }) => {
 				</div>
 				<input
 					type="text"
-					placeholder="Email"
-					onChange={updateEmail}
-					value={email}
+					placeholder="Mobile number or email"
+					onChange={updateContact}
+					value={contact}
 				></input>
-				<input
+				{/* <input
 					type="text"
 					placeholder="Mobile Number"
 					onChange={updatePhone}
 					value={phone}
-				></input>
+				></input> */}
 				<input
 					type="password"
 					placeholder="New password"
@@ -197,10 +201,10 @@ const SignUpForm = ({ setShowModal }) => {
 						))}
 					</select>
 				</div>
-				<div className="label">Gender</div>
+				<div className="label">Pronouns</div>
 				<input
 					type="text"
-					placeholder="Gender"
+					placeholder="Optionally, help us with your pronouns!"
 					onChange={updateGender}
 					value={gender}
 				></input>

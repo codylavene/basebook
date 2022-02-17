@@ -9,8 +9,8 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
-    phone = db.Column(db.String, nullable=False)
-    email = db.Column(db.String(255), nullable=False, unique=True)
+    # phone = db.Column(db.String, nullable=False)
+    contact = db.Column(db.String(255), nullable=False, unique=True)
     birthdate = db.Column(db.Date, nullable=False)
     gender = db.Column(db.String, nullable=True)
     hashed_password = db.Column(db.String(255), nullable=False)
@@ -34,8 +34,9 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'first_name': self.first_name,
             'last_name': self.last_name,
-            'phone': self.phone,
-            'email': self.email,
+            # 'phone': self.phone,
+            # 'email': self.email,
+            'contact': self.contact,
             'birthdate': self.birthdate,
             'gender': self.gender,
         }
@@ -47,8 +48,9 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'first_name': self.first_name,
             'last_name': self.last_name,
-            'phone': self.phone,
-            'email': self.email,
+            # 'phone': self.phone,
+            # 'email': self.email,
+            'contact': self.contact,
             'birthdate': self.birthdate,
             'gender': self.gender,
             'posts': posts,
