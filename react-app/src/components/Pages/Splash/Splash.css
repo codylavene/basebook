@@ -212,3 +212,17 @@
 	width: 90%;
 	margin: 10px 0px;
 }
+
+.signup-form > .birthdate-selects {
+	width: 90%;
+	display: flex;
+	justify-content: space-between;
+	margin-top: 10px;
+}
+
+.signup-form > .birthdate-selects > select {
+	width: 31%;
+	height: 40px;
+	border-radius: 5px;
+	padding: 0px 4px;
+}

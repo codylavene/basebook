@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { signUp } from "../../store/session";
@@ -11,9 +11,9 @@ const SignUpForm = ({ setShowModal }) => {
 	const [email, setEmail] = useState("");
 	const [phone, setPhone] = useState("");
 	const [month, setMonth] = useState(new Date().getMonth());
-	const [day, setDay] = useState(new Date().getDay());
+	const [day, setDay] = useState(new Date().getDate());
 	const [year, setYear] = useState(new Date().getFullYear());
-	const [birthdate, setBirthdate] = useState(`${month}, ${day}, ${year}`);
+	const [birthdate, setBirthdate] = useState(new Date(year, month, day));
 	const [gender, setGender] = useState("");
 	const [password, setPassword] = useState("");
 	const [repeatPassword, setRepeatPassword] = useState("");
@@ -37,8 +37,19 @@ const SignUpForm = ({ setShowModal }) => {
 		1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
 		21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
 	];
-	const years = [];
-	console.log(month, day, year);
+	const yearGenerate = (start, end) => {
+		return Array(end - start + 1)
+			.fill()
+			.map((_, i) => start + i)
+			.sort((a, b) => b - a);
+	};
+
+	const startYear = new Date().getFullYear() - 115;
+	const endYear = new Date().getFullYear() - 16;
+	const years = yearGenerate(startYear, endYear);
+	useEffect(() => {
+		setBirthdate(new Date(year, month, day));
+	}, [year, month, day]);
 	const onSignUp = async (e) => {
 		e.preventDefault();
 		if (password === repeatPassword) {
@@ -153,25 +164,37 @@ const SignUpForm = ({ setShowModal }) => {
 					value={repeatPassword}
 					required={true}
 				></input>
-				<div className="label">Birthday</div>
-				<div>
+				<div className="label">Birthday* </div>
+				<div className="birthdate-selects">
 					<select
 						onChange={(e) => setMonth(e.target.value)}
 						value={month}
 					>
-						<option></option>
+						{months.map((month, i) => (
+							<option value={i} key={i}>
+								{month}
+							</option>
+						))}
 					</select>
 					<select
 						onChange={(e) => setDay(e.target.value)}
 						value={day}
 					>
-						<option></option>
+						{days.map((day) => (
+							<option value={day} key={day}>
+								{day}
+							</option>
+						))}
 					</select>
 					<select
 						onChange={(e) => setYear(e.target.value)}
 						value={year}
 					>
-						<option></option>
+						{years.map((year) => (
+							<option value={year} key={year}>
+								{year}
+							</option>
+						))}
 					</select>
 				</div>
 				<div className="label">Gender</div>
@@ -186,6 +209,9 @@ const SignUpForm = ({ setShowModal }) => {
 					will not harvest your data, as we are not a real company.
 					You will not recieve any SMS Notifications from us.
 				</div>
+				<span style={{ fontSize: 10 }}>
+					*must be 16 years of age or older
+				</span>
 				<button type="submit" className="signup-btn green-btn">
 					Sign Up
 				</button>
