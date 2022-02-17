@@ -5,7 +5,7 @@ import DeleteComment from "./DeleteComment";
 const DeleteCommentModal = ({ post, comment }) => {
 	const [showModal, setShowModal] = useState(false);
 	return (
-		<div>
+		<>
 			<button onClick={() => setShowModal(true)}>Delete</button>
 			{showModal && (
 				<Modal onClose={() => setShowModal(false)}>
@@ -16,7 +16,7 @@ const DeleteCommentModal = ({ post, comment }) => {
 					/>
 				</Modal>
 			)}
-		</div>
+		</>
 	);
 };
 

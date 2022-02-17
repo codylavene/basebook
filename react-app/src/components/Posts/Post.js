@@ -8,15 +8,22 @@ import EditPostModal from "./EditPostModal";
 
 const Post = ({ post }) => {
 	const [showComments, setShowComments] = useState(false);
+	const [showButtons, setShowButtons] = useState(false);
 	const curr_user = useSelector((state) => state.session.user);
 	return (
 		<div className="single-post-container">
 			{curr_user.id === post.user_id && (
-				<>
+				<i
+					className="fa-solid fa-ellipsis"
+					onClick={() => setShowButtons(!showButtons)}
+				></i>
+			)}
+			{showButtons && (
+				<div className="edit-delete-btn--container">
 					<EditPostModal post={post} />
 					<DeletePostModal post={post} />
-				</>
-			)}{" "}
+				</div>
+			)}
 			<Link to={`/users/${post.user_id}`}>
 				<div className="user-info--container">
 					<div className="image-placeholder"></div>

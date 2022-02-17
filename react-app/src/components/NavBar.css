@@ -1,0 +1,70 @@
+nav {
+	position: sticky;
+	top: 0;
+	background-color: #fff;
+	z-index: 300;
+	height: fit-content;
+}
+
+nav > ul {
+	display: flex;
+	justify-content: space-between;
+	list-style: none;
+	align-items: center;
+	height: fit-content;
+	padding: 0px 20px;
+}
+nav > ul > li > a {
+	text-decoration: none;
+	color: var(--primary-text);
+}
+
+.logo-b--container,
+.logo-b {
+	width: 40px;
+	margin: 4px 0px 2px 0px;
+}
+.fa-solid.fa-users {
+	padding: 4px 3px;
+	/* border: 2px solid var(--secondary-text); */
+	color: var(--secondary-text);
+	border-radius: 50%;
+}
+.nav-btn--wrapper {
+	height: 50px;
+	width: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 8px;
+	margin-top: 4px;
+	border-radius: 12px;
+}
+.nav-btn--wrapper:hover {
+	background-color: var(--splash-bg);
+}
+.nav-btn--container {
+	display: flex;
+	align-items: center;
+	height: 56px;
+	margin: 0 10px;
+}
+.active > div {
+	color: var(--main-blue);
+	border-bottom: 3px solid var(--main-blue);
+}
+.active > div > div > i {
+	color: var(--main-blue) !important;
+	/* margin-bottom: -4px; */
+}
+
+.user-menu--drop {
+	width: 40px;
+	height: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: var(--splash-bg);
+	padding: 15px;
+	border-radius: 50%;
+}

@@ -4,6 +4,7 @@
 	--main-green: #00a400;
 	--splash-bg: #f0f2f5;
 	--comment-bg: #f0f2f5;
+	--main-page-bg: #f0f2f5;
 	--splash-text: #1c1e21;
 	--footer-text: #737373;
 	--modal-bg: #ffffffcc;
@@ -13,6 +14,7 @@
 	--light-grey-btn: #e4e6eb;
 	--light-grey-btn-hover: #d8dade;
 	--like-comment-hover: #f2f2f2;
+	--main-page-bg: #f0f2f5;
 }
 
 * {
@@ -24,6 +26,10 @@ html,
 body {
 	width: 100%;
 	height: 100%;
+}
+
+body {
+	background-color: var(--splash-bg);
 }
 /* @media (prefers-color-scheme: light) {
 	:root {

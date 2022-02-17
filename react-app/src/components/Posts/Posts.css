@@ -4,12 +4,13 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	background-color: #f0f0f0;
+	background-color: var(--main-page-bg);
 }
 
 .single-post-container {
 	width: 500px;
 	height: fit-content;
+	position: relative;
 	padding: 20px;
 	margin: 10px auto;
 	border-radius: 8px;
@@ -29,6 +30,7 @@
 	margin-bottom: 10px;
 	color: var(--secondary-text);
 }
+
 .comments-count:hover {
 	cursor: pointer;
 }
@@ -94,7 +96,7 @@
 	border-top-left-radius: 40px;
 	border-bottom-left-radius: 40px;
 	border: none;
-	background-color: #f0f0f0;
+	background-color: var(--comment-bg);
 	padding: 8px 16px;
 	width: 100%;
 	display: flex;
@@ -103,17 +105,15 @@
 	outline: none;
 }
 .add-comment--btn {
-	background-color: #f0f0f0;
+	background-color: var(--comment-bg);
 	border: none;
-	/* border-top-right-radius: 40px;
-	border-bottom-right-radius: 40px; */
-	padding: 0 14px;
+	padding: 0 18px;
 	border-radius: 40px;
-	margin-left: -15px;
+	margin-left: -18px;
 	color: var(--secondary-text);
 }
 .add-comment--btn:hover {
-	background-color: #d0d0d0;
+	background-color: var(--light-grey-btn-hover);
 	cursor: pointer;
 }
 .modal-head {
@@ -205,7 +205,7 @@
 	justify-content: center;
 	align-items: center;
 	font-size: 16px;
-	border-radius: 8px;
+	border-radius: 6px;
 }
 .like-comment-action--container > .action > i {
 	margin-right: 6px;
@@ -217,7 +217,7 @@
 
 .single-comment--container {
 	max-width: 60%;
-
+	position: relative;
 	padding: 8px 12px;
 	border-radius: 10px;
 	background-color: var(--comment-bg);
@@ -245,4 +245,55 @@
 }
 .single-comment--name {
 	font-weight: 500;
+	margin-right: 40px;
+}
+
+.single-comment--container > i,
+.single-post-container > i {
+	position: absolute;
+	top: 2px;
+	right: 4px;
+	padding: 5px;
+	border-radius: 50%;
+}
+.single-comment--container > i:hover,
+.single-post-container > i:hover {
+	cursor: pointer;
+	background-color: var(--light-grey-btn-hover);
+}
+
+.edit-delete-btn--container {
+	position: absolute;
+	top: 30px;
+	right: 0px;
+	background-color: #fff;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+	border-radius: 7px;
+	min-width: 200px;
+	width: fit-content;
+	height: fit-content;
+	padding: 4px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-start;
+	z-index: 100;
+}
+.edit-delete-btn--container > button {
+	width: 100%;
+	background-color: transparent;
+	border: none;
+	padding: 10px 20px;
+	text-align: left;
+	border-radius: 7px;
+}
+.edit-delete-btn--container > button:hover {
+	cursor: pointer;
+	background-color: #0000001a;
+	/* background-color: var(--light-grey-btn-hover); */
+}
+
+button#create-edit-post:disabled {
+	background-color: var(--light-grey-btn);
+	color: var(--light-border);
 }
