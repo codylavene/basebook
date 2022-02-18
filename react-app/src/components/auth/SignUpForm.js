@@ -127,7 +127,9 @@ const SignUpForm = ({ setShowModal }) => {
 		if (!firstName || !/^[a-zA-Z]+$/g.test(firstName)) {
 			errors.firstName = "Whats your name? Cannot include symbols.";
 			// setErrors(...errors, err);
+			return false;
 		}
+		return true;
 	};
 	const checkLastName = (e) => {
 		const err = { ...errors };
@@ -192,48 +194,76 @@ const SignUpForm = ({ setShowModal }) => {
 						type="text"
 						placeholder="First name"
 						onChange={updateFirstName}
-						onBlur={checkFirstName}
+						// onBlur={(e) => checkFirstName(e)}
 						value={firstName}
-						// required={true}
-						style={{ borderColor: errors.firstName ? "red" : "" }}
+						required={true}
+						onInvalid={(e) =>
+							e.target.setCustomValidity(
+								"What should we call you?"
+							)
+						}
+						onInput={(e) => e.target.setCustomValidity("")}
+						// style={{ borderColor: checkFirstName() ? "red" : "" }}
 					></input>
 					{/* <div>{errors.firstName}</div> */}
 					<input
 						type="text"
 						placeholder="Last name"
 						onChange={updateLastName}
-						onBlur={checkLastName}
+						// onBlur={(e) => checkLastName(e)}
 						value={lastName}
 						required={true}
-						style={{ borderColor: errors.lastName ? "red" : "" }}
+						onInvalid={(e) =>
+							e.target.setCustomValidity(
+								"What should we call you?"
+							)
+						}
+						onInput={(e) => e.target.setCustomValidity("")}
+						// style={{ borderColor: errors.lastName ? "red" : "" }}
 					></input>
 				</div>
 				<input
 					type="text"
 					placeholder="Mobile number or email"
 					onChange={updateContact}
-					onBlur={checkContact}
+					// onBlur={(e) => checkContact(e)}
 					value={contact}
 					required={true}
-					style={{ borderColor: errors.contact ? "red" : "" }}
+					onInvalid={(e) =>
+						e.target.setCustomValidity(
+							"This doesn't seem to be a valid phone number or email"
+						)
+					}
+					onInput={(e) => e.target.setCustomValidity("")}
+					// style={{ borderColor: errors.contact ? "red" : "" }}
 				></input>
 				<input
 					type="password"
 					placeholder="New password"
 					onChange={updatePassword}
-					onBlur={checkPassword}
+					// onBlur={(e) => checkPassword(e)}
 					value={password}
 					required={true}
-					style={{ borderColor: errors.password ? "red" : "" }}
+					onInvalid={(e) =>
+						e.target.setCustomValidity(
+							"Password must be 8 characters or longer"
+						)
+					}
+					onInput={(e) => e.target.setCustomValidity("")}
+					// style={{ borderColor: errors.password ? "red" : "" }}
 				></input>
 				<input
 					type="password"
 					placeholder="Confirm password"
 					onChange={updateRepeatPassword}
-					onBlur={checkRepeatPassword}
+					// onBlur={(e) => checkRepeatPassword(e)}
 					value={repeatPassword}
 					required={true}
-					style={{ borderColor: errors.password ? "red" : "" }}
+					onInvalid={(e) =>
+						e.target.setCustomValidity("Passwords must match")
+					}
+					onInput={(e) => e.target.setCustomValidity("")}
+					// style={{ borderColor: errors.password ? "red" : "" }}
 				></input>
 				<div className="label">Birthday* </div>
 				<div className="birthdate-selects">
