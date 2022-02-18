@@ -5,11 +5,17 @@ import { signUp } from "../../store/session";
 import DemoLogin from "./DemoLogin";
 
 const SignUpForm = ({ setShowModal }) => {
-	const [errors, setErrors] = useState({});
+	const [errors, setErrors] = useState({
+		"firstName": "",
+		"lastName": "",
+		"contact": "",
+		"password": "",
+		"server": "",
+	});
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [contact, setContact] = useState("");
-	// const [phone, setPhone] = useState("");
+
 	const [month, setMonth] = useState(new Date().getMonth());
 	const [day, setDay] = useState(new Date().getDate());
 	const [year, setYear] = useState(new Date().getFullYear());
@@ -55,13 +61,22 @@ const SignUpForm = ({ setShowModal }) => {
 	const onSignUp = async (e) => {
 		e.preventDefault();
 		e.stopPropagation();
-		const err = [];
-		// if (!firstName) err["firstName"] = "";
-
+		const err = { ...errors };
+		if (!firstName || !/^\w{2,100}$/g.test(firstName))
+			err.firstName = "Whats your name? Cannot include symbols.";
+		if (!lastName || !/^\w{2,100}$/g.test(lastName))
+			err.lastName = "Whats your name? Cannot include symbols.";
+		if (!emailRegex.test(contact) && !phoneRegex.test(contact)) {
+			err.contact =
+				"Hmm... This doesn't seem to be a valid phone number or email";
+		}
+		if (password.length < 8 && repeatPassword.length < 8) {
+			err.password = "Password must be 8 characters or longer";
+		}
 		if (password === repeatPassword) {
 			if (!emailRegex.test(contact) && !phoneRegex.test(contact)) {
-				err["contact"] =
-					"Hmm... This doesn't seem to be a valid phone number or email";
+				err.contact =
+					"This doesn't seem to be a valid phone number or email. Phone number must not include any symbols ";
 			} else {
 				const data = await dispatch(
 					signUp(
@@ -76,9 +91,7 @@ const SignUpForm = ({ setShowModal }) => {
 					)
 				);
 				if (data) {
-					err["data"] = data;
-					// setErrors(err);
-					console.log(err);
+					err.server = data;
 				} else {
 					setShowModal(false);
 				}
@@ -97,12 +110,6 @@ const SignUpForm = ({ setShowModal }) => {
 	const updateContact = (e) => {
 		setContact(e.target.value);
 	};
-	// const updatePhone = (e) => {
-	// 	setPhone(e.target.value);
-	// };
-	// const updateBirthdate = (e) => {
-	// 	setBirthdate(e.target.value);
-	// };
 	const updateGender = (e) => {
 		setGender(e.target.value);
 	};
@@ -113,6 +120,46 @@ const SignUpForm = ({ setShowModal }) => {
 
 	const updateRepeatPassword = (e) => {
 		setRepeatPassword(e.target.value);
+	};
+	/*--------------------------------------------------------------------*/
+	const checkFirstName = (e) => {
+		const err = { ...errors };
+		if (!firstName || !/^[a-zA-Z]+$/g.test(firstName)) {
+			errors.firstName = "Whats your name? Cannot include symbols.";
+			// setErrors(...errors, err);
+		}
+	};
+	const checkLastName = (e) => {
+		const err = { ...errors };
+		if (!lastName || !/^[a-zA-Z]+$/g.test(lastName)) {
+			errors.lastName = "Whats your name? Cannot include symbols.";
+			// setErrors(...errors, err);
+		}
+	};
+
+	const checkContact = (e) => {
+		const err = { ...errors };
+		if (!emailRegex.test(contact) && !phoneRegex.test(contact)) {
+			errors.contact =
+				"Hmm... This doesn't seem to be a valid phone number or email";
+			// setErrors(...errors, err);
+		}
+	};
+
+	const checkPassword = (e) => {
+		const err = { ...errors };
+		if (password.length < 8) {
+			errors.password = "Password must be 8 characters or longer";
+			// setErrors(...errors, err);
+		}
+	};
+
+	const checkRepeatPassword = (e) => {
+		const err = { ...errors };
+		if (repeatPassword !== password) {
+			errors.password = "Passwords must match";
+			// setErrors(...errors, err);
+		}
 	};
 
 	if (user) {
@@ -145,21 +192,27 @@ const SignUpForm = ({ setShowModal }) => {
 						type="text"
 						placeholder="First name"
 						onChange={updateFirstName}
+						onBlur={checkFirstName}
 						value={firstName}
-						required={true}
+						// required={true}
+						style={{ borderColor: errors.firstName ? "red" : "" }}
 					></input>
+					{/* <div>{errors.firstName}</div> */}
 					<input
 						type="text"
 						placeholder="Last name"
 						onChange={updateLastName}
+						onBlur={checkLastName}
 						value={lastName}
 						required={true}
+						style={{ borderColor: errors.lastName ? "red" : "" }}
 					></input>
 				</div>
 				<input
 					type="text"
 					placeholder="Mobile number or email"
 					onChange={updateContact}
+					onBlur={checkContact}
 					value={contact}
 					required={true}
 					style={{ borderColor: errors.contact ? "red" : "" }}
@@ -168,15 +221,19 @@ const SignUpForm = ({ setShowModal }) => {
 					type="password"
 					placeholder="New password"
 					onChange={updatePassword}
+					onBlur={checkPassword}
 					value={password}
 					required={true}
+					style={{ borderColor: errors.password ? "red" : "" }}
 				></input>
 				<input
 					type="password"
 					placeholder="Confirm password"
 					onChange={updateRepeatPassword}
+					onBlur={checkRepeatPassword}
 					value={repeatPassword}
 					required={true}
+					style={{ borderColor: errors.password ? "red" : "" }}
 				></input>
 				<div className="label">Birthday* </div>
 				<div className="birthdate-selects">
