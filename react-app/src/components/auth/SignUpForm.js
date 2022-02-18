@@ -5,7 +5,7 @@ import { signUp } from "../../store/session";
 import DemoLogin from "./DemoLogin";
 
 const SignUpForm = ({ setShowModal }) => {
-	const [errors, setErrors] = useState([]);
+	const [errors, setErrors] = useState({});
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [contact, setContact] = useState("");
@@ -19,8 +19,8 @@ const SignUpForm = ({ setShowModal }) => {
 	const [repeatPassword, setRepeatPassword] = useState("");
 	const user = useSelector((state) => state.session.user);
 	const dispatch = useDispatch();
-	const phoneRegex = [];
-	const emailRegex = [];
+	const phoneRegex = /^\d{10}$/g;
+	const emailRegex = /^[\w\d-]+@[a-zA-Z]+\.[a-zA-Z]{2,3}$/g;
 	const months = [
 		"Jan",
 		"Feb",
@@ -55,29 +55,35 @@ const SignUpForm = ({ setShowModal }) => {
 	const onSignUp = async (e) => {
 		e.preventDefault();
 		e.stopPropagation();
-		const err = {};
-		if (!firstName) err["firstName"] = "";
+		const err = [];
+		// if (!firstName) err["firstName"] = "";
 
 		if (password === repeatPassword) {
-			const data = await dispatch(
-				signUp(
-					firstName,
-					lastName,
-					// email,
-					// phone,
-					contact,
-					month,
-					day,
-					year,
-					gender,
-					password
-				)
-			);
-			if (data) {
-				setErrors(data);
+			if (!emailRegex.test(contact) && !phoneRegex.test(contact)) {
+				err["contact"] =
+					"Hmm... This doesn't seem to be a valid phone number or email";
 			} else {
-				setShowModal(false);
+				const data = await dispatch(
+					signUp(
+						firstName,
+						lastName,
+						contact,
+						month,
+						day,
+						year,
+						gender,
+						password
+					)
+				);
+				if (data) {
+					err["data"] = data;
+					// setErrors(err);
+					console.log(err);
+				} else {
+					setShowModal(false);
+				}
 			}
+			if (Object.values(err).length) setErrors(err);
 		}
 	};
 
@@ -130,9 +136,9 @@ const SignUpForm = ({ setShowModal }) => {
 
 			<form onSubmit={onSignUp} className="signup-form">
 				<div className="errors">
-					{errors.map((error, ind) => (
+					{/* {errors.map((error, ind) => (
 						<div key={ind}>{error}</div>
-					))}
+					))} */}
 				</div>
 				<div className="name">
 					<input
@@ -156,6 +162,7 @@ const SignUpForm = ({ setShowModal }) => {
 					onChange={updateContact}
 					value={contact}
 					required={true}
+					style={{ borderColor: errors.contact ? "red" : "" }}
 				></input>
 				<input
 					type="password"

@@ -11,14 +11,25 @@ const LoginForm = () => {
 	const [password, setPassword] = useState("");
 	const user = useSelector((state) => state.session.user);
 	const dispatch = useDispatch();
-
+	const phoneRegex = /^\d{10}$/g;
+	const emailRegex = /^[\w\d-]+@[a-zA-Z]+\.[a-zA-Z]{2,3}$/g;
 	const onLogin = async (e) => {
 		e.preventDefault();
-		const data = await dispatch(login(contact, password));
-		if (data) {
-			setErrors(data);
-			console.log(data);
+		const err = [];
+		if (!emailRegex.test(contact) && !phoneRegex.test(contact)) {
+			err.push(
+				"Hmm... This doesn't seem to be a valid phone number or email"
+			);
+			console.log(err);
+		} else {
+			const data = await dispatch(login(contact, password));
+			if (data) {
+				err.push(data);
+				// setErrors(data);
+				console.log(data);
+			}
 		}
+		if (err.length) setErrors(err);
 	};
 
 	const updateContact = (e) => {
@@ -43,7 +54,7 @@ const LoginForm = () => {
 				</div>
 				<input
 					type="text"
-					placeholder="Mobile number or email"
+					placeholder="Email or phone number"
 					value={contact}
 					onChange={updateContact}
 					required

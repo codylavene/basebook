@@ -25,15 +25,18 @@
 }
 .splash-left > h2 {
 	font-weight: normal;
-	font-size: 28px;
-	width: 500px;
+	font-size: 24px;
+	width: 375px;
 }
 .login-form {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
 }
-
+.errors {
+	width: 90%;
+	color: var(--error-red);
+}
 .basebook-wrapper,
 .basebook-wrapper > img {
 	width: 242px;
