@@ -53,6 +53,9 @@ const SignUpForm = ({ setShowModal }) => {
 	const onSignUp = async (e) => {
 		e.preventDefault();
 		e.stopPropagation();
+		const err = {};
+		if (!firstName) err["firstName"] = "";
+
 		if (password === repeatPassword) {
 			const data = await dispatch(
 				signUp(
@@ -135,12 +138,14 @@ const SignUpForm = ({ setShowModal }) => {
 						placeholder="First name"
 						onChange={updateFirstName}
 						value={firstName}
+						required={true}
 					></input>
 					<input
 						type="text"
 						placeholder="Last name"
 						onChange={updateLastName}
 						value={lastName}
+						required={true}
 					></input>
 				</div>
 				<input
@@ -148,22 +153,18 @@ const SignUpForm = ({ setShowModal }) => {
 					placeholder="Mobile number or email"
 					onChange={updateContact}
 					value={contact}
+					required={true}
 				></input>
-				{/* <input
-					type="text"
-					placeholder="Mobile Number"
-					onChange={updatePhone}
-					value={phone}
-				></input> */}
 				<input
 					type="password"
 					placeholder="New password"
 					onChange={updatePassword}
 					value={password}
+					required={true}
 				></input>
 				<input
 					type="password"
-					placeholder="Confirm new password"
+					placeholder="Confirm password"
 					onChange={updateRepeatPassword}
 					value={repeatPassword}
 					required={true}
@@ -213,7 +214,7 @@ const SignUpForm = ({ setShowModal }) => {
 					will not harvest your data, as we are not a real company.
 					You will not recieve any SMS Notifications from us.
 				</div>
-				<span style={{ fontSize: 10 }}>
+				<span style={{ fontSize: 10, width: "90%", textAlign: "left" }}>
 					*must be 16 years of age or older
 				</span>
 				<button type="submit" className="signup-btn green-btn">

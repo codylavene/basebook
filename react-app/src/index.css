@@ -3,9 +3,11 @@
 	--main-white: #fff;
 	--main-black: #000;
 	--main-blue: #1877f2;
-	--main-blue-hover: #356cd1;
+	--main-blue-hover: rgb(30, 111, 230);
 	--main-green: #00a400;
 	--signup-green: #42b72a;
+	--signup-green-hover: #36a420;
+	--main-green-hover: rgb(87, 162, 57);
 	--splash-bg: #f0f2f5;
 	--comment-bg: #f0f2f5;
 	--main-page-bg: #f0f2f5;

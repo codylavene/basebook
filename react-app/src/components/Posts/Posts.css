@@ -33,6 +33,7 @@
 
 .comments-count:hover {
 	cursor: pointer;
+	text-decoration: underline;
 }
 
 .create-post--btn {
