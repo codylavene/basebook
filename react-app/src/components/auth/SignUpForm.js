@@ -19,6 +19,8 @@ const SignUpForm = ({ setShowModal }) => {
 	const [repeatPassword, setRepeatPassword] = useState("");
 	const user = useSelector((state) => state.session.user);
 	const dispatch = useDispatch();
+	const phoneRegex = [];
+	const emailRegex = [];
 	const months = [
 		"Jan",
 		"Feb",

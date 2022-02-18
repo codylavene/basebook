@@ -18,7 +18,11 @@ nav > ul > li > a {
 	text-decoration: none;
 	color: var(--primary-text);
 }
-
+.logo-b--container,
+.logo-b--container > svg {
+	height: 40px;
+	width: 40px;
+}
 .logo-b--container,
 .logo-b {
 	width: 40px;

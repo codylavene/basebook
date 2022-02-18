@@ -2,7 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import LogoutButton from "./auth/LogoutButton";
-import b from "../assets/images/basebook-b.png";
+// import { ReactComponent as b } from "../assets/images/b.svg";
+import b from "../assets/images/b.png";
 import "./NavBar.css";
 const NavBar = () => {
 	const curr_user = useSelector((state) => state.session.user);
@@ -13,6 +14,7 @@ const NavBar = () => {
 					<NavLink to="/" exact={true} activeClassName="active">
 						<div className="logo-b--container">
 							<img src={b} alt="logo" className="logo-b" />
+							{/* <b /> */}
 						</div>
 					</NavLink>
 				</li>

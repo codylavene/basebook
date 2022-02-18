@@ -1,5 +1,6 @@
 import React from "react";
 import LoginForm from "../../auth/LoginForm";
+// import { ReactComponent as basebook } from "../../../assets/images/basebook.svg";
 import basebook from "../../../assets/images/basebook.png";
 import "./Splash.css";
 const SplashPage = (props) => {
@@ -8,6 +9,7 @@ const SplashPage = (props) => {
 			<div className="splash-left">
 				<div className="basebook-wrapper">
 					<img src={basebook} alt="text-logo-basebook" required />
+					{/* <basebook /> */}
 				</div>
 				<h2>
 					Connect with friends and the world around you on Basebook.

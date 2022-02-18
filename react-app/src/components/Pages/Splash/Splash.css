@@ -10,7 +10,9 @@
 	width: 40%;
 	display: flex;
 	flex-direction: column;
-	padding: 80px;
+	/* padding: 120px; */
+	padding-right: 140px;
+	padding-top: 100px;
 }
 .splash-left {
 	width: 40%;
@@ -19,9 +21,12 @@
 	align-items: flex-start;
 	justify-content: flex-start;
 	padding: 80px;
+	margin-right: 120px;
 }
 .splash-left > h2 {
 	font-weight: normal;
+	font-size: 28px;
+	width: 500px;
 }
 .login-form {
 	display: flex;
@@ -31,7 +36,8 @@
 
 .basebook-wrapper,
 .basebook-wrapper > img {
-	width: 280px;
+	width: 242px;
+	margin-bottom: 10px;
 }
 
 .login-form-card {
