@@ -4,7 +4,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import current_user, login_required
 from app.forms.comment_form import CommentForm
 from app.forms.post_form import PostForm
-from app.models import Post, db, Comment
+from app.models import Post, db, Comment, Like
 import click
 
 post_routes = Blueprint('posts', __name__)
@@ -108,3 +108,32 @@ def editComment(post_id,id):
         post = Post.query.get(post_id)
         return post.to_frontend_dict()
     return {'errors': "error"}, 401
+
+@post_routes.route('/<int:post_id>/likes/<int:id>', methods=["PUT"])
+@login_required
+def updateLike(post_id,id):
+    data = {}
+    like = Like.query.get(id)
+    if like.liked:
+        like.liked = False
+    else: like.liked = True
+    click.echo(click.style(f"{like}", bg='red', fg='white'))
+    db.session.add(like)
+    db.session.commit()
+    post = Post.query.get(post_id)
+    data['post'] = post.to_frontend_dict()
+    return data
+
+
+@post_routes.route('/<int:id>/likes', methods=["POST"])
+@login_required
+def createLike(id):
+
+    like = Like(user_id=current_user.get_id(), post_id=id, liked=True)
+    click.echo(click.style(f"{like}", bg='red', fg='white'))
+    if like:
+        db.session.add(like)
+        db.session.commit()
+        post = Post.query.get(id)
+        return {"post": post.to_frontend_dict(), 'like_id': like.id}
+    return {'errors': "Something went wrong."}
