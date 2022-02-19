@@ -17,6 +17,7 @@ class User(db.Model, UserMixin):
 
     posts = db.relationship("Post", back_populates="owner")
     comments = db.relationship("Comment", back_populates="user")
+    likes = db.relationship("Like", back_populates="user")
 
     @property
     def password(self):
@@ -41,9 +42,11 @@ class User(db.Model, UserMixin):
             'gender': self.gender,
         }
     def to_frontend_dict(self):
-        from app.models import Post
+        from app.models import Post, Like
         user_posts = Post.query.filter(Post.user_id == self.id).all()
         posts = [post.to_frontend_dict() for post in user_posts]
+        user_likes = Like.query.filter(Like.user_id == self.id).all()
+        likes = [like.to_dict() for like in user_likes]
         return {
             'id': self.id,
             'first_name': self.first_name,
@@ -55,4 +58,5 @@ class User(db.Model, UserMixin):
             'birthdate': self.birthdate,
             'gender': self.gender,
             'posts': posts,
+            'likes': likes,
         }
