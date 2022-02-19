@@ -129,7 +129,7 @@
 	color: var(--secondary-text);
 }
 .add-comment--btn:hover {
-	background-color: var(--light-grey-btn-hover);
+	background-color: var(--secondary-btn-hover);
 	cursor: pointer;
 }
 .modal-head {
@@ -144,14 +144,14 @@
 	padding: 20px 0;
 	font-size: 20px;
 	font-weight: bold;
-	border-bottom: 1px solid var(--light-grey-btn);
+	border-bottom: 1px solid var(--secondary-btn-bg);
 }
 
 .modal-head > .close-create-post,
 .modal-head > .close-delete-comment {
 	width: 36px;
 	height: 36px;
-	background-color: var(--light-grey-btn);
+	background-color: var(--secondary-btn-bg);
 	border-radius: 50%;
 	position: absolute;
 	right: 10px;
@@ -163,7 +163,7 @@
 }
 .modal-head > .close-create-post:hover {
 	cursor: pointer;
-	background-color: var(--light-grey-btn-hover);
+	background-color: var(--secondary-btn-hover);
 }
 .create-post--card,
 .delete-comment--card {
@@ -210,8 +210,8 @@
 	height: 44px;
 	justify-content: space-around;
 	padding: 4px 0px;
-	border-top: 1px solid var(--light-grey-btn);
-	border-bottom: 1px solid var(--light-grey-btn);
+	border-top: 1px solid var(--secondary-btn-bg);
+	border-bottom: 1px solid var(--secondary-btn-bg);
 	margin: 8px 0px;
 	color: var(--secondary-text);
 }

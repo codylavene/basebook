@@ -29,8 +29,15 @@ function User() {
 	return (
 		<div className="user-profile--container">
 			<div className="profile-details--container">
-				<h2>Intro</h2>
-				<div>{user.full_name}</div>
+				<div className="profile-details--wrapper">
+					<h2>Intro</h2>
+					<div>{user.full_name}</div>
+					<button>Add Bio</button>
+					<div>From: </div>
+					<div>Joined: </div>
+					<button>Edit details</button>
+					<button>Add Hobbies</button>
+				</div>
 			</div>
 			<div className="profile-posts--container">
 				<div className="create-post--container">

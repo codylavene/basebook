@@ -9,10 +9,10 @@ const UserHeader = ({ user }) => {
 					<div className="user-header--profile-img"></div>
 					<h2 className="user-header--user-name">{user.full_name}</h2>
 				</div>
-				<div className="user-header--nav">
-					<div>Posts</div>
-					<div>About</div>
-				</div>
+			</div>
+			<div className="user-header--nav">
+				<div>Posts</div>
+				<div>About</div>
 			</div>
 		</div>
 	);
