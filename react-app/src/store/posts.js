@@ -129,7 +129,7 @@ export const addLike = (post_id) => async (dispatch) => {
 		console.log(data);
 	}
 };
-export const deleteLike = (post_id, id) => async (dispatch) => {
+export const updateLike = (post_id, id) => async (dispatch) => {
 	const res = await fetch(`/api/posts/${post_id}/likes/${id}`, {
 		method: "PUT",
 	});

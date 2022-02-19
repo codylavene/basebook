@@ -14,25 +14,18 @@ const Post = ({ post }) => {
 	const curr_user = useSelector((state) => state.session.user);
 	const userLikes = useSelector((state) => state.session.user.likes);
 	const [liked, setLiked] = useState(post.liked_status.liked);
-	const [beenLiked, setBeenLiked] = useState(false);
 	const [likeId, setLikeId] = useState(post.liked_status.like_id);
-	console.log(liked);
-	console.log(likeId);
-	useEffect(() => {
-		userLikes?.forEach((like) => {
-			if (like.post_id === post.id) {
-				setBeenLiked(true);
-			}
-		});
-	}, []);
+	const [beenLiked, setBeenLiked] = useState(likeId ? true : false);
+
 	const toggleLike = async () => {
 		if (beenLiked) {
 			console.log(likeId);
-			await dispatch(postActions.deleteLike(post.id, likeId));
+			await dispatch(postActions.updateLike(post.id, likeId));
 			setLiked(!liked);
 			dispatch(postActions.getPosts());
 		} else {
 			const id = await dispatch(postActions.addLike(post.id));
+			console.log(id);
 			setLiked(true);
 			setBeenLiked(true);
 			setLikeId(id);

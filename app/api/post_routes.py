@@ -128,12 +128,12 @@ def updateLike(post_id,id):
 @post_routes.route('/<int:id>/likes', methods=["POST"])
 @login_required
 def createLike(id):
-
+    data = {}
     like = Like(user_id=current_user.get_id(), post_id=id, liked=True)
     click.echo(click.style(f"{like}", bg='red', fg='white'))
-    if like:
-        db.session.add(like)
-        db.session.commit()
-        post = Post.query.get(id)
-        return {"post": post.to_frontend_dict(), 'like_id': like.id}
-    return {'errors': "Something went wrong."}
+    db.session.add(like)
+    db.session.commit()
+    post = Post.query.get(id)
+    data['post'] = post.to_frontend_dict()
+    data['like_id'] = like.id
+    return data
