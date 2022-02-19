@@ -122,7 +122,7 @@ nav > div > a {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: var(--splash-bg);
+	background-color: var(--secondary-btn-bg);
 	padding: 15px;
 	border-radius: 50%;
 }
@@ -138,4 +138,6 @@ nav > div > a {
 }
 .user-menu--drop:hover,
 .user-menu--grid:hover {
+	background-color: var(--secondary-btn-hover);
+	cursor: pointer;
 }
