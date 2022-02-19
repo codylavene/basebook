@@ -16,11 +16,23 @@ const Posts = (props) => {
 	return (
 		<div className="main-posts-container">
 			<div className="create-post--container">
-				<div className="image-placeholder"></div>
-				<CreatePostModal user={curr_user} />
+				<div className="create-post--wrapper">
+					<div className="image-placeholder"></div>
+					<CreatePostModal
+						user={curr_user}
+						message={`What's on your mind, ${curr_user.first_name}?`}
+					/>
+				</div>
 			</div>
-			{posts.length &&
-				posts.map((post) => <Post post={post} key={post.id} />)}
+			<div className="main-posts--wrapper">
+				{posts.length > 0 &&
+					posts
+						.sort(
+							(a, b) =>
+								new Date(b.posted_at) - new Date(a.posted_at)
+						)
+						.map((post) => <Post post={post} key={post.id} />)}
+			</div>
 		</div>
 	);
 };

@@ -35,6 +35,8 @@
 }
 .errors {
 	width: 90%;
+	font-size: 12px;
+	text-align: center;
 	color: var(--error-red);
 }
 .basebook-wrapper,
@@ -246,4 +248,12 @@
 	height: 40px;
 	border-radius: 5px;
 	padding: 0px 4px;
+}
+
+::-webkit-validation-bubble-message {
+	color: red;
+}
+
+::-webkit-validation-bubble-text-block {
+	background-color: green;
 }

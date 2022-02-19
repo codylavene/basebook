@@ -5,13 +5,7 @@ import { signUp } from "../../store/session";
 import DemoLogin from "./DemoLogin";
 
 const SignUpForm = ({ setShowModal }) => {
-	const [errors, setErrors] = useState({
-		"firstName": "",
-		"lastName": "",
-		"contact": "",
-		"password": "",
-		"server": "",
-	});
+	const [errors, setErrors] = useState([]);
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [contact, setContact] = useState("");
@@ -22,6 +16,7 @@ const SignUpForm = ({ setShowModal }) => {
 	const [birthdate, setBirthdate] = useState(new Date(year, month, day));
 	const [gender, setGender] = useState("");
 	const [password, setPassword] = useState("");
+	const [type, setType] = useState("tel");
 	const [repeatPassword, setRepeatPassword] = useState("");
 	const user = useSelector((state) => state.session.user);
 	const dispatch = useDispatch();
@@ -58,48 +53,51 @@ const SignUpForm = ({ setShowModal }) => {
 	useEffect(() => {
 		setBirthdate(new Date(year, month, day));
 	}, [year, month, day]);
+
 	const onSignUp = async (e) => {
 		e.preventDefault();
 		e.stopPropagation();
-		const err = { ...errors };
-		if (!firstName || !/^\w{2,100}$/g.test(firstName))
-			err.firstName = "Whats your name? Cannot include symbols.";
-		if (!lastName || !/^\w{2,100}$/g.test(lastName))
-			err.lastName = "Whats your name? Cannot include symbols.";
-		if (!emailRegex.test(contact) && !phoneRegex.test(contact)) {
-			err.contact =
-				"Hmm... This doesn't seem to be a valid phone number or email";
-		}
-		if (password.length < 8 && repeatPassword.length < 8) {
-			err.password = "Password must be 8 characters or longer";
+		// const err = { ...errors };
+		// if (!firstName || !/^\w{2,100}$/g.test(firstName))
+		// 	err.firstName = "Whats your name? Cannot include symbols.";
+		// if (!lastName || !/^\w{2,100}$/g.test(lastName))
+		// 	err.lastName = "Whats your name? Cannot include symbols.";
+		// if (!emailRegex.test(contact) && !phoneRegex.test(contact)) {
+		// 	err.contact =
+		// 		"Hmm... This doesn't seem to be a valid phone number or email";
+		// }
+		// if (password.length < 8 && repeatPassword.length < 8) {
+		// 	err.password = "Password must be 8 characters or longer";
+
+		if (password !== repeatPassword) {
+			setRepeatPassword("");
 		}
 		if (password === repeatPassword) {
-			if (!emailRegex.test(contact) && !phoneRegex.test(contact)) {
-				err.contact =
-					"This doesn't seem to be a valid phone number or email. Phone number must not include any symbols ";
+			const data = await dispatch(
+				signUp(
+					firstName,
+					lastName,
+					contact,
+					month,
+					day,
+					year,
+					gender,
+					password
+				)
+			);
+			if (data) {
+				setErrors(data);
 			} else {
-				const data = await dispatch(
-					signUp(
-						firstName,
-						lastName,
-						contact,
-						month,
-						day,
-						year,
-						gender,
-						password
-					)
-				);
-				if (data) {
-					err.server = data;
-				} else {
-					setShowModal(false);
-				}
+				setShowModal(false);
 			}
-			if (Object.values(err).length) setErrors(err);
+
+			// if (Object.values(err).length) setErrors(err);
 		}
 	};
-
+	useEffect(() => {
+		if (contact && /[a-zA-Z]/g.test(contact[0])) setType("email");
+		else setType("tel");
+	}, [contact]);
 	const updateFirstName = (e) => {
 		setFirstName(e.target.value);
 	};
@@ -109,6 +107,8 @@ const SignUpForm = ({ setShowModal }) => {
 
 	const updateContact = (e) => {
 		setContact(e.target.value);
+		// if (/[a-zA-z]/g.test(contact[0])) setType("email");
+		// else setType("tel");
 	};
 	const updateGender = (e) => {
 		setGender(e.target.value);
@@ -122,47 +122,47 @@ const SignUpForm = ({ setShowModal }) => {
 		setRepeatPassword(e.target.value);
 	};
 	/*--------------------------------------------------------------------*/
-	const checkFirstName = (e) => {
-		const err = { ...errors };
-		if (!firstName || !/^[a-zA-Z]+$/g.test(firstName)) {
-			errors.firstName = "Whats your name? Cannot include symbols.";
-			// setErrors(...errors, err);
-			return false;
-		}
-		return true;
-	};
-	const checkLastName = (e) => {
-		const err = { ...errors };
-		if (!lastName || !/^[a-zA-Z]+$/g.test(lastName)) {
-			errors.lastName = "Whats your name? Cannot include symbols.";
-			// setErrors(...errors, err);
-		}
-	};
+	// const checkFirstName = (e) => {
+	// 	const err = { ...errors };
+	// 	if (!firstName || !/^[a-zA-Z]+$/g.test(firstName)) {
+	// 		errors.firstName = "Whats your name? Cannot include symbols.";
+	// 		// setErrors(...errors, err);
+	// 		return false;
+	// 	}
+	// 	return true;
+	// };
+	// const checkLastName = (e) => {
+	// 	const err = { ...errors };
+	// 	if (!lastName || !/^[a-zA-Z]+$/g.test(lastName)) {
+	// 		errors.lastName = "Whats your name? Cannot include symbols.";
+	// 		// setErrors(...errors, err);
+	// 	}
+	// };
 
-	const checkContact = (e) => {
-		const err = { ...errors };
-		if (!emailRegex.test(contact) && !phoneRegex.test(contact)) {
-			errors.contact =
-				"Hmm... This doesn't seem to be a valid phone number or email";
-			// setErrors(...errors, err);
-		}
-	};
+	// const checkContact = (e) => {
+	// 	const err = { ...errors };
+	// 	if (!emailRegex.test(contact) && !phoneRegex.test(contact)) {
+	// 		errors.contact =
+	// 			"Hmm... This doesn't seem to be a valid phone number or email";
+	// 		// setErrors(...errors, err);
+	// 	}
+	// };
 
-	const checkPassword = (e) => {
-		const err = { ...errors };
-		if (password.length < 8) {
-			errors.password = "Password must be 8 characters or longer";
-			// setErrors(...errors, err);
-		}
-	};
+	// const checkPassword = (e) => {
+	// 	const err = { ...errors };
+	// 	if (password.length < 8) {
+	// 		errors.password = "Password must be 8 characters or longer";
+	// 		// setErrors(...errors, err);
+	// 	}
+	// };
 
-	const checkRepeatPassword = (e) => {
-		const err = { ...errors };
-		if (repeatPassword !== password) {
-			errors.password = "Passwords must match";
-			// setErrors(...errors, err);
-		}
-	};
+	// const checkRepeatPassword = (e) => {
+	// 	const err = { ...errors };
+	// 	if (repeatPassword !== password) {
+	// 		errors.password = "Passwords must match";
+	// 		// setErrors(...errors, err);
+	// 	}
+	// };
 
 	if (user) {
 		return <Redirect to="/feed" />;
@@ -223,9 +223,10 @@ const SignUpForm = ({ setShowModal }) => {
 					></input>
 				</div>
 				<input
-					type="text"
+					type={type}
 					placeholder="Mobile number or email"
 					onChange={updateContact}
+					// pattern={type === "tel" ? 1234567890 : "null"}
 					// onBlur={(e) => checkContact(e)}
 					value={contact}
 					required={true}
@@ -237,6 +238,9 @@ const SignUpForm = ({ setShowModal }) => {
 					onInput={(e) => e.target.setCustomValidity("")}
 					// style={{ borderColor: errors.contact ? "red" : "" }}
 				></input>
+				<div className="errors">
+					{errors.length > 0 && errors[0].split(" : ")[1]}
+				</div>
 				<input
 					type="password"
 					placeholder="New password"
@@ -244,6 +248,7 @@ const SignUpForm = ({ setShowModal }) => {
 					// onBlur={(e) => checkPassword(e)}
 					value={password}
 					required={true}
+					minLength={8}
 					onInvalid={(e) =>
 						e.target.setCustomValidity(
 							"Password must be 8 characters or longer"
@@ -256,9 +261,16 @@ const SignUpForm = ({ setShowModal }) => {
 					type="password"
 					placeholder="Confirm password"
 					onChange={updateRepeatPassword}
-					// onBlur={(e) => checkRepeatPassword(e)}
+					onBlur={(e) =>
+						e.target.setCustomValidity(
+							password === repeatPassword
+								? ""
+								: "Passwords must match"
+						)
+					}
 					value={repeatPassword}
 					required={true}
+					minLength={8}
 					onInvalid={(e) =>
 						e.target.setCustomValidity("Passwords must match")
 					}

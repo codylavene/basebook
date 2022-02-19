@@ -48,6 +48,7 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'first_name': self.first_name,
             'last_name': self.last_name,
+            'full_name': f"{self.first_name} {self.last_name}",
             # 'phone': self.phone,
             # 'email': self.email,
             'contact': self.contact,

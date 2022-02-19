@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import NavBar from "./components/NavBar";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/UsersList";
-import User from "./components/User";
+import Profile from "./components/Pages/Profile";
 import { authenticate } from "./store/session";
 import Posts from "./components/Posts";
 import SplashPage from "./components/Pages/Splash";
@@ -36,7 +36,7 @@ function App() {
 				</ProtectedRoute>
 				<ProtectedRoute path="/users/:userId" exact={true}>
 					<NavBar />
-					<User />
+					<Profile />
 				</ProtectedRoute>
 				<ProtectedRoute path="/feed" exact={true}>
 					<NavBar />

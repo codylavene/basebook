@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal } from "../../context/Modal";
 import CreatePost from "./CreatePost";
 
-const CreatePostModal = ({ user }) => {
+const CreatePostModal = ({ user, message }) => {
 	const [showModal, setShowModal] = useState(false);
 	return (
 		<>
@@ -13,7 +13,7 @@ const CreatePostModal = ({ user }) => {
 				}}
 				className="create-post--btn"
 			>
-				What's on your mind, {user.first_name}?
+				{message}
 			</button>
 			{showModal && (
 				<Modal onClose={() => setShowModal(false)}>
