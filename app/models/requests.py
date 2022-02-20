@@ -23,6 +23,6 @@ class Request(db.Model):
             'requester_id': self.requester_id,
             'requested_id': self.requested_id,
             'is_approved': self.is_approved,
-            'requester': self.requester.to_frontend_dict(),
-            'requested': self.requested.to_frontend_dict(),
+            'requester': self.requester.to_dict(),
+            'requested': self.requested.to_dict(),
         }

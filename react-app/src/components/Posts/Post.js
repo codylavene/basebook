@@ -61,8 +61,10 @@ const Post = ({ post }) => {
 			<div className="post-body">{post.post_body}</div>
 			<div className="like-comment-count">
 				<div className="likes-count">
-					{post?.likes?.length}{" "}
-					{post?.likes?.length === 1 ? "like" : "likes"}
+					<span>
+						{post.likes.length}{" "}
+						{post.likes.length === 1 ? "like" : "likes"}
+					</span>
 				</div>
 				<div
 					className="comments-count"

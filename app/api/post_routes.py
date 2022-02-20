@@ -56,7 +56,7 @@ def updatePost(id):
 @post_routes.route('/<int:id>', methods=["DELETE"])
 @login_required
 def deletePost(id):
-    click.echo(click.style("HIT ROUTE <><><><><><><><><><><><><>", bg='red', fg='white'))
+    click.echo(click.style("\n \n HIT ROUTE <><><><><><><><><><><><><> \n \n", bg='red', fg='white'))
     data = {}
     post = Post.query.get(int(id))
     click.echo(click.style(f"{post}", bg='red', fg='white'))
@@ -64,6 +64,13 @@ def deletePost(id):
     db.session.delete(post)
     db.session.commit()
     return data
+
+
+@post_routes.route('/<int:id>/comments')
+@login_required
+def getComments(id):
+    comments = Comment.query.filter(Comment.post_id == id).all()
+    return {'comments': [comment.to_frontend_dict() for comment in comments]}
 
 
 @post_routes.route('/<int:id>/comments', methods=["POST"])
@@ -77,8 +84,9 @@ def createComment(id):
         comment = Comment(user_id=current_user.get_id(), post_id=id, comment_body=form['comment_body'].data)
         db.session.add(comment)
         db.session.commit()
-        post = Post.query.get(id)
-        return post.to_frontend_dict()
+        # post = Post.query.get(id)
+        return comment.to_frontend_dict()
+
     return {'errors': [form['comment_body'].message]}
 
 @post_routes.route('/<int:post_id>/comments/<int:id>', methods=["DELETE"])

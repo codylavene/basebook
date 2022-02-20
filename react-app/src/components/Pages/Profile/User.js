@@ -1,27 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import CreatePostModal from "../../Posts/CreatePostModal";
+import * as profileActions from "../../../store/profile";
 import Post from "../../Posts/Post";
 
 function User() {
+	const dispatch = useDispatch();
 	const [user, setUser] = useState({});
 	const { userId } = useParams();
 	const curr_user = useSelector((state) => state.session.user);
+	const curr_profile = useSelector((state) => state.profile.profile);
 	useEffect(() => {
-		if (!userId) {
-			return;
-		}
+		setUser(curr_profile);
+	}, []);
+	useEffect(() => {
 		(async () => {
-			const response = await fetch(`/api/users/${userId}`);
-			const user = await response.json();
+			const user = await dispatch(profileActions.loadProfile(userId));
 			setUser(user);
 		})();
-	}, [userId]);
+	}, [userId, dispatch]);
 	const message =
 		curr_user.id === +userId
 			? "What's on your mind?"
-			: `Write something to ${user.first_name}...`;
+			: `Write something to ${user?.first_name}...`;
 	if (!user) {
 		return null;
 	}
@@ -43,14 +45,11 @@ function User() {
 				<div className="create-post--container">
 					<div className="create-post--wrapper">
 						<div className="image-placeholder"></div>
-						<CreatePostModal
-							user={curr_user}
-							message={`What's on your mind, ${curr_user.first_name}?`}
-						/>
+						<CreatePostModal user={user} message={message} />
 					</div>
 				</div>
-				{user?.posts?.length > 0 &&
-					user?.posts
+				{user.posts?.length > 0 &&
+					user.posts
 						?.sort(
 							(a, b) =>
 								new Date(b.posted_at) - new Date(a.posted_at)

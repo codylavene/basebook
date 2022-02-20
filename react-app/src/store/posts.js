@@ -23,6 +23,18 @@ const edit = (post) => ({
 	post,
 });
 
+export const getUserPosts = (id) => async (dispatch) => {
+	const res = await fetch(`/api/users/${id}/posts`);
+
+	if (res.ok) {
+		const data = await res.json();
+		dispatch(load(data));
+	} else {
+		const errors = await res.json();
+		console.error(errors);
+		return errors;
+	}
+};
 export const getPosts = (id) => async (dispatch) => {
 	const res = await fetch(`/api/posts/`);
 
