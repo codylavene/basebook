@@ -50,19 +50,23 @@ export const addComment = (post_id, comment_body) => async (dispatch) => {
 	}
 };
 
-export const editComment = (comment_body, post_id, id) => async (dispatch) => {
-	const res = await fetch(`/api/posts/${post_id}/comments/${id}`, {
-		method: "PUT",
-		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify({ comment_body }),
-	});
-	const data = await res.json();
-	if (res.ok) {
-		dispatch(edit(data.comment));
-	} else {
-		console.log(data);
-	}
-};
+export const editComment =
+	(comment_body, post_id, comment_id) => async (dispatch) => {
+		const res = await fetch(
+			`/api/posts/${post_id}/comments/${comment_id}`,
+			{
+				method: "PUT",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ comment_body }),
+			}
+		);
+		const data = await res.json();
+		if (res.ok) {
+			dispatch(edit(data.comment));
+		} else {
+			console.log(data);
+		}
+	};
 export const deleteComment = (post_id, comment_id) => async (dispatch) => {
 	const res = await fetch(`/api/posts/${post_id}/comments/${comment_id}`, {
 		method: "DELETE",

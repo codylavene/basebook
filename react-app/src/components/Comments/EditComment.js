@@ -13,7 +13,7 @@ const EditComment = ({ setShowEdit, post, comment }) => {
 			await dispatch(
 				commentActions.editComment(newComment, post.id, comment.id)
 			);
-			await dispatch(postActions.getPosts());
+			dispatch(commentActions.getComments());
 			setTimeout(() => {
 				setNewComment("");
 				setLoading(false);
