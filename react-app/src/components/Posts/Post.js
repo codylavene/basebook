@@ -67,7 +67,6 @@ const Post = ({ post, comments, likes }) => {
 			</Link>
 			<div className="post-body">{post.post_body}</div>
 			<div className="like-comment-count">
-				<h1>{post.id}</h1>
 				<div className="likes-count">
 					<span>
 						{/* {likes[post.id] &&
