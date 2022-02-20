@@ -9,34 +9,30 @@ import * as postActions from "../../store/posts";
 import * as commentActions from "../../store/comments";
 import * as likeActions from "../../store/likes";
 
-const Post = ({ post }) => {
+const Post = ({ post, comments }) => {
 	const dispatch = useDispatch();
 	const [showComments, setShowComments] = useState(false);
 	const [showButtons, setShowButtons] = useState(false);
 	const curr_user = useSelector((state) => state.session.user);
 	const userLikes = useSelector((state) => state.session.user.likes);
-	const comments = useSelector((state) => state.comments?.comments);
 	const [liked, setLiked] = useState(post.liked_status.liked);
 	const [likeId, setLikeId] = useState(post.liked_status.like_id);
 	const [beenLiked, setBeenLiked] = useState(likeId ? true : false);
-	useEffect(() => {
-		dispatch(commentActions.getComments(post.id));
-	}, []);
+	// console.log(comments);
 	const toggleLike = async () => {
 		if (beenLiked) {
-			console.log(likeId);
 			await dispatch(postActions.updateLike(post.id, likeId));
 			setLiked(!liked);
 			dispatch(postActions.getPosts());
 		} else {
 			const id = await dispatch(postActions.addLike(post.id));
-			console.log(id);
 			setLiked(true);
 			setBeenLiked(true);
 			setLikeId(id);
 			dispatch(postActions.getPosts());
 		}
 	};
+
 	return (
 		<div className="single-post-container">
 			{curr_user.id === post.user_id && (
@@ -65,23 +61,33 @@ const Post = ({ post }) => {
 			</Link>
 			<div className="post-body">{post.post_body}</div>
 			<div className="like-comment-count">
+				<h1>{post.id}</h1>
 				<div className="likes-count">
 					<span>
-						{post.likes.length}{" "}
-						{post.likes.length === 1 ? "like" : "likes"}
+						{post?.likes?.length}{" "}
+						{post?.likes?.length === 1 ? "like" : "likes"}
 					</span>
 				</div>
 				<div
 					className="comments-count"
 					onClick={() => setShowComments(!showComments)}
 				>
-					{post?.comments?.length} comments
+					{Object.values(comments)?.length}{" "}
+					{Object.values(comments)?.length === 1
+						? "comment"
+						: "comments"}
 				</div>
 			</div>
 			{showComments &&
-				Object.values(comments.comments).map((comment) => (
-					<Comment key={comment.id} comment={comment} post={post} />
-				))}
+				Object.values(comments).map((comment) => {
+					return (
+						<Comment
+							key={comment.id}
+							comment={comment}
+							post={post}
+						/>
+					);
+				})}
 			<div className="like-comment-action--container">
 				<div
 					className="like-action action"

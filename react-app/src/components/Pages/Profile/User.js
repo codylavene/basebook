@@ -3,28 +3,29 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import CreatePostModal from "../../Posts/CreatePostModal";
 import * as profileActions from "../../../store/profile";
+import * as commentActions from "../../../store/comments";
 import Post from "../../Posts/Post";
 
-function User() {
+function User({ user }) {
 	const dispatch = useDispatch();
-	const [user, setUser] = useState({});
+	// const [user, setUser] = useState(user);
 	const { userId } = useParams();
 	const curr_user = useSelector((state) => state.session.user);
-	const curr_profile = useSelector((state) => state.profile.profile);
+
+	const comments = useSelector((state) => state.comments.comments);
 	useEffect(() => {
-		setUser(curr_profile);
-	}, []);
-	useEffect(() => {
-		(async () => {
-			const user = await dispatch(profileActions.loadProfile(userId));
-			setUser(user);
-		})();
-	}, [userId, dispatch]);
+		dispatch(profileActions.loadProfile(userId));
+		// dispatch(commentActions.getComments());
+	}, [user.posts, dispatch, userId]);
+	// useEffect(() => {
+	// 	dispatch(commentActions.getComments());
+	// });
 	const message =
 		curr_user.id === +userId
 			? "What's on your mind?"
 			: `Write something to ${user?.first_name}...`;
 	if (!user) {
+		console.log("NOPE");
 		return null;
 	}
 
@@ -48,13 +49,21 @@ function User() {
 						<CreatePostModal user={user} message={message} />
 					</div>
 				</div>
-				{user.posts?.length > 0 &&
-					user.posts
+				{user?.posts?.length > 0 &&
+					user?.posts
 						?.sort(
 							(a, b) =>
 								new Date(b.posted_at) - new Date(a.posted_at)
 						)
-						.map((post) => <Post post={post} key={post.id} />)}
+						.map((post) => (
+							<Post
+								post={post}
+								key={post.id}
+								comments={
+									comments[post.id] ? comments[post.id] : {}
+								}
+							/>
+						))}
 			</div>
 		</div>
 	);

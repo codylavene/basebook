@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal } from "../../context/Modal";
 import DeleteComment from "./DeleteComment";
 
 const DeleteCommentModal = ({ post, comment, setShowButtons }) => {
 	const [showModal, setShowModal] = useState(false);
+	useEffect(() => {
+		return () => setShowModal(false);
+	}, []);
 	return (
 		<>
 			<button

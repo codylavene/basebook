@@ -1,19 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import * as postActions from "../../store/posts";
 import * as commentActions from "../../store/comments";
 const DeleteComment = ({ setShowModal, post, comment, setShowButtons }) => {
 	const dispatch = useDispatch();
+	const [loading, setLoading] = useState(false);
 	const onSubmit = async (e) => {
 		e.preventDefault();
+		setLoading(true);
 		await dispatch(commentActions.deleteComment(post.id, comment.id));
-		dispatch(postActions.getPosts());
-		setShowButtons(false);
-		setShowModal(false);
+		dispatch(commentActions.getComments());
+		setTimeout(() => {
+			setShowButtons(false);
+			setLoading(false);
+			setShowModal(false);
+		}, 200);
 	};
 	useEffect(() => {
 		return () => {
 			setShowButtons(false);
+			setLoading(false);
 			setShowModal(false);
 		};
 	}, [setShowButtons, setShowModal]);
@@ -44,7 +50,13 @@ const DeleteComment = ({ setShowModal, post, comment, setShowButtons }) => {
 					>
 						No
 					</button>
-					<button className="delete-comment--delete">Delete</button>
+					<button className="delete-comment--delete">
+						{loading ? (
+							<i className="fa-solid fa-spinner fa-spin-pulse"></i>
+						) : (
+							"Delete"
+						)}
+					</button>
 				</div>
 			</form>
 		</div>

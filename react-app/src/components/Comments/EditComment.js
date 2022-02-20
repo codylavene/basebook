@@ -14,10 +14,11 @@ const EditComment = ({ setShowEdit, post, comment }) => {
 				commentActions.editComment(newComment, post.id, comment.id)
 			);
 			await dispatch(postActions.getPosts());
-
-			setNewComment("");
-			setLoading(false);
-			setShowEdit(false);
+			setTimeout(() => {
+				setNewComment("");
+				setLoading(false);
+				setShowEdit(false);
+			}, 200);
 		}
 	};
 	const handleEsc = async () => {

@@ -8,7 +8,7 @@ fake = Faker(locale='en-US')
 def seed_comments():
     for _ in range(76):
         comment = Comment(
-            user_id=randint(1, 77), post_id=randint(1, 10), comment_body=fake.text(max_nb_chars=150))
+            user_id=randint(1, 77), post_id=randint(1, 76), comment_body=fake.text(max_nb_chars=50))
         db.session.add(comment)
 
 
