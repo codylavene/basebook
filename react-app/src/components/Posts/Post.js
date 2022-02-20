@@ -6,6 +6,8 @@ import Comment from "../Comments/Comment";
 import DeletePostModal from "./DeletePostModal";
 import EditPostModal from "./EditPostModal";
 import * as postActions from "../../store/posts";
+import * as commentActions from "../../store/comments";
+import * as likeActions from "../../store/likes";
 
 const Post = ({ post }) => {
 	const dispatch = useDispatch();
@@ -13,10 +15,13 @@ const Post = ({ post }) => {
 	const [showButtons, setShowButtons] = useState(false);
 	const curr_user = useSelector((state) => state.session.user);
 	const userLikes = useSelector((state) => state.session.user.likes);
+	const comments = useSelector((state) => state.comments?.comments);
 	const [liked, setLiked] = useState(post.liked_status.liked);
 	const [likeId, setLikeId] = useState(post.liked_status.like_id);
 	const [beenLiked, setBeenLiked] = useState(likeId ? true : false);
-
+	useEffect(() => {
+		dispatch(commentActions.getComments(post.id));
+	}, []);
 	const toggleLike = async () => {
 		if (beenLiked) {
 			console.log(likeId);
@@ -74,7 +79,7 @@ const Post = ({ post }) => {
 				</div>
 			</div>
 			{showComments &&
-				post.comments.map((comment) => (
+				Object.values(comments.comments).map((comment) => (
 					<Comment key={comment.id} comment={comment} post={post} />
 				))}
 			<div className="like-comment-action--container">

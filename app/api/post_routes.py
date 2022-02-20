@@ -10,6 +10,10 @@ import click
 post_routes = Blueprint('posts', __name__)
 
 
+#####################################################################
+### POSTS ###
+
+
 @post_routes.route('/')
 @login_required
 def posts():
@@ -37,6 +41,7 @@ def createPost():
         db.session.commit()
         return post.to_frontend_dict()
     return {'errors': [form['post_body'].message]}
+
 
 @post_routes.route('/<int:id>', methods=["PUT"])
 @login_required
@@ -66,10 +71,17 @@ def deletePost(id):
     return data
 
 
+#####################################################################
+#####################################################################
+### COMMENTS ###
+
+
 @post_routes.route('/<int:id>/comments')
 @login_required
 def getComments(id):
+    click.echo(click.style("\n \n HIT ROUTE <><><><><><><><><><><><><> \n \n", bg='red', fg='white'))
     comments = Comment.query.filter(Comment.post_id == id).all()
+    click.echo(click.style(f"\n \n {[comment.to_frontend_dict() for comment in comments]} \n \n", bg='red', fg='white'))
     return {'comments': [comment.to_frontend_dict() for comment in comments]}
 
 
@@ -85,21 +97,20 @@ def createComment(id):
         db.session.add(comment)
         db.session.commit()
         # post = Post.query.get(id)
-        return comment.to_frontend_dict()
+
+        return {"comment": comment.to_frontend_dict()}
 
     return {'errors': [form['comment_body'].message]}
+
 
 @post_routes.route('/<int:post_id>/comments/<int:id>', methods=["DELETE"])
 @login_required
 def deleteComment(post_id,id):
-    data = {}
     comment = Comment.query.get(id)
-    post = Post.query.get(post_id)
     click.echo(click.style(f"{comment}", bg='red', fg='white'))
     db.session.delete(comment)
     db.session.commit()
-    data['post'] = post.to_frontend_dict()
-    return data
+    return {'comment': comment.to_frontend_dict()}
 
 
 @post_routes.route('/<int:post_id>/comments/<int:id>', methods=["PUT"])
@@ -110,12 +121,18 @@ def editComment(post_id,id):
     if form.validate_on_submit():
         comment = Comment.query.get(id)
         comment.comment_body = form['comment_body'].data
-        comment.update_at = datetime.now()
+        comment.updated_at = datetime.now()
         db.session.add(comment)
         db.session.commit()
-        post = Post.query.get(post_id)
-        return post.to_frontend_dict()
+        # post = Post.query.get(post_id)
+        return {"comment": comment.to_frontend_dict()}
     return {'errors': "error"}, 401
+
+
+#####################################################################
+#####################################################################
+### LIKES ###
+
 
 @post_routes.route('/<int:post_id>/likes/<int:id>', methods=["PUT"])
 @login_required

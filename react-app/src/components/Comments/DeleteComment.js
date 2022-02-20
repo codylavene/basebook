@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import * as postActions from "../../store/posts";
+import * as commentActions from "../../store/comments";
 const DeleteComment = ({ setShowModal, post, comment, setShowButtons }) => {
 	const dispatch = useDispatch();
 	const onSubmit = async (e) => {
 		e.preventDefault();
-		await dispatch(postActions.deleteComment(post.id, comment.id));
+		await dispatch(commentActions.deleteComment(post.id, comment.id));
 		dispatch(postActions.getPosts());
 		setShowButtons(false);
 		setShowModal(false);

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import * as commentActions from "../../store/comments";
 import * as postActions from "../../store/posts";
 const AddComment = ({ post }) => {
 	const dispatch = useDispatch();
@@ -7,7 +8,7 @@ const AddComment = ({ post }) => {
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		if (comment.length > 1 && comment.length < 280) {
-			await dispatch(postActions.addComment(post.id, comment));
+			await dispatch(commentActions.addComment(post.id, comment));
 			dispatch(postActions.getPosts());
 			setComment("");
 		}

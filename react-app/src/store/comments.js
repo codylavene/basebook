@@ -23,8 +23,8 @@ const edit = (comment) => ({
 	comment,
 });
 
-export const getComments = (id) => async (dispatch) => {
-	const res = await fetch(`/api/posts/${id}/comments`);
+export const getComments = (post_id) => async (dispatch) => {
+	const res = await fetch(`/api/posts/${post_id}/comments`);
 
 	if (res.ok) {
 		const data = await res.json();
@@ -76,3 +76,42 @@ export const deleteComment = (post_id, id) => async (dispatch) => {
 		console.log("Uh Oh");
 	}
 };
+const initialState = { comments: {} };
+const reducer = (state = initialState, action) => {
+	switch (action.type) {
+		case LOAD: {
+			const newState = { ...state };
+			newState.comments = action.comments.reduce((comments, comment) => {
+				comments[comment.id] = comment;
+				return comments;
+			}, {});
+			return newState;
+		}
+		case CREATE: {
+			const newState = {
+				...state,
+				comments: {
+					...state.comments,
+					[action.comment.id]: action.comment,
+				},
+			};
+			return newState;
+		}
+		case EDIT: {
+			const newState = { ...state };
+			newState.comments[action.comment.id] = action.comment;
+
+			return newState;
+		}
+		case DELETE: {
+			const newState = { ...state };
+			delete newState.comments[action.comment.id];
+			return newState;
+		}
+
+		default:
+			return state;
+	}
+};
+
+export default reducer;
