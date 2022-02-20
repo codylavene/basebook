@@ -17,7 +17,7 @@ function User() {
 			const user = await response.json();
 			setUser(user);
 		})();
-	}, [userId]);
+	}, [userId, user]);
 	const message =
 		curr_user.id === +userId
 			? "What's on your mind?"
