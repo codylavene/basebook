@@ -9,27 +9,33 @@ import * as postActions from "../../store/posts";
 import * as commentActions from "../../store/comments";
 import * as likeActions from "../../store/likes";
 
-const Post = ({ post, comments }) => {
+const Post = ({ post, comments, likes }) => {
 	const dispatch = useDispatch();
 	const [showComments, setShowComments] = useState(false);
 	const [showButtons, setShowButtons] = useState(false);
 	const curr_user = useSelector((state) => state.session.user);
-	const userLikes = useSelector((state) => state.session.user.likes);
+	// const likes = useSelector((state) => state.session.likes.likes);
+	console.log(likes);
 	const [liked, setLiked] = useState(post.liked_status.liked);
 	const [likeId, setLikeId] = useState(post.liked_status.like_id);
 	const [beenLiked, setBeenLiked] = useState(likeId ? true : false);
 	// console.log(comments);
+	// useEffect(() => {
+	// 	dispatch(likeActions.getLikes());
+	// }, []);
+	console.log(likes?.count);
+	console.log(post.id);
 	const toggleLike = async () => {
 		if (beenLiked) {
-			await dispatch(postActions.updateLike(post.id, likeId));
+			await dispatch(likeActions.editLike(post.id, likeId));
+			dispatch(likeActions.getLikes());
 			setLiked(!liked);
-			dispatch(postActions.getPosts());
 		} else {
-			const id = await dispatch(postActions.addLike(post.id));
+			const id = await dispatch(likeActions.addLike(post.id));
+			dispatch(likeActions.getLikes());
 			setLiked(true);
 			setBeenLiked(true);
 			setLikeId(id);
-			dispatch(postActions.getPosts());
 		}
 	};
 
@@ -64,8 +70,14 @@ const Post = ({ post, comments }) => {
 				<h1>{post.id}</h1>
 				<div className="likes-count">
 					<span>
-						{post?.likes?.length}{" "}
-						{post?.likes?.length === 1 ? "like" : "likes"}
+						{/* {likes[post.id] &&
+							Object.values(likes[post.id])?.length}{" "}
+						{likes[likes.id] &&
+						Object.values(likes[post.id])?.length === 1
+							? "like"
+							: "likes"} */}
+						{likes?.count ? likes?.count : "0"}{" "}
+						{likes?.count === 1 ? "like" : "likes"}
 					</span>
 				</div>
 				<div

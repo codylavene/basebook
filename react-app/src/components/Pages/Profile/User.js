@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import CreatePostModal from "../../Posts/CreatePostModal";
 import * as profileActions from "../../../store/profile";
 import * as commentActions from "../../../store/comments";
+import * as likeActions from "../../../store/likes";
 import Post from "../../Posts/Post";
 
 function User({ user }) {
@@ -13,6 +14,7 @@ function User({ user }) {
 	const curr_user = useSelector((state) => state.session.user);
 
 	const comments = useSelector((state) => state.comments.comments);
+	const likesObj = useSelector((state) => state.likes.likes);
 	useEffect(() => {
 		dispatch(profileActions.loadProfile(userId));
 		// dispatch(commentActions.getComments());
@@ -20,6 +22,12 @@ function User({ user }) {
 	// useEffect(() => {
 	// 	dispatch(commentActions.getComments());
 	// });
+	useEffect(() => {
+		(async () => {
+			// dispatch(commentActions.getComments());
+			dispatch(likeActions.getLikes());
+		})();
+	}, []);
 	const message =
 		curr_user.id === +userId
 			? "What's on your mind?"
@@ -61,6 +69,9 @@ function User({ user }) {
 								key={post.id}
 								comments={
 									comments[post.id] ? comments[post.id] : {}
+								}
+								likes={
+									likesObj[post.id] ? likesObj[post.id] : {}
 								}
 							/>
 						))}

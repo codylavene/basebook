@@ -16,11 +16,5 @@ def users():
 @login_required
 def user(id):
     user = User.query.get(id)
-    click.echo(click.style(f"\n\n\n{user}\n\n", bg='red', fg='white'))
+    # click.echo(click.style(f"\n\n\n{user}\n\n", bg='red', fg='white'))
     return user.to_frontend_dict()
-
-# @user_routes.route('/<int:id>/posts')
-# @login_required
-# def user_posts(id):
-#     user_posts = Post.query.filter(Post.user_id == id).all()
-#     return [post.to_frontend_dict() for post in user_posts]

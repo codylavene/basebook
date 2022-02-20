@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as postActions from "../../store/posts";
 import * as commentActions from "../../store/comments";
+import * as likeActions from "../../store/likes";
 
 import CreatePostModal from "./CreatePostModal";
 import Post from "./Post";
@@ -10,8 +11,9 @@ const Posts = (props) => {
 	const dispatch = useDispatch();
 	const postsObj = useSelector((state) => state.posts.posts);
 	const commentsObj = useSelector((state) => state.comments.comments);
+	const likesObj = useSelector((state) => state.likes.likes);
 	const curr_user = useSelector((state) => state.session.user);
-
+	console.log(likesObj);
 	// console.log(Array.isArray(Object.entries(commentsObj)));
 	// const comments = commentsObj[post.id];
 	const posts = Object.values(postsObj);
@@ -19,6 +21,7 @@ const Posts = (props) => {
 		(async () => {
 			await dispatch(postActions.getPosts());
 			dispatch(commentActions.getComments());
+			dispatch(likeActions.getLikes());
 		})();
 	}, []);
 
@@ -54,6 +57,9 @@ const Posts = (props) => {
 									commentsObj[post.id]
 										? commentsObj[post.id]
 										: {}
+								}
+								likes={
+									likesObj[post.id] ? likesObj[post.id] : {}
 								}
 							/>
 						))}

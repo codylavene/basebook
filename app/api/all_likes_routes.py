@@ -13,5 +13,5 @@ all_likes_routes = Blueprint('all_likes', __name__)
 @login_required
 def likes():
     likes = Like.query.all()
-    click.echo(click.style(f"\n\n\n{type([like.to_frontend_dict() for like in likes])}\n\n", bg='cyan', fg='red'))
+    # click.echo(click.style(f"\n\n\n{type([like.to_frontend_dict() for like in likes])}\n\n", bg='cyan', fg='red'))
     return {'likes': [like.to_frontend_dict() for like in likes]}

@@ -16,7 +16,7 @@ def createComment(post_id):
     form = CommentForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     comment = form['comment_body'].data
-    click.echo(click.style("\n\n\n HIT ROUTE \n\n", bg='cyan', fg='red'))
+    # click.echo(click.style("\n\n\n HIT ROUTE \n\n", bg='cyan', fg='red'))
     if form.validate_on_submit():
         comment = Comment(user_id=current_user.get_id(), post_id=post_id, comment_body=form['comment_body'].data)
         db.session.add(comment)
@@ -32,7 +32,7 @@ def createComment(post_id):
 @login_required
 def deleteComment(post_id,comment_id):
     comment = Comment.query.get(comment_id)
-    click.echo(click.style(f"{comment}", bg='red', fg='white'))
+    # click.echo(click.style(f"{comment}", bg='red', fg='white'))
     db.session.delete(comment)
     db.session.commit()
     return {'comment': comment.to_frontend_dict()}
@@ -49,6 +49,5 @@ def editComment(post_id,comment_id):
         comment.updated_at = datetime.now()
         db.session.add(comment)
         db.session.commit()
-        # post = Post.query.get(post_id)
         return {"comment": comment.to_frontend_dict()}
     return {'errors': "error"}, 401

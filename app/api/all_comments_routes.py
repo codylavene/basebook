@@ -13,5 +13,5 @@ all_comments_routes = Blueprint('all_comments', __name__)
 @login_required
 def comments():
     comments = Comment.query.all()
-    click.echo(click.style(f"\n\n\n{type([comment.to_frontend_dict() for comment in comments])}\n\n", bg='cyan', fg='red'))
+    # click.echo(click.style(f"\n\n\n{type([comment.to_frontend_dict() for comment in comments])}\n\n", bg='cyan', fg='red'))
     return {'comments': [comment.to_frontend_dict() for comment in comments]}

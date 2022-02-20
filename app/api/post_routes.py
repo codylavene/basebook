@@ -6,10 +6,12 @@ from app.forms.comment_form import CommentForm
 from app.forms.post_form import PostForm
 from app.models import Post, db, Comment, Like
 from app.api.post_comments_routes import post_comments_routes
+from app.api.post_likes_routes import post_likes_routes
 import click
 
 post_routes = Blueprint('posts', __name__)
 post_routes.register_blueprint(post_comments_routes, url_prefix='/<int:post_id>/comments')
+post_routes.register_blueprint(post_likes_routes, url_prefix='/<int:post_id>/likes')
 
 #####################################################################
 ### POSTS ###
@@ -62,105 +64,11 @@ def updatePost(id):
 @post_routes.route('/<int:id>', methods=["DELETE"])
 @login_required
 def deletePost(id):
-    click.echo(click.style("\n \n HIT ROUTE <><><><><><><><><><><><><> \n \n", bg='red', fg='white'))
+    # click.echo(click.style("\n \n HIT ROUTE <><><><><><><><><><><><><> \n \n", bg='red', fg='white'))
     data = {}
     post = Post.query.get(int(id))
-    click.echo(click.style(f"{post}", bg='red', fg='white'))
+    # click.echo(click.style(f"{post}", bg='red', fg='white'))
     data['post'] = post.to_frontend_dict()
     db.session.delete(post)
     db.session.commit()
-    return data
-
-
-#####################################################################
-#####################################################################
-### COMMENTS ###
-
-
-# @post_routes.route('/<int:id>/comments')
-# @login_required
-# def getComments(id):
-#     click.echo(click.style("\n \n HIT ROUTE <><><><><><><><><><><><><> \n \n", bg='red', fg='white'))
-#     comments = Comment.query.all()
-#     # comments = Comment.query.filter(Comment.post_id == id).all()
-#     click.echo(click.style(f"\n \n {[comment.to_frontend_dict() for comment in comments]} \n \n", bg='red', fg='white'))
-#     return {'comments': [comment.to_frontend_dict() for comment in comments]}
-
-
-# @post_routes.route('/<int:id>/comments', methods=["POST"])
-# @login_required
-# def createComment(id):
-#     form = CommentForm()
-#     form['csrf_token'].data = request.cookies['csrf_token']
-#     comment = form['comment_body'].data
-
-#     if form.validate_on_submit():
-#         comment = Comment(user_id=current_user.get_id(), post_id=id, comment_body=form['comment_body'].data)
-#         db.session.add(comment)
-#         db.session.commit()
-#         # post = Post.query.get(id)
-
-#         return {"comment": comment.to_frontend_dict()}
-
-#     return {'errors': [form['comment_body'].message]}
-
-
-# @post_routes.route('/<int:post_id>/comments/<int:id>', methods=["DELETE"])
-# @login_required
-# def deleteComment(post_id,id):
-#     comment = Comment.query.get(id)
-#     click.echo(click.style(f"{comment}", bg='red', fg='white'))
-#     db.session.delete(comment)
-#     db.session.commit()
-#     return {'comment': comment.to_frontend_dict()}
-
-
-# @post_routes.route('/<int:post_id>/comments/<int:id>', methods=["PUT"])
-# @login_required
-# def editComment(post_id,id):
-#     form = CommentForm()
-#     form['csrf_token'].data = request.cookies['csrf_token']
-#     if form.validate_on_submit():
-#         comment = Comment.query.get(id)
-#         comment.comment_body = form['comment_body'].data
-#         comment.updated_at = datetime.now()
-#         db.session.add(comment)
-#         db.session.commit()
-#         # post = Post.query.get(post_id)
-#         return {"comment": comment.to_frontend_dict()}
-#     return {'errors': "error"}, 401
-
-
-#####################################################################
-#####################################################################
-### LIKES ###
-
-
-@post_routes.route('/<int:post_id>/likes/<int:id>', methods=["PUT"])
-@login_required
-def updateLike(post_id,id):
-    data = {}
-    like = Like.query.get(id)
-    if like.liked:
-        like.liked = False
-    else: like.liked = True
-    click.echo(click.style(f"{like}", bg='red', fg='white'))
-    db.session.add(like)
-    db.session.commit()
-    post = Post.query.get(post_id)
-    data['post'] = post.to_frontend_dict()
-    return data
-
-
-@post_routes.route('/<int:id>/likes', methods=["POST"])
-@login_required
-def createLike(id):
-    data = {}
-    like = Like(user_id=current_user.get_id(), post_id=id, liked=True)
-    click.echo(click.style(f"{like}", bg='red', fg='white'))
-    db.session.add(like)
-    db.session.commit()
-    post = Post.query.get(id)
-    data['post'] = post.to_frontend_dict()
-    data['like_id'] = like.id
     return data
