@@ -33,6 +33,7 @@ class User(db.Model, UserMixin):
     posts = db.relationship("Post", back_populates="owner")
     comments = db.relationship("Comment", back_populates="user")
     likes = db.relationship("Like", back_populates="user")
+    images = db.relationship("Image", back_populates="owner")
 
     @property
     def password(self):
