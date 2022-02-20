@@ -1,17 +1,19 @@
 from flask_login import current_user
+from sqlalchemy.dialects.postgresql import UUID
+import uuid
 from app.models.db import db
 from datetime import datetime
-
 
 
 class Post(db.Model):
     __tablename__ = 'posts'
 
     id = db.Column(db.Integer, primary_key=True)
+    uuid = db.Column(UUID(as_uuid=True), nullable=False, default=uuid.uuid4, unique=True)
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'), nullable=False)
     post_body = db.Column(db.String(540), nullable=False)
-    posted_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
-    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
+    posted_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
+    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
     owner = db.relationship("User", back_populates="posts")
     comments = db.relationship("Comment", back_populates="post", cascade="all, delete")

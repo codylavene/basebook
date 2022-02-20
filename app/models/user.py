@@ -1,4 +1,7 @@
+from datetime import datetime
 from .db import db
+from sqlalchemy.dialects.postgresql import UUID
+import uuid
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
@@ -12,12 +15,14 @@ class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
+    uuid = db.Column(UUID(as_uuid=True), nullable=False, default=uuid.uuid4, unique=True)
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
     contact = db.Column(db.String(255), nullable=False, unique=True)
     birthdate = db.Column(db.Date, nullable=False)
     gender = db.Column(db.String, nullable=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    joined_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
     friends = db.relationship("User",
     secondary=friends,
     primaryjoin=friends.c.friend1_id == id,
