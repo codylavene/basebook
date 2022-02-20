@@ -17,6 +17,7 @@ class Like(db.Model):
             'id': self.id,
             'user_id': self.user_id,
             'post_id': self.post_id,
+            'liked': self.liked
         }
     def to_frontend_dict(self):
         user = User.query.get(self.user_id)
@@ -26,4 +27,5 @@ class Like(db.Model):
             'user_id': self.user_id,
             'name': name,
             'post_id': self.post_id,
+            'liked': self.liked
         }

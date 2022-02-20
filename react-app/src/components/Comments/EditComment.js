@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import * as postActions from "../../store/posts";
+import * as commentActions from "../../store/comments";
 const EditComment = ({ setShowEdit, post, comment }) => {
 	const dispatch = useDispatch();
 	const [newComment, setNewComment] = useState(comment.comment_body);
@@ -10,13 +11,14 @@ const EditComment = ({ setShowEdit, post, comment }) => {
 		if (newComment.length > 1 && newComment.length < 280) {
 			setLoading(true);
 			await dispatch(
-				postActions.editComment(newComment, post.id, comment.id)
+				commentActions.editComment(newComment, post.id, comment.id)
 			);
 			await dispatch(postActions.getPosts());
-
-			setNewComment("");
-			setLoading(false);
-			setShowEdit(false);
+			setTimeout(() => {
+				setNewComment("");
+				setLoading(false);
+				setShowEdit(false);
+			}, 200);
 		}
 	};
 	const handleEsc = async () => {
