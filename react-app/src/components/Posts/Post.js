@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import AddComment from "../Comments/AddComment";
@@ -11,6 +11,7 @@ import * as likeActions from "../../store/likes";
 
 const Post = ({ post, comments, likes }) => {
 	const dispatch = useDispatch();
+	const commentRef = useRef(null);
 	const [showComments, setShowComments] = useState(false);
 	const [showButtons, setShowButtons] = useState(false);
 	const curr_user = useSelector((state) => state.session.user);
@@ -38,7 +39,9 @@ const Post = ({ post, comments, likes }) => {
 			setLikeId(id);
 		}
 	};
-
+	const focusComment = (e) => {
+		commentRef.current.focus();
+	};
 	return (
 		<div className="single-post-container">
 			{curr_user.id === post.user_id && (
@@ -116,11 +119,11 @@ const Post = ({ post, comments, likes }) => {
 					></i>{" "}
 					{"Like"}
 				</div>
-				<div className="comment-action action">
+				<div className="comment-action action" onClick={focusComment}>
 					<i className="fa-regular fa-message"></i> Comment
 				</div>
 			</div>
-			<AddComment post={post} />
+			<AddComment post={post} commentRef={commentRef} />
 		</div>
 	);
 };

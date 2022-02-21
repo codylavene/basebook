@@ -15,18 +15,16 @@ const set = (user) => ({
 // const removeProfile = () => ({
 // 	type: REMOVE_PROFILE,
 // });
-export const loadAllProfiles = () => async (dispatch) => {
-	const res = await fetch(`/api/users/`);
-	const users = await res.json();
-	load(users);
-	return users;
-};
+// export const loadAllProfiles = () => async (dispatch) => {
+// 	const res = await fetch(`/api/users/`);
+// 	const users = await res.json();
+// 	load(users);
+// 	return users;
+// };
 export const loadProfile = (id) => async (dispatch) => {
-	if (!id) {
-		return;
-	}
 	const res = await fetch(`/api/users/${id}`);
 	const user = await res.json();
+	console.log(user);
 	set(user);
 	return user;
 };
@@ -38,14 +36,14 @@ export default function reducer(state = initialState, action) {
 		case SET_PROFILE: {
 			return action.user;
 		}
-		case LOAD_ALL_PROFILES: {
-			const newState = { ...state };
-			newState.allProfiles = action.users.reduce((users, user) => {
-				users[user.id] = user;
-				return users;
-			}, {});
-			return newState;
-		}
+		// case LOAD_ALL_PROFILES: {
+		// 	const newState = { ...state };
+		// 	newState.allProfiles = action.users.reduce((users, user) => {
+		// 		users[user.id] = user;
+		// 		return users;
+		// 	}, {});
+		// 	return newState;
+		// }
 		default:
 			return state;
 	}

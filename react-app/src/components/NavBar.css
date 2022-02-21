@@ -217,3 +217,10 @@ nav > div > a {
 	background-color: var(--like-comment-hover);
 	cursor: pointer;
 }
+.user-menu--grid.inactive {
+	color: rgba(0, 0, 0, 0.2);
+	background-color: rgba(0, 0, 0, 0.1);
+}
+.user-menu--grid.inactive:hover {
+	cursor: not-allowed;
+}

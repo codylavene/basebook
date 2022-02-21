@@ -63,16 +63,10 @@ const NavBar = () => {
 							</div>
 						</div>
 					</NavLink>
-
-					<div className="user-menu--grid">
-						<i className="fa-solid fa-ellipsis-vertical"></i>
-						<i className="fa-solid fa-ellipsis-vertical"></i>
-						<i className="fa-solid fa-ellipsis-vertical"></i>
-					</div>
-					<div className="user-menu--grid">
+					<div className="user-menu--grid inactive">
 						<i className="fa-brands fa-facebook-messenger"></i>
 					</div>
-					<div className="user-menu--grid">
+					<div className="user-menu--grid inactive">
 						<i className="fa-solid fa-bell"></i>
 					</div>
 					<div

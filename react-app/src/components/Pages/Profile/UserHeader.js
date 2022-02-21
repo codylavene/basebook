@@ -1,42 +1,48 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as requestActions from "../../../store/requests";
 
-const UserHeader = ({ user }) => {
+const UserHeader = ({ user, sent_reqs, rec_reqs }) => {
 	const dispatch = useDispatch();
+	// const actionRef = useRef();
 	const curr_user = useSelector((state) => state.session.user);
-	const requestsObj = useSelector((state) => state.requests.requests);
-	const sent_requests = Object.values(requestsObj.sent);
-	const rec_requests = Object.values(requestsObj.received);
-	// const received = useSelector((state) => state.requests.requests.received);
-	const [notFriend, setNotFriend] = useState(false);
 	const [friend, setFriend] = useState(false);
 	const [pendingFriend, setPendingFriend] = useState(false);
-	useEffect(() => {
-		dispatch(requestActions.getRequests());
-	}, []);
-	console.log(user);
-	console.log(sent_requests);
+	// useEffect(() => {
+	// 	dispatch(requestActions.getRequests());
+	// }, []);
+	console.log(sent_reqs);
+	console.log(rec_reqs);
 	const sendRequest = async () => {
 		await dispatch(requestActions.sendRequest(user.id));
 		dispatch(requestActions.getRequests());
+		setPendingFriend(true);
 	};
 	let action;
-	useEffect(() => {
-		const reqCheck = () => {
-			console.log(sent_requests);
-			sent_requests.forEach((req) => {
-				if (req.receiver_id === user.id) {
-					action = <button>pending</button>;
-					return;
-				}
-			});
-			if (!action) {
-				action = <button onClick={sendRequest}>add friend</button>;
-			}
-		};
-		reqCheck();
-	}, []);
+	// const reqCheck = () => {
+	// 	sent_reqs.forEach((req) => {
+	// 		if (req.receiver_id === user.id) {
+	// 			setPendingFriend(true);
+	// 			action = <button>Pending</button>;
+	// 			return;
+	// 		}
+	// 	});
+	// 	if (!pendingFriend) {
+	// 		curr_user.friends.forEach((friend) => {
+	// 			if (friend.id === user.id) {
+	// 				console.log(friend);
+	// 				setFriend(true);
+	// 				action = <button>Friends</button>;
+	// 				return;
+	// 			}
+	// 		});
+	// 	}
+	// 	if (!pendingFriend && !friend) {
+	// 		action = <button>Add Friend</button>;
+	// 	}
+	// };
+
+	// reqCheck();
 
 	return (
 		<div className="user-header--container">
