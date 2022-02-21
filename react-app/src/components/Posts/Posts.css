@@ -5,6 +5,7 @@
 	justify-content: center;
 	align-items: center;
 	background-color: var(--main-page-bg);
+	margin-top: 55px;
 }
 
 .single-post-container {
@@ -25,11 +26,14 @@
 	font-size: 16px;
 	font-weight: 300;
 }
-.single-post-container > .comments-count {
+.single-post-container > .like-comment-count {
 	width: 100%;
+	display: flex;
+	justify-content: space-between;
 	text-align: right;
 	font-size: 14px;
 	margin-bottom: 10px;
+	margin-top: 20px;
 	color: var(--secondary-text);
 }
 .main-posts--wrapper {

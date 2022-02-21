@@ -6,36 +6,85 @@ nav {
 	height: fit-content;
 }
 
-nav > ul {
+nav {
 	display: flex;
 	justify-content: space-between;
 	list-style: none;
 	align-items: center;
 	height: fit-content;
-	padding: 0px 20px;
+	padding: 0px 10px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
 }
-nav > ul > li > a {
+nav > div {
+	display: flex;
+	align-items: center;
+	width: 100%;
+}
+nav > div.nav-left--wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+}
+nav > div.nav-mid--wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+nav > div.nav-end--wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	position: relative;
+}
+nav > div.nav-end--wrapper > div {
+	margin: 0 5px;
+}
+nav > div > a {
 	text-decoration: none;
 	color: var(--primary-text);
 }
-.logo-b--container,
-.logo-b--container > svg {
-	height: 40px;
-	width: 40px;
-}
+
 .logo-b--container,
 .logo-b {
 	width: 40px;
-	margin: 4px 0px 2px 0px;
 }
-.fa-solid.fa-users {
+.logo-b--container {
+	margin-right: 12px;
+	margin-left: -2px;
+}
+
+.search--container {
+	width: fit-content;
+	height: 40px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-radius: 40px;
+	padding: 20px;
+	padding-left: 15px;
+	background-color: var(--splash-bg);
+	color: var(--secondary-text);
+}
+.search--container > label > input {
+	background-color: var(--splash-bg);
+	border: none;
+	padding-left: 10px;
+	width: 250px;
+	font-size: 15px;
+	outline: none;
+}
+.nav-btn--wrapper > i {
 	padding: 4px 3px;
 	/* border: 2px solid var(--secondary-text); */
 	color: var(--secondary-text);
 	border-radius: 50%;
 }
 .nav-btn--wrapper {
-	height: 50px;
+	height: 44px;
 	width: 100px;
 	display: flex;
 	align-items: center;
@@ -50,7 +99,7 @@ nav > ul > li > a {
 .nav-btn--container {
 	display: flex;
 	align-items: center;
-	height: 56px;
+	height: 54px;
 	margin: 0 10px;
 }
 .active > div {
@@ -61,14 +110,110 @@ nav > ul > li > a {
 	color: var(--main-blue) !important;
 	/* margin-bottom: -4px; */
 }
-
+.user-profile-link--container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 4px 10px 4px 4px;
+	border-radius: 40px;
+}
+.user-profile-link--container:hover {
+	background-color: var(--splash-bg);
+	cursor: pointer;
+}
 .user-menu--drop {
+	position: relative;
+}
+.user-menu--drop,
+.user-menu--grid {
 	width: 40px;
 	height: 40px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: var(--splash-bg);
+	background-color: var(--secondary-btn-bg);
 	padding: 15px;
 	border-radius: 50%;
+}
+.user-menu--grid {
+	justify-content: space-around;
+	font-size: 22px;
+	letter-spacing: 1.5px;
+}
+
+.image-placeholder.nav-user-image {
+	width: 28px;
+	height: 28px;
+}
+.user-menu--drop:hover,
+.user-menu--grid:hover {
+	background-color: var(--secondary-btn-hover);
+	cursor: pointer;
+}
+
+.nav-dropdown {
+	width: 360px;
+	height: 430px;
+	position: absolute;
+	box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+	background-color: var(--main-white);
+	border-radius: 10px;
+	top: 43px;
+	right: 0;
+	padding: 10px;
+}
+.nav-dropdown > a {
+	text-decoration: none;
+	color: var(--primary-text);
+}
+.nav-dropdown > a > .nav-link-to-curr_user {
+	padding: 8px;
+	display: flex;
+	align-items: center;
+
+	font-size: 18px;
+	/* padding: 0px 0px 16px; */
+
+	margin-bottom: 10px;
+	text-decoration: none;
+	border-radius: 7px;
+}
+.nav-dropdown > a > .nav-link-to-curr_user:hover {
+	background-color: var(--like-comment-hover);
+}
+.nav-dropdown > a > .nav-link-to-curr_user > .image-placeholder {
+	width: 60px;
+	height: 60px;
+}
+.nav-dropdown > a > .nav-link-to-curr_user > .user-name {
+	display: flex;
+	flex-direction: column;
+}
+.nav-dropdown > a > .nav-link-to-curr_user > .user-name > span {
+	font-size: 15px;
+	padding-top: 2px;
+	color: var(--secondary-text);
+}
+.nav-dropdown > .drop--actions {
+	border-top: 1px solid #ced0d4;
+	padding: 10px 0px;
+}
+.nav-dropdown > .drop--actions > .logout-btn {
+	width: 100%;
+	height: 52px;
+	background-color: var(--main-white);
+	border: none;
+	font-size: 17px;
+	text-align: left;
+	border-radius: 7px;
+}
+.nav-dropdown > .drop--actions > .logout-btn > i {
+	padding: 10px;
+	background-color: var(--secondary-btn-bg);
+	border-radius: 50%;
+	margin-right: 20px;
+}
+.nav-dropdown > .drop--actions > .logout-btn:hover {
+	background-color: var(--like-comment-hover);
+	cursor: pointer;
 }

@@ -1,28 +1,39 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import CreatePostModal from "../../Posts/CreatePostModal";
+import * as profileActions from "../../../store/profile";
+import * as commentActions from "../../../store/comments";
+import * as likeActions from "../../../store/likes";
 import Post from "../../Posts/Post";
 
-function User() {
-	const [user, setUser] = useState({});
+function User({ user }) {
+	const dispatch = useDispatch();
+	// const [user, setUser] = useState(user);
 	const { userId } = useParams();
 	const curr_user = useSelector((state) => state.session.user);
+
+	const comments = useSelector((state) => state.comments.comments);
+	const likesObj = useSelector((state) => state.likes.likes);
 	useEffect(() => {
-		if (!userId) {
-			return;
-		}
+		dispatch(profileActions.loadProfile(userId));
+		// dispatch(commentActions.getComments());
+	}, [user.posts, dispatch, userId]);
+	// useEffect(() => {
+	// 	dispatch(commentActions.getComments());
+	// });
+	useEffect(() => {
 		(async () => {
-			const response = await fetch(`/api/users/${userId}`);
-			const user = await response.json();
-			setUser(user);
+			// dispatch(commentActions.getComments());
+			dispatch(likeActions.getLikes());
 		})();
-	}, [userId]);
+	}, []);
 	const message =
 		curr_user.id === +userId
 			? "What's on your mind?"
-			: `Write something to ${user.first_name}...`;
+			: `Write something to ${user?.first_name}...`;
 	if (!user) {
+		console.log("NOPE");
 		return null;
 	}
 
@@ -43,10 +54,7 @@ function User() {
 				<div className="create-post--container">
 					<div className="create-post--wrapper">
 						<div className="image-placeholder"></div>
-						<CreatePostModal
-							user={curr_user}
-							message={`What's on your mind, ${curr_user.first_name}?`}
-						/>
+						<CreatePostModal user={user} message={message} />
 					</div>
 				</div>
 				{user?.posts?.length > 0 &&
@@ -55,7 +63,18 @@ function User() {
 							(a, b) =>
 								new Date(b.posted_at) - new Date(a.posted_at)
 						)
-						.map((post) => <Post post={post} key={post.id} />)}
+						.map((post) => (
+							<Post
+								post={post}
+								key={post.id}
+								comments={
+									comments[post.id] ? comments[post.id] : {}
+								}
+								likes={
+									likesObj[post.id] ? likesObj[post.id] : {}
+								}
+							/>
+						))}
 			</div>
 		</div>
 	);

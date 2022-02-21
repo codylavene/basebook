@@ -1,15 +1,21 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import * as commentActions from "../../store/comments";
 import * as postActions from "../../store/posts";
 const AddComment = ({ post }) => {
 	const dispatch = useDispatch();
 	const [comment, setComment] = useState("");
+	const [loading, setLoading] = useState(false);
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		if (comment.length > 1 && comment.length < 280) {
-			await dispatch(postActions.addComment(post.id, comment));
-			dispatch(postActions.getPosts());
-			setComment("");
+			setLoading(true);
+			await dispatch(commentActions.addComment(post.id, comment));
+			dispatch(commentActions.getComments());
+			setTimeout(() => {
+				setComment("");
+				setLoading(false);
+			}, 200);
 		}
 	};
 	return (
@@ -23,7 +29,13 @@ const AddComment = ({ post }) => {
 					value={comment}
 					onChange={(e) => setComment(e.target.value)}
 				></input>
-				<button className="add-comment--btn">Submit</button>
+				<button className="add-comment--btn">
+					{loading ? (
+						<i className="fa-solid fa-spinner fa-spin-pulse"></i>
+					) : (
+						"Submit"
+					)}
+				</button>
 			</form>
 		</div>
 	);
