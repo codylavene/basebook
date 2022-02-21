@@ -5,24 +5,25 @@ from .db import db
 class Request(db.Model):
     __tablename__ = "requests"
     id = db.Column(db.Integer, primary_key=True)
-    requester_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    requested_id=  db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    sender_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    receiver_id=  db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     is_approved = db.Column(db.Boolean, nullable=False, default=False)
 
-    requester = db.relationship("User", foreign_keys=[requester_id])
-    requested = db.relationship("User", foreign_keys=[requested_id])
+    sender = db.relationship("User", foreign_keys=[sender_id])
+    receiver = db.relationship("User", foreign_keys=[receiver_id])
 
     def to_dict(self):
         return {
-            'requester_id': self.requester_id,
-            'requested_id': self.requested_id,
-            'is_approved': self.is_approved
+            'id': self.id,
+            'sender_id': self.sender_id,
+            'receiver_id': self.receiver_id,
+            'is_approved': self.is_approved,
+            'sender': self.sender.to_frontend_dict(),
+            'receiver': self.receiver.to_frontend_dict(),
         }
     def to_frontend_dict(self):
         return {
-            'requester_id': self.requester_id,
-            'requested_id': self.requested_id,
+            'sender_id': self.sender_id,
+            'receiver_id': self.receiver_id,
             'is_approved': self.is_approved,
-            'requester': self.requester.to_dict(),
-            'requested': self.requested.to_dict(),
         }

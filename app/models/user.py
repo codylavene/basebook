@@ -61,8 +61,8 @@ class User(db.Model, UserMixin):
         posts = [post.to_frontend_dict() for post in user_posts]
         user_likes = Like.query.filter(Like.user_id == self.id).all()
         likes = [like.to_dict() for like in user_likes]
-        rec_requests = Request.query.filter(Request.requested_id == self.id).all()
-        sent_requests = Request.query.filter(Request.requester_id == self.id).all()
+        rec_requests = Request.query.filter(Request.receiver_id == self.id).all()
+        sent_requests = Request.query.filter(Request.sender_id == self.id).all()
         return {
             'id': self.id,
             'first_name': self.first_name,
