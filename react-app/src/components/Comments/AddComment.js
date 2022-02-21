@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import * as commentActions from "../../store/comments";
 import * as postActions from "../../store/posts";

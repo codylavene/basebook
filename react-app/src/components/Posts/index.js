@@ -16,6 +16,7 @@ const Posts = (props) => {
 	console.log(likesObj);
 	// console.log(Array.isArray(Object.entries(commentsObj)));
 	// const comments = commentsObj[post.id];
+	document.title = "basebook";
 	const posts = Object.values(postsObj);
 	useEffect(() => {
 		(async () => {

@@ -7,22 +7,25 @@ import { useDispatch, useSelector } from "react-redux";
 import * as profileActions from "../../../store/profile";
 import * as commentActions from "../../../store/comments";
 const Profile = (props) => {
+	const curr_profile = useSelector((state) => state.profile.profile);
 	const dispatch = useDispatch();
 	const [user, setUser] = useState({});
 	const { userId } = useParams();
-	const curr_profile = useSelector((state) => state.profile.profile);
 	const comments = useSelector((state) => state.comments.comments);
-	useEffect(() => {
-		dispatch(commentActions.getComments());
-		setUser(curr_profile);
-	}, []);
+	// useEffect(() => {
+	// 	setUser(curr_profile);
+	// }, []);
 	useEffect(() => {
 		const getUser = async () => {
 			const user = await dispatch(profileActions.loadProfile(userId));
+			console.log(user);
+			console.log(document.title);
+			dispatch(commentActions.getComments());
 			setUser(user);
 		};
 		getUser();
 	}, []);
+	document.title = `${user?.full_name} | basebook`;
 
 	if (!user) {
 		return null;
