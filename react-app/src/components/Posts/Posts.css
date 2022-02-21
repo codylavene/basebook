@@ -5,6 +5,7 @@
 	justify-content: center;
 	align-items: center;
 	background-color: var(--main-page-bg);
+	margin-top: 55px;
 }
 
 .single-post-container {

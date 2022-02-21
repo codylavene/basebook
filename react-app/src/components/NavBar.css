@@ -13,6 +13,11 @@ nav {
 	align-items: center;
 	height: fit-content;
 	padding: 0px 10px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
 }
 nav > div {
 	display: flex;
@@ -33,6 +38,7 @@ nav > div.nav-end--wrapper {
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;
+	position: relative;
 }
 nav > div.nav-end--wrapper > div {
 	margin: 0 5px;
@@ -115,6 +121,9 @@ nav > div > a {
 	background-color: var(--splash-bg);
 	cursor: pointer;
 }
+.user-menu--drop {
+	position: relative;
+}
 .user-menu--drop,
 .user-menu--grid {
 	width: 40px;
@@ -139,5 +148,72 @@ nav > div > a {
 .user-menu--drop:hover,
 .user-menu--grid:hover {
 	background-color: var(--secondary-btn-hover);
+	cursor: pointer;
+}
+
+.nav-dropdown {
+	width: 360px;
+	height: 430px;
+	position: absolute;
+	box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+	background-color: var(--main-white);
+	border-radius: 10px;
+	top: 43px;
+	right: 0;
+	padding: 10px;
+}
+.nav-dropdown > a {
+	text-decoration: none;
+	color: var(--primary-text);
+}
+.nav-dropdown > a > .nav-link-to-curr_user {
+	padding: 8px;
+	display: flex;
+	align-items: center;
+
+	font-size: 18px;
+	/* padding: 0px 0px 16px; */
+
+	margin-bottom: 10px;
+	text-decoration: none;
+	border-radius: 7px;
+}
+.nav-dropdown > a > .nav-link-to-curr_user:hover {
+	background-color: var(--like-comment-hover);
+}
+.nav-dropdown > a > .nav-link-to-curr_user > .image-placeholder {
+	width: 60px;
+	height: 60px;
+}
+.nav-dropdown > a > .nav-link-to-curr_user > .user-name {
+	display: flex;
+	flex-direction: column;
+}
+.nav-dropdown > a > .nav-link-to-curr_user > .user-name > span {
+	font-size: 15px;
+	padding-top: 2px;
+	color: var(--secondary-text);
+}
+.nav-dropdown > .drop--actions {
+	border-top: 1px solid #ced0d4;
+	padding: 10px 0px;
+}
+.nav-dropdown > .drop--actions > .logout-btn {
+	width: 100%;
+	height: 52px;
+	background-color: var(--main-white);
+	border: none;
+	font-size: 17px;
+	text-align: left;
+	border-radius: 7px;
+}
+.nav-dropdown > .drop--actions > .logout-btn > i {
+	padding: 10px;
+	background-color: var(--secondary-btn-bg);
+	border-radius: 50%;
+	margin-right: 20px;
+}
+.nav-dropdown > .drop--actions > .logout-btn:hover {
+	background-color: var(--like-comment-hover);
 	cursor: pointer;
 }

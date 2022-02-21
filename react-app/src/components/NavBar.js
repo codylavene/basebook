@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import LogoutButton from "./auth/LogoutButton";
 // import { ReactComponent as b } from "../assets/images/b.svg";
 import b from "../assets/images/b.png";
 import "./NavBar.css";
 const NavBar = () => {
+	const [drop, setShowDrop] = useState(false);
+
 	const curr_user = useSelector((state) => state.session.user);
 	return (
 		<div className="nav--container">
@@ -73,10 +75,28 @@ const NavBar = () => {
 					<div className="user-menu--grid">
 						<i className="fa-solid fa-bell"></i>
 					</div>
-					<div className="user-menu--drop">
+					<div
+						className="user-menu--drop"
+						onClick={() => setShowDrop(!drop)}
+					>
 						<i className="fa-solid fa-caret-down"></i>
+						{drop && (
+							<div className="nav-dropdown">
+								<Link to={`/users/${curr_user.id}`}>
+									<div className="nav-link-to-curr_user">
+										<div className="image-placeholder"></div>
+										<div className="user-name">
+											{curr_user.full_name}
+											<span>See your profile</span>
+										</div>
+									</div>
+								</Link>
+								<div className="drop--actions">
+									<LogoutButton />
+								</div>
+							</div>
+						)}
 					</div>
-					{/* <LogoutButton /> */}
 				</div>
 			</nav>
 		</div>

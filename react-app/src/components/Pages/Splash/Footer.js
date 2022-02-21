@@ -29,7 +29,7 @@ const Footer = (props) => {
 				</div>
 				<div className="footer--mid-text">
 					<div className="footer--links">
-						<div>Other apps by me:</div>
+						<div>Check out my other projects!</div>
 						<a
 							href="https://udderly-forgetful.herokuapp.com/"
 							target="_blank"
