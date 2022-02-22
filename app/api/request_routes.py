@@ -30,20 +30,13 @@ def send_request(user_id):
 @request_routes.route('/<int:req_id>/accept/<int:user_id>', methods=['POST'])
 @login_required
 def accept_request(req_id, user_id):
-    click.echo(click.style(f"\n\n\n{1}\n\n", bg='green', fg='white'))
     request = Request.query.filter(Request.id == req_id).first()
-    click.echo(click.style(f"\n\n\n{2}\n\n", bg='green', fg='white'))
     user1 = current_user
-    click.echo(click.style(f"\n\n\n{3}\n\n", bg='green', fg='white'))
     user2 = User.query.filter(User.id == user_id).first()
-    click.echo(click.style(f"\n\n\n{4}\n\n", bg='green', fg='white'))
     user1.friends.append(user2)
-    click.echo(click.style(f"\n\n\n{5}\n\n", bg='green', fg='white'))
     user2.friends.append(user1)
     db.session.delete(request)
-    click.echo(click.style(f"\n\n\n{6}\n\n", bg='green', fg='white'))
     db.session.commit()
-    click.echo(click.style(f"\n\n\n{7}\n\n", bg='green', fg='white'))
     return {'request': request.to_frontend_dict()}
 
 
@@ -51,7 +44,7 @@ def accept_request(req_id, user_id):
 @login_required
 def decline_request(req_id):
     request = Request.query.filter(Request.id == req_id).first()
-    click.echo(click.style(f"\n\n\n{request.id}\n\n", bg='red', fg='white'))
+    click.echo(click.style(f"\n\n\n{request.to_frontend_dict()}\n\n", bg='red', fg='white'))
     db.session.delete(request)
     db.session.commit()
     return {'request': request.to_frontend_dict()}

@@ -5,8 +5,10 @@ import LogoutButton from "./auth/LogoutButton";
 // import { ReactComponent as b } from "../assets/images/b.svg";
 import b from "../assets/images/b.png";
 import "./NavBar.css";
+import Requests from "./Pages/Profile/Requests";
 const NavBar = () => {
-	const [drop, setShowDrop] = useState(false);
+	const [userDrop, setShowUserDrop] = useState(false);
+	const [notifyDrop, setShowNotifyDrop] = useState(false);
 
 	const curr_user = useSelector((state) => state.session.user);
 	return (
@@ -66,15 +68,23 @@ const NavBar = () => {
 					<div className="user-menu--grid inactive">
 						<i className="fa-brands fa-facebook-messenger"></i>
 					</div>
-					<div className="user-menu--grid inactive">
+					<div
+						className="user-menu--grid"
+						onClick={() => setShowNotifyDrop(!notifyDrop)}
+					>
 						<i className="fa-solid fa-bell"></i>
+						{notifyDrop && (
+							<div className="nav-dropdown">
+								<Requests />
+							</div>
+						)}
 					</div>
 					<div
 						className="user-menu--drop"
-						onClick={() => setShowDrop(!drop)}
+						onClick={() => setShowUserDrop(!userDrop)}
 					>
 						<i className="fa-solid fa-caret-down"></i>
-						{drop && (
+						{userDrop && (
 							<div className="nav-dropdown">
 								<Link to={`/users/${curr_user.id}`}>
 									<div className="nav-link-to-curr_user">

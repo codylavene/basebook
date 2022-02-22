@@ -26,6 +26,7 @@ const Profile = (props) => {
 	console.log(sent_reqs);
 	console.log(rec_reqs);
 	const comments = useSelector((state) => state.comments.comments);
+
 	useEffect(() => {
 		dispatch(requestActions.getRequests());
 	}, [dispatch]);
@@ -36,7 +37,7 @@ const Profile = (props) => {
 			setUser(user);
 		};
 		getUser();
-	}, []);
+	}, [userId]);
 	document.title = `${user?.full_name} | basebook`;
 	useEffect(() => {
 		setLoading(true);
@@ -88,11 +89,11 @@ const Profile = (props) => {
 						<Route path="/users/:userId/friends">
 							<Friends user={user} />
 						</Route>
-						<Route path="/users/:userId/requests">
+						{/* <Route path="/users/:userId/requests">
 							{curr_user.id === user.id && (
 								<Requests user={user} rec_requests={rec_reqs} />
 							)}
-						</Route>
+						</Route> */}
 					</Switch>
 				</div>
 			)}

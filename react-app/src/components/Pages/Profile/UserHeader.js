@@ -24,6 +24,17 @@ const UserHeader = ({
 		dispatch(requestActions.getRequests());
 		setIsPendingFriend(true);
 	};
+	const declineRequest = async () => {
+		console.log(sent_reqs);
+		const req = Object.values(sent_reqs).find(
+			(req) =>
+				req.sender_id === curr_user.id && req.receiver_id === user.id
+		);
+		console.log(req);
+		await dispatch(requestActions.declineRequest(req.id));
+		dispatch(requestActions.getRequests());
+		setIsPendingFriend(false);
+	};
 
 	return (
 		<div className="user-header--container">
@@ -41,11 +52,24 @@ const UserHeader = ({
 					<div className="friend-status--btn">
 						{curr_user.id !== user.id &&
 							(isPendingFriend ? (
-								<button>Pending</button>
+								<button onClick={declineRequest}>
+									<i className="fa-solid fa-user-xmark"></i>{" "}
+									Cancel Request
+								</button>
 							) : isFriend ? (
-								<button>Friends</button>
+								<button>
+									<i className="fa-solid fa-user-check"></i>{" "}
+									Friends
+								</button>
 							) : (
-								<button onClick={sendRequest}>
+								<button
+									onClick={sendRequest}
+									style={{
+										backgroundColor: "var(--main-blue)",
+										color: "var(--main-white)",
+									}}
+								>
+									<i className="fa-solid fa-user-plus"></i>{" "}
 									Add Friend
 								</button>
 							))}

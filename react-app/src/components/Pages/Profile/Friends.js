@@ -7,7 +7,7 @@ const Friends = ({ user }) => {
 			<Link to={`/users/${user.id}/requests`}>Friend Requests</Link>
 			<div>
 				{user.friends?.length > 0 &&
-					user.friends.map((friend) => <h2>{friend.full_name}</h2>)}
+					user.friends.map((friend) => <h2>{friend.id}</h2>)}
 			</div>
 		</>
 	);

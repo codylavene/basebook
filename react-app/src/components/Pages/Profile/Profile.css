@@ -155,7 +155,22 @@
 	cursor: pointer;
 }
 .friend-status--btn {
-	border: 1px solid red;
+	width: fit-content;
+	height: fit-content;
 	position: absolute;
 	right: 15%;
+}
+.friend-status--btn > button {
+	width: fit-content;
+	padding: 3px 12px;
+	height: 40px;
+	border: none;
+	font-size: 16px;
+	font-weight: 500;
+	background-color: var(--secondary-btn-bg);
+	border-radius: 7px;
+}
+.friend-status--btn > button:hover {
+	background-color: var(--secondary-btn-hover);
+	cursor: pointer;
 }
