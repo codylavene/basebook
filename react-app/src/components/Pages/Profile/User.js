@@ -5,24 +5,26 @@ import CreatePostModal from "../../Posts/CreatePostModal";
 import * as profileActions from "../../../store/profile";
 import * as commentActions from "../../../store/comments";
 import * as likeActions from "../../../store/likes";
+import * as postActions from "../../../store/posts";
 import Post from "../../Posts/Post";
 
-function User({ user }) {
+function User({ user, posts }) {
 	const dispatch = useDispatch();
 	// const [user, setUser] = useState(user);
 	const { userId } = useParams();
 	const curr_user = useSelector((state) => state.session.user);
-	const posts = useSelector((state) => state.session.posts);
+	const allPosts = useSelector((state) => state.session.posts);
 	console.log(posts);
+	console.log(allPosts);
 	const comments = useSelector((state) => state.comments.comments);
 	const likes = useSelector((state) => state.likes.likes);
 	useEffect(() => {
 		dispatch(profileActions.loadProfile(userId));
 		// dispatch(commentActions.getComments());
 	}, [dispatch, userId]);
-	// useEffect(() => {
-	// 	dispatch(commentActions.getComments());
-	// });
+	useEffect(() => {
+		dispatch(postActions.getPosts());
+	}, []);
 	useEffect(() => {
 		(async () => {
 			// dispatch(commentActions.getComments());
@@ -33,7 +35,7 @@ function User({ user }) {
 	// 	curr_user.id === +userId
 	// 		? "What's on your mind?"
 	// 		: `Write something to ${user?.first_name}...`;
-	if (!user) {
+	if (!Object.values(user).length) {
 		console.log("NOPE");
 		return null;
 	}
@@ -52,7 +54,7 @@ function User({ user }) {
 				</div>
 			</div>
 			<div className="profile-posts--container">
-				{user.posts?.length > 0 &&
+				{user.posts.length > 0 &&
 					user.posts
 						// ?.sort(
 						// 	(a, b) =>
@@ -60,10 +62,10 @@ function User({ user }) {
 						// )
 						.map((id) => (
 							<Post
-								post={posts[id]}
+								post={allPosts[id]}
 								key={id}
-								// comments={post.comments}
-								likes={posts[id].likes}
+								comments={allPosts[id].comments}
+								likes={allPosts[id].likes}
 							/>
 						))}
 			</div>

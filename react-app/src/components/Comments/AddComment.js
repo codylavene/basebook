@@ -11,7 +11,7 @@ const AddComment = ({ post, commentRef }) => {
 		if (comment.length > 1 && comment.length < 280) {
 			setLoading(true);
 			await dispatch(commentActions.addComment(post.id, comment));
-			// dispatch(commentActions.getComments());
+			dispatch(postActions.getPosts());
 			setTimeout(() => {
 				setComment("");
 				setLoading(false);

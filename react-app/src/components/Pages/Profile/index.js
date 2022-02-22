@@ -35,6 +35,7 @@ const Profile = (props) => {
 			const user = await dispatch(profileActions.loadProfile(userId));
 			dispatch(commentActions.getComments());
 			setUser(user);
+			console.log(user);
 		};
 		getUser();
 	}, []);
