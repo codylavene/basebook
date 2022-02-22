@@ -36,14 +36,14 @@ export default function reducer(state = initialState, action) {
 		case SET_PROFILE: {
 			return action.user;
 		}
-		// case LOAD_ALL_PROFILES: {
-		// 	const newState = { ...state };
-		// 	newState.allProfiles = action.users.reduce((users, user) => {
-		// 		users[user.id] = user;
-		// 		return users;
-		// 	}, {});
-		// 	return newState;
-		// }
+		case LOAD_ALL_PROFILES: {
+			const newState = { ...state };
+			newState.allProfiles = action.users.reduce((users, user) => {
+				users[user.id] = user;
+				return users;
+			}, {});
+			return newState;
+		}
 		default:
 			return state;
 	}

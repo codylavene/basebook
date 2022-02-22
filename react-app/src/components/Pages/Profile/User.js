@@ -13,12 +13,13 @@ function User({ user }) {
 	const { userId } = useParams();
 	const curr_user = useSelector((state) => state.session.user);
 	const posts = useSelector((state) => state.session.posts);
+	console.log(posts);
 	const comments = useSelector((state) => state.comments.comments);
 	const likes = useSelector((state) => state.likes.likes);
 	useEffect(() => {
 		dispatch(profileActions.loadProfile(userId));
 		// dispatch(commentActions.getComments());
-	}, [user.posts, dispatch, userId]);
+	}, [dispatch, userId]);
 	// useEffect(() => {
 	// 	dispatch(commentActions.getComments());
 	// });
@@ -51,7 +52,7 @@ function User({ user }) {
 				</div>
 			</div>
 			<div className="profile-posts--container">
-				{user.posts.length > 0 &&
+				{user.posts?.length > 0 &&
 					user.posts
 						// ?.sort(
 						// 	(a, b) =>

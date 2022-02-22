@@ -80,7 +80,7 @@ export const deleteComment = (post_id, comment_id) => async (dispatch) => {
 		console.log("Uh Oh");
 	}
 };
-const initialState = { comments: {} };
+const initialState = { comments: {}, comment_ids: [] };
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
 		case LOAD: {
@@ -96,6 +96,7 @@ const reducer = (state = initialState, action) => {
 				// 	comments[comment.post_id][comment.id] = comment;
 				// }
 				comments[comment.id] = comment;
+				newState.comment_ids.push(comment.id);
 				return comments;
 			}, {});
 			return newState;
@@ -114,12 +115,13 @@ const reducer = (state = initialState, action) => {
 			// 		action.comment;
 			// }
 			newState.comments[action.comment.id] = action.comment;
+			newState.comment_ids.push(action.comment.id);
 			return newState;
 		}
 		case EDIT: {
 			const newState = { ...state };
 			// newState.comments[action.comment.post_id][action.comment.id] =
-			// 	action.comment;
+			// action.comment;
 			newState.comments[action.comment.id] = action.comment;
 
 			return newState;
@@ -128,6 +130,8 @@ const reducer = (state = initialState, action) => {
 			const newState = { ...state };
 			// delete newState.comments[action.comment.post_id][action.comment.id];
 			delete newState.comments[action.comment.id];
+			const i = newState.comment_ids.indexOf(action.comment.id);
+			newState.comment_ids.splice(i, 1);
 			return newState;
 		}
 

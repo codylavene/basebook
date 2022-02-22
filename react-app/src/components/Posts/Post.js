@@ -13,6 +13,7 @@ const Post = ({ post, /*comments,*/ likes }) => {
 	const dispatch = useDispatch();
 	const commentRef = useRef(null);
 	const comments = useSelector((state) => state.comments.comments);
+	const comment_ids = useSelector((state) => state.comments.comment_ids);
 	// const likesObj = useSelector((state) => state.likes.likes);
 	const [showComments, setShowComments] = useState(false);
 	const [showButtons, setShowButtons] = useState(false);
@@ -23,10 +24,7 @@ const Post = ({ post, /*comments,*/ likes }) => {
 	const [likeCount, setLikeCount] = useState(likes?.length);
 	const [likeId, setLikeId] = useState(post.liked_status?.like_id);
 	// const [beenLiked, setBeenLiked] = useState(likeId ? true : false);
-	// console.log(comments);
-	// useEffect(() => {
-	// 	dispatch(likeActions.getLikes());
-	// }, []);
+	console.log(comments);
 	const toggleLike = async () => {
 		// setLoading(true);
 		if (liked) {
@@ -41,9 +39,6 @@ const Post = ({ post, /*comments,*/ likes }) => {
 			setLikeId(id);
 			setLikeCount(likeCount + 1);
 		}
-		// setTimeout(() => {
-		// 	// setLoading(false);
-		// }, 200);
 	};
 	const focusComment = (e) => {
 		commentRef.current.focus();
@@ -78,19 +73,6 @@ const Post = ({ post, /*comments,*/ likes }) => {
 			<div className="like-comment-count">
 				<div className="likes-count">
 					<span>
-						{/* {likes[post.id] &&
-							Object.values(likes[post.id])?.length}{" "}
-						{likes[likes.id] &&
-						Object.values(likes[post.id])?.length === 1
-							? "like"
-							: "likes"} */}
-						{/* {loading ? (
-							<i className="fa-solid fa-spinner fa-spin-pulse"></i>
-						) : (
-							`${likeCount ? likeCount : "0"} ${
-								likeCount === 1 ? "like" : "likes"
-							}`
-                            )} */}
 						{likeCount ? likeCount : "0"}{" "}
 						{likeCount === 1 ? "like" : "likes"}
 					</span>

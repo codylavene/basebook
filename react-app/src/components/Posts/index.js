@@ -10,12 +10,9 @@ import "./Posts.css";
 const Posts = (props) => {
 	const dispatch = useDispatch();
 	const postsObj = useSelector((state) => state.posts.posts);
-	// const commentsObj = useSelector((state) => state.comments.comments);
-	const likesObj = useSelector((state) => state.likes.likes);
+	const commentsObj = useSelector((state) => state.comments.comments);
+	// const likesObj = useSelector((state) => state.likes.likes);
 	const curr_user = useSelector((state) => state.session.user);
-	console.log(likesObj);
-	// console.log(Array.isArray(Object.entries(commentsObj)));
-	// const comments = commentsObj[post.id];
 	document.title = "basebook";
 	const posts = Object.values(postsObj);
 	useEffect(() => {
@@ -55,10 +52,10 @@ const Posts = (props) => {
 								post={post}
 								key={post.id}
 								// comments={
-								// 	post.comments
-								// 	// commentsObj[post.id]
-								// 	// 	? commentsObj[post.id]
-								// 	// 	: {}
+								// 	// post.comments
+								// 	commentsObj[post.id]
+								// 		? commentsObj[post.id]
+								// 		: {}
 								// }
 								likes={post.likes}
 							/>

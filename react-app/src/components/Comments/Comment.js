@@ -28,7 +28,7 @@ const Comment = ({ comment, post }) => {
 				>
 					<div className="image-placeholder"></div>
 					<div className="single-comment--container">
-						<Link to={`/users/${comment?.user_id}`}>
+						<Link to={`/users/${comment.user_id}`}>
 							<div className="single-comment--name">
 								{comment.name}
 							</div>

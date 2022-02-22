@@ -22,6 +22,7 @@ const Profile = (props) => {
 	const [loading, setLoading] = useState(false);
 	const sent_reqs = useSelector((state) => state.requests.requests.sent);
 	const rec_reqs = useSelector((state) => state.requests.requests.received);
+	const posts = useSelector((state) => state.session.posts);
 	console.log(sent_reqs);
 	console.log(rec_reqs);
 	const comments = useSelector((state) => state.comments.comments);
@@ -39,7 +40,7 @@ const Profile = (props) => {
 	}, []);
 	useEffect(() => {
 		dispatch(postActions.getPosts());
-	}, [user.posts]);
+	}, [dispatch]);
 	document.title = `${user?.full_name} | basebook`;
 	useEffect(() => {
 		setLoading(true);
@@ -72,6 +73,7 @@ const Profile = (props) => {
 	if (!user) {
 		return null;
 	}
+
 	return (
 		<>
 			{!loading && (
@@ -86,16 +88,16 @@ const Profile = (props) => {
 					/>
 					<Switch>
 						<Route exact path="/users/:userId">
-							<User user={user} />
+							<User user={user} posts={posts} />
 						</Route>
 						<Route path="/users/:userId/friends">
 							<Friends user={user} />
 						</Route>
 						{/* <Route path="/users/:userId/requests">
 							{curr_user.id === user.id && (
-								<Requests user={user} rec_requests={rec_reqs} />
-							)}
-						</Route> */}
+                                <Requests user={user} rec_requests={rec_reqs} />
+                                )}
+                            </Route> */}
 					</Switch>
 				</div>
 			)}
