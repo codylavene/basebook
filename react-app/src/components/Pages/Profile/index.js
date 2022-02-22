@@ -23,25 +23,26 @@ const Profile = (props) => {
 	const sent_reqs = useSelector((state) => state.requests.requests.sent);
 	const rec_reqs = useSelector((state) => state.requests.requests.received);
 	const posts = useSelector((state) => state.session.posts);
+	const users = useSelector((state) => state.profile.allProfiles);
 	console.log(sent_reqs);
 	console.log(rec_reqs);
+	console.log({ posts });
 	const comments = useSelector((state) => state.comments.comments);
 
 	useEffect(() => {
 		dispatch(requestActions.getRequests());
+		// dispatch(postActions.getPosts());
 	}, [dispatch]);
 	useEffect(() => {
 		const getUser = async () => {
 			const user = await dispatch(profileActions.loadProfile(userId));
 			dispatch(commentActions.getComments());
 			setUser(user);
-			console.log(user);
 		};
 		getUser();
-	}, []);
-	useEffect(() => {
-		dispatch(postActions.getPosts());
-	}, [dispatch]);
+	}, [userId]);
+	console.log(user);
+	useEffect(() => {}, [dispatch]);
 	document.title = `${user?.full_name} | basebook`;
 	useEffect(() => {
 		setLoading(true);
@@ -72,6 +73,7 @@ const Profile = (props) => {
 		setLoading(false);
 	});
 	if (!user) {
+		console.log("HELLO");
 		return null;
 	}
 

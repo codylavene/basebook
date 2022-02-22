@@ -81,8 +81,8 @@ const Post = ({ post, /*comments,*/ likes }) => {
 					className="comments-count"
 					onClick={() => setShowComments(!showComments)}
 				>
-					{post.comments.length}{" "}
-					{post.comments.length === 1 ? "comment" : "comments"}
+					{post?.comments?.length}{" "}
+					{post?.comments?.length === 1 ? "comment" : "comments"}
 					{/* {Object.values(comments)?.length}{" "}
 					{Object.values(comments)?.length === 1
 						? "comment"

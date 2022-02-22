@@ -8,6 +8,7 @@ import Profile from "./components/Pages/Profile";
 import { authenticate } from "./store/session";
 import Posts from "./components/Posts";
 import SplashPage from "./components/Pages/Splash";
+import Feed from "./components/Pages/Feed";
 
 function App() {
 	const [loaded, setLoaded] = useState(false);
@@ -40,7 +41,7 @@ function App() {
 				</ProtectedRoute>
 				<ProtectedRoute path="/feed" exact={true}>
 					<NavBar />
-					<Posts />
+					<Feed />
 				</ProtectedRoute>
 			</Switch>
 		</BrowserRouter>

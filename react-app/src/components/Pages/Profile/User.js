@@ -9,22 +9,24 @@ import * as postActions from "../../../store/posts";
 import Post from "../../Posts/Post";
 
 function User({ user, posts }) {
+	console.log(user);
 	const dispatch = useDispatch();
 	// const [user, setUser] = useState(user);
-	const { userId } = useParams();
+	// const { userId } = useParams();
 	const curr_user = useSelector((state) => state.session.user);
+	// const user = useSelector((state) => state.profile.profile);
 	const allPosts = useSelector((state) => state.session.posts);
-	console.log(posts);
-	console.log(allPosts);
 	const comments = useSelector((state) => state.comments.comments);
 	const likes = useSelector((state) => state.likes.likes);
-	useEffect(() => {
-		dispatch(profileActions.loadProfile(userId));
-		// dispatch(commentActions.getComments());
-	}, [dispatch, userId]);
+	// useEffect(() => {
+	// 	dispatch(profileActions.loadProfile(userId));
+	// 	// dispatch(commentActions.getComments());
+	// }, []);
 	useEffect(() => {
 		dispatch(postActions.getPosts());
 	}, []);
+	console.log("USER JS -- USER POSTS", user.posts);
+	console.log("USER JS -- 'POSTS'", posts);
 	useEffect(() => {
 		(async () => {
 			// dispatch(commentActions.getComments());
@@ -35,11 +37,11 @@ function User({ user, posts }) {
 	// 	curr_user.id === +userId
 	// 		? "What's on your mind?"
 	// 		: `Write something to ${user?.first_name}...`;
-	if (!Object.values(user).length) {
+	if (!user) {
 		console.log("NOPE");
 		return null;
 	}
-	console.log(user.posts);
+	console.log("USER JS -- USER POSTS", user.posts);
 	return (
 		<div className="user-profile--container">
 			<div className="profile-details--container">
@@ -54,8 +56,8 @@ function User({ user, posts }) {
 				</div>
 			</div>
 			<div className="profile-posts--container">
-				{user.posts.length > 0 &&
-					user.posts
+				{user.posts?.length > 0 &&
+					user?.posts
 						// ?.sort(
 						// 	(a, b) =>
 						// 		new Date(b.posted_at) - new Date(a.posted_at)

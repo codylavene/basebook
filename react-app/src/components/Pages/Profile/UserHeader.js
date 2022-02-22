@@ -12,7 +12,6 @@ const UserHeader = ({
 	setIsPendingFriend,
 }) => {
 	const [loading, setLoading] = useState(false);
-	console.log("<><><><><><><>========++++++++", isPendingFriend);
 	const dispatch = useDispatch();
 	const curr_user = useSelector((state) => state.session.user);
 	useEffect(() => {
@@ -22,20 +21,19 @@ const UserHeader = ({
 			setLoading(false);
 		}, 200);
 	}, []);
-	console.log(curr_user.id);
-	console.log(user.id);
+	console.log("USER HEADER -- CURR USER ID", curr_user.id);
+	console.log("USER HEADER -- USER ID", user.id);
 	const sendRequest = async () => {
 		await dispatch(requestActions.sendRequest(user.id));
 		dispatch(requestActions.getRequests());
 		setIsPendingFriend(true);
 	};
 	const declineRequest = async () => {
-		console.log(sent_reqs);
+		console.log("USER HEADER -- SENT REQS", sent_reqs);
 		const req = Object.values(sent_reqs).find(
 			(req) =>
 				req.sender_id === curr_user.id && req.receiver_id === user.id
 		);
-		console.log(req);
 		await dispatch(requestActions.declineRequest(req.id));
 		dispatch(requestActions.getRequests());
 		setIsPendingFriend(false);
