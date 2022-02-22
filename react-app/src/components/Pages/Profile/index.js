@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as profileActions from "../../../store/profile";
 import * as commentActions from "../../../store/comments";
 import * as requestActions from "../../../store/requests";
+import * as postActions from "../../../store/posts";
 
 import Friends from "./Friends";
 import Requests from "./Requests";
@@ -19,8 +20,6 @@ const Profile = (props) => {
 	const [isPendingFriend, setIsPendingFriend] = useState(false);
 	const { userId } = useParams();
 	const [loading, setLoading] = useState(false);
-	// const sent_reqs = curr_user.sent_requests;
-	// const rec_reqs = curr_user.rec_requests;
 	const sent_reqs = useSelector((state) => state.requests.requests.sent);
 	const rec_reqs = useSelector((state) => state.requests.requests.received);
 	console.log(sent_reqs);
@@ -38,6 +37,9 @@ const Profile = (props) => {
 		};
 		getUser();
 	}, [userId]);
+	useEffect(() => {
+		dispatch(postActions.getPosts());
+	}, [user.posts]);
 	document.title = `${user?.full_name} | basebook`;
 	useEffect(() => {
 		setLoading(true);
@@ -73,7 +75,7 @@ const Profile = (props) => {
 	return (
 		<>
 			{!loading && (
-				<div>
+				<div className="profile--container">
 					<UserHeader
 						user={user}
 						sent_reqs={sent_reqs}

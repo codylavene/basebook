@@ -51,13 +51,15 @@ function User({ user }) {
 				</div>
 			</div>
 			<div className="profile-posts--container">
-				<div className="create-post--container">
-					<div className="create-post--wrapper">
-						<div className="image-placeholder"></div>
-						<CreatePostModal user={user} message={message} />
+				{/* {curr_user.id === user.id && (
+					<div className="create-post--container">
+						<div className="create-post--wrapper">
+							<div className="image-placeholder"></div>
+							<CreatePostModal user={user} message={message} />
+						</div>
 					</div>
-				</div>
-				{user?.posts?.length > 0 &&
+				)} */}
+				{user.posts?.length > 0 &&
 					user?.posts
 						?.sort(
 							(a, b) =>

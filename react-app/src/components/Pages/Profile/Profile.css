@@ -1,6 +1,7 @@
 .user-header--container {
 	position: relative;
 	margin-top: 45px;
+	margin-bottom: 15px;
 	width: 100%;
 	height: 625px;
 	display: flex;
@@ -20,6 +21,7 @@
 		rgba(0, 0, 0, 0.57),
 		rgba(0, 0, 0, 0.8)
 	);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .user-header--wrapper {
 	max-width: 1250px;
@@ -88,8 +90,19 @@
 	border-top: 3px solid var(--comment-bg);
 	/* border-bottom: 3px solid var(--comment-bg); */
 }
-.user-header--nav > div {
+.user-header--nav > a {
 	padding: 22px;
+	width: 120px;
+	text-align: center;
+	text-decoration: none;
+	color: var(--secondary-text);
+	border-radius: 8px;
+	margin: 4px;
+}
+.user-header--nav > a:hover {
+	text-decoration: underline;
+	background-color: var(--comment-bg);
+	color: var(--secondary-text);
 }
 .user-profile--container {
 	width: 100%;
@@ -129,9 +142,15 @@
 	width: 80%;
 	height: fit-content;
 	background-color: var(--main-white);
-	margin-top: 20px;
-	margin-left: 20px;
-	flex-basis: 420px;
+	margin-top: 10px;
+	justify-self: flex-start;
+
+	position: -webkit-sticky;
+	position: sticky;
+	top: 400px;
+	/* margin-left: 20px; */
+	height: 420px;
+	/* flex-basis: 420px; */
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;

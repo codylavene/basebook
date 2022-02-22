@@ -78,16 +78,16 @@ const UserHeader = ({
 			</div>
 
 			<div className="user-header--nav">
-				<div>
-					<Link to={`/users/${user.id}`}>Posts</Link>
-				</div>
-				<div>
-					<Link to={`/users/${user.id}/about`}>About</Link>
-				</div>
+				<Link to={`/users/${user.id}`}>
+					<div>Posts</div>
+				</Link>
+				<Link to={`/users/${user.id}/about`}>
+					<div>About</div>
+				</Link>
 				{curr_user.id === user.id && (
-					<div>
-						<Link to={`/users/${user.id}/friends`}>Friends</Link>
-					</div>
+					<Link to={`/users/${user.id}/friends`}>
+						<div>Friends</div>
+					</Link>
 				)}
 			</div>
 		</div>

@@ -73,34 +73,34 @@ const NavBar = () => {
 						onClick={() => setShowNotifyDrop(!notifyDrop)}
 					>
 						<i className="fa-solid fa-bell"></i>
-						{notifyDrop && (
-							<div className="nav-dropdown">
-								<Requests />
-							</div>
-						)}
 					</div>
+					{notifyDrop && (
+						<div className="nav-dropdown">
+							<Requests />
+						</div>
+					)}
 					<div
 						className="user-menu--drop"
 						onClick={() => setShowUserDrop(!userDrop)}
 					>
 						<i className="fa-solid fa-caret-down"></i>
-						{userDrop && (
-							<div className="nav-dropdown">
-								<Link to={`/users/${curr_user.id}`}>
-									<div className="nav-link-to-curr_user">
-										<div className="image-placeholder"></div>
-										<div className="user-name">
-											{curr_user.full_name}
-											<span>See your profile</span>
-										</div>
-									</div>
-								</Link>
-								<div className="drop--actions">
-									<LogoutButton />
-								</div>
-							</div>
-						)}
 					</div>
+					{userDrop && (
+						<div className="nav-dropdown">
+							<Link to={`/users/${curr_user.id}`}>
+								<div className="nav-link-to-curr_user">
+									<div className="image-placeholder"></div>
+									<div className="user-name">
+										{curr_user.full_name}
+										<span>See your profile</span>
+									</div>
+								</div>
+							</Link>
+							<div className="drop--actions">
+								<LogoutButton />
+							</div>
+						</div>
+					)}
 				</div>
 			</nav>
 		</div>

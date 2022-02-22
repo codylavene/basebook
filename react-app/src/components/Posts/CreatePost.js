@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as postActions from "../../store/posts";
+import { authenticate } from "../../store/session";
 const CreatePost = ({ setShowModal }) => {
 	const dispatch = useDispatch();
 	const [post, setPost] = useState("");
@@ -10,6 +11,7 @@ const CreatePost = ({ setShowModal }) => {
 		e.preventDefault();
 		if (post.length > 0 && post.length < 540) {
 			await dispatch(postActions.addPost(post));
+			dispatch(postActions.getPosts());
 			setPost("");
 			setShowModal(false);
 		}
