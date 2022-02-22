@@ -154,3 +154,8 @@
 	background: var(--secondary-btn-hover);
 	cursor: pointer;
 }
+.friend-status--btn {
+	border: 1px solid red;
+	position: absolute;
+	right: 15%;
+}

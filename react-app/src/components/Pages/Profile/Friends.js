@@ -1,11 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const Friends = (props) => {
+const Friends = ({ user }) => {
 	return (
-		<div>
-			<h2>Friends</h2>
-			<div></div>
-		</div>
+		<>
+			<Link to={`/users/${user.id}/requests`}>Friend Requests</Link>
+			<div>
+				{user.friends?.length > 0 &&
+					user.friends.map((friend) => <h2>{friend.full_name}</h2>)}
+			</div>
+		</>
 	);
 };
 

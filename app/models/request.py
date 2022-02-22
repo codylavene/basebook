@@ -18,12 +18,15 @@ class Request(db.Model):
             'sender_id': self.sender_id,
             'receiver_id': self.receiver_id,
             'is_approved': self.is_approved,
-            'sender': self.sender.to_frontend_dict(),
-            'receiver': self.receiver.to_frontend_dict(),
+            # 'sender': self.sender.to_dict(),
+            # 'receiver': self.receiver.to_dict(),
         }
     def to_frontend_dict(self):
         return {
+            'id': self.id,
             'sender_id': self.sender_id,
             'receiver_id': self.receiver_id,
             'is_approved': self.is_approved,
+            'sender': self.sender.to_dict(),
+            'receiver': self.receiver.to_dict(),
         }

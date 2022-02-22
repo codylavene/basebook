@@ -2,23 +2,27 @@ import React, { useEffect, useState } from "react";
 import User from "./User";
 import UserHeader from "./UserHeader";
 import "./Profile.css";
-import { useParams } from "react-router-dom";
+import { BrowserRouter, Route, Switch, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as profileActions from "../../../store/profile";
 import * as commentActions from "../../../store/comments";
 import * as requestActions from "../../../store/requests";
+
+import Friends from "./Friends";
+import Requests from "./Requests";
 const Profile = (props) => {
-	const curr_profile = useSelector((state) => state.profile.profile);
 	const curr_user = useSelector((state) => state.session.user);
 	console.log(curr_user.friends);
 	const dispatch = useDispatch();
 	const [user, setUser] = useState({});
+	const [isFriend, setIsFriend] = useState(false);
+	const [isPendingFriend, setIsPendingFriend] = useState(false);
 	const { userId } = useParams();
-	// const requestsObj = useSelector((state) => state.requests.requests);
-	const sent_reqs = curr_user.sent_requests;
-	// const sent_reqs = Object.values(requestsObj.sent);
-	const rec_reqs = curr_user.rec_requests;
-	// const rec_reqs = Object.values(requestsObj.received);
+	const [loading, setLoading] = useState(false);
+	// const sent_reqs = curr_user.sent_requests;
+	// const rec_reqs = curr_user.rec_requests;
+	const sent_reqs = useSelector((state) => state.requests.requests.sent);
+	const rec_reqs = useSelector((state) => state.requests.requests.received);
 	console.log(sent_reqs);
 	console.log(rec_reqs);
 	const comments = useSelector((state) => state.comments.comments);
@@ -34,15 +38,65 @@ const Profile = (props) => {
 		getUser();
 	}, []);
 	document.title = `${user?.full_name} | basebook`;
-
+	useEffect(() => {
+		setLoading(true);
+		const checkIfFriends = () => {
+			curr_user.friends.forEach((friend) => {
+				if (friend.id === user.id) {
+					setIsFriend(true);
+					return true;
+				}
+			});
+			return false;
+		};
+		checkIfFriends();
+		const checkForRequests = () => {
+			if (!isFriend || !checkIfFriends()) {
+				curr_user.sent_requests.forEach((req) => {
+					if (req.receiver_id === user.id) {
+						setIsPendingFriend(true);
+						console.log("<><><><><>", isPendingFriend);
+						return true;
+					}
+				});
+				return false;
+			}
+			return false;
+		};
+		checkForRequests();
+		setLoading(false);
+	});
 	if (!user) {
 		return null;
 	}
 	return (
-		<div>
-			<UserHeader user={user} sent_reqs={sent_reqs} rec_reqs={rec_reqs} />
-			<User user={user} />
-		</div>
+		<>
+			{!loading && (
+				<div>
+					<UserHeader
+						user={user}
+						sent_reqs={sent_reqs}
+						rec_reqs={rec_reqs}
+						isFriend={isFriend}
+						isPendingFriend={isPendingFriend}
+						setIsPendingFriend={setIsPendingFriend}
+					/>
+					<Switch>
+						<Route exact path="/users/:userId">
+							<User user={user} />
+						</Route>
+						<Route path="/users/:userId/friends">
+							<Friends user={user} />
+						</Route>
+						<Route path="/users/:userId/requests">
+							{curr_user.id === user.id && (
+								<Requests user={user} rec_requests={rec_reqs} />
+							)}
+						</Route>
+					</Switch>
+				</div>
+			)}
+		</>
 	);
 };
 

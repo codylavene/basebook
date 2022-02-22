@@ -62,9 +62,9 @@ export const approveRequest = (req_id, user_id) => async (dispatch) => {
 		console.log(data);
 	}
 };
-export const declineRequest = (req_id, user_id) => async (dispatch) => {
-	const res = await fetch(`/api/requests/${req_id}/decline/${user_id}`, {
-		method: "POST",
+export const declineRequest = (req_id) => async (dispatch) => {
+	const res = await fetch(`/api/requests/${req_id}/decline`, {
+		method: "DELETE",
 		headers: { "Content-Type": "application/json" },
 	});
 	const data = await res.json();
@@ -97,33 +97,28 @@ const reducer = (state = initialState, action) => {
 		}
 		case CREATE: {
 			const newState = { ...state };
-			if (newState.requests[action.request.post_id]) {
-				newState.requests[action.request.post_id][action.request.id] =
-					action.request;
-			} else {
-				newState.requests[action.request.post_id] = {};
-				newState.requests[action.request.post_id][action.request.id] =
-					action.request;
-			}
-			newState.requests[action.request.post_id]["count"]
-				? (newState.requests[action.request.post_id]["count"] += 1)
-				: (newState.requests[action.request.post_id]["count"] = 1);
+			newState.requests.sent[action.request.id] = action.request;
+
 			return newState;
 		}
-		case EDIT: {
-			const newState = { ...state };
-			newState.requests[action.request.post_id][action.request.id] =
-				action.request;
-			newState.requests[action.request.post_id]["count"]
-				? (newState.requests[action.request.post_id]["count"] += 1)
-				: (newState.requests[action.request.post_id]["count"] = 1);
-			return newState;
-		}
-		// case DELETE: {
+		// case EDIT: {
 		// 	const newState = { ...state };
-		// 	delete newState.requests[action.request.post_id][action.request.id];
+		// 	newState.requests[action.request.post_id][action.request.id] =
+		// 		action.request;
+		// 	newState.requests[action.request.post_id]["count"]
+		// 		? (newState.requests[action.request.post_id]["count"] += 1)
+		// 		: (newState.requests[action.request.post_id]["count"] = 1);
 		// 	return newState;
 		// }
+		case DELETE: {
+			const newState = { ...state };
+			if (newState.requests.sent[action.request.id]) {
+				delete newState.requests.sent[action.request.id];
+			} else {
+				delete newState.requests.received[action.request.id];
+			}
+			return newState;
+		}
 
 		default:
 			return state;

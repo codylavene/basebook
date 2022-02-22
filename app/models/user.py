@@ -73,7 +73,7 @@ class User(db.Model, UserMixin):
             'gender': self.gender,
             'posts': posts,
             'likes': likes,
-            'friends': [friend.to_frontend_dict() for friend in self.friends],
+            'friends': [friend.to_dict() for friend in self.friends],
             'rec_requests': [request.to_frontend_dict() for request in rec_requests],
             'sent_requests': [request.to_frontend_dict() for request in sent_requests],
         }
