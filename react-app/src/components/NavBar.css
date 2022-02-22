@@ -161,6 +161,7 @@ nav > div > a {
 	top: 43px;
 	right: 0;
 	padding: 10px;
+	overflow-y: scroll;
 }
 .nav-dropdown > a {
 	text-decoration: none;

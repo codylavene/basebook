@@ -87,7 +87,7 @@ export const editLike = (post_id, like_id) => async (dispatch) => {
 // 		console.log("Uh Oh");
 // 	}
 // };
-const initialState = { likes: {} };
+const initialState = { likes: {}, likesArr: [] };
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
 		case LOAD: {
@@ -127,19 +127,20 @@ const reducer = (state = initialState, action) => {
 				: (newState.likes[action.like.post_id]["count"] = 1);
 			return newState;
 		}
-		case EDIT: {
-			const newState = { ...state };
-			newState.likes[action.like.post_id][action.like.id] = action.like;
-			newState.likes[action.like.post_id]["count"]
-				? (newState.likes[action.like.post_id]["count"] += 1)
-				: (newState.likes[action.like.post_id]["count"] = 1);
-			return newState;
-		}
-		// case DELETE: {
+		// case EDIT: {
 		// 	const newState = { ...state };
-		// 	delete newState.likes[action.like.post_id][action.like.id];
+		// 	newState.likes[action.like.post_id][action.like.id] = action.like;
+		// 	newState.likes[action.like.post_id]["count"]
+		// 		? (newState.likes[action.like.post_id]["count"] += 1)
+		// 		: (newState.likes[action.like.post_id]["count"] = 1);
 		// 	return newState;
 		// }
+		case DELETE: {
+			const newState = { ...state };
+			delete newState.likes[action.like.post_id][action.like.id];
+			newState.likes[action.like.post_id]["count"] -= 1;
+			return newState;
+		}
 
 		default:
 			return state;

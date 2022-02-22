@@ -14,10 +14,12 @@ const Post = ({ post, comments, likes }) => {
 	const commentRef = useRef(null);
 	const [showComments, setShowComments] = useState(false);
 	const [showButtons, setShowButtons] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const curr_user = useSelector((state) => state.session.user);
 	// const likes = useSelector((state) => state.session.likes.likes);
 	console.log(likes);
 	const [liked, setLiked] = useState(post.liked_status.liked);
+	const [likeCount, setLikeCount] = useState(likes?.count);
 	const [likeId, setLikeId] = useState(post.liked_status.like_id);
 	const [beenLiked, setBeenLiked] = useState(likeId ? true : false);
 	// console.log(comments);
@@ -27,6 +29,7 @@ const Post = ({ post, comments, likes }) => {
 	console.log(likes?.count);
 	console.log(post.id);
 	const toggleLike = async () => {
+		setLoading(true);
 		if (beenLiked) {
 			await dispatch(likeActions.editLike(post.id, likeId));
 			dispatch(likeActions.getLikes());
@@ -38,6 +41,9 @@ const Post = ({ post, comments, likes }) => {
 			setBeenLiked(true);
 			setLikeId(id);
 		}
+		setTimeout(() => {
+			setLoading(false);
+		}, 200);
 	};
 	const focusComment = (e) => {
 		commentRef.current.focus();
@@ -78,8 +84,13 @@ const Post = ({ post, comments, likes }) => {
 						Object.values(likes[post.id])?.length === 1
 							? "like"
 							: "likes"} */}
-						{likes?.count ? likes?.count : "0"}{" "}
-						{likes?.count === 1 ? "like" : "likes"}
+						{loading ? (
+							<i className="fa-solid fa-spinner fa-spin-pulse"></i>
+						) : (
+							`${likes?.count ? likes?.count : "0"} ${
+								likes?.count === 1 ? "like" : "likes"
+							}`
+						)}
 					</span>
 				</div>
 				<div
