@@ -9,41 +9,39 @@ import * as postActions from "../../store/posts";
 import * as commentActions from "../../store/comments";
 import * as likeActions from "../../store/likes";
 
-const Post = ({ post, comments, likes }) => {
+const Post = ({ post, comments, likes, likesArr }) => {
 	const dispatch = useDispatch();
 	const commentRef = useRef(null);
 	const [showComments, setShowComments] = useState(false);
 	const [showButtons, setShowButtons] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const curr_user = useSelector((state) => state.session.user);
-	// const likes = useSelector((state) => state.session.likes.likes);
-	console.log(likes);
 	const [liked, setLiked] = useState(post.liked_status.liked);
-	const [likeCount, setLikeCount] = useState(likes?.count);
+	const [likeCount, setLikeCount] = useState(likesArr.length);
 	const [likeId, setLikeId] = useState(post.liked_status.like_id);
 	const [beenLiked, setBeenLiked] = useState(likeId ? true : false);
 	// console.log(comments);
 	// useEffect(() => {
 	// 	dispatch(likeActions.getLikes());
 	// }, []);
-	console.log(likes?.count);
-	console.log(post.id);
 	const toggleLike = async () => {
-		setLoading(true);
-		if (beenLiked) {
-			await dispatch(likeActions.editLike(post.id, likeId));
-			dispatch(likeActions.getLikes());
-			setLiked(!liked);
+		// setLoading(true);
+		if (liked) {
+			await dispatch(likeActions.deleteLike(post.id, likeId));
+			// dispatch(likeActions.getLikes());
+			setLiked(false);
+			setLikeCount(likeCount + 1);
 		} else {
 			const id = await dispatch(likeActions.addLike(post.id));
-			dispatch(likeActions.getLikes());
+			// dispatch(likeActions.getLikes());
 			setLiked(true);
-			setBeenLiked(true);
+			// setBeenLiked(true);
 			setLikeId(id);
+			setLikeCount(likeCount - 1);
 		}
-		setTimeout(() => {
-			setLoading(false);
-		}, 200);
+		// setTimeout(() => {
+		// 	// setLoading(false);
+		// }, 200);
 	};
 	const focusComment = (e) => {
 		commentRef.current.focus();
@@ -87,8 +85,8 @@ const Post = ({ post, comments, likes }) => {
 						{loading ? (
 							<i className="fa-solid fa-spinner fa-spin-pulse"></i>
 						) : (
-							`${likes?.count ? likes?.count : "0"} ${
-								likes?.count === 1 ? "like" : "likes"
+							`${likeCount ? likeCount : "0"} ${
+								likeCount === 1 ? "like" : "likes"
 							}`
 						)}
 					</span>

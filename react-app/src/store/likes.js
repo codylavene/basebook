@@ -52,12 +52,24 @@ export const addLike = (post_id) => async (dispatch) => {
 
 export const editLike = (post_id, like_id) => async (dispatch) => {
 	const res = await fetch(`/api/posts/${post_id}/likes/${like_id}`, {
-		method: "PUT",
+		method: "DELETE",
 		headers: { "Content-Type": "application/json" },
 	});
 	const data = await res.json();
 	if (res.ok) {
-		dispatch(edit(data.like));
+		dispatch(remove(data.like));
+	} else {
+		console.log(data);
+	}
+};
+export const deleteLike = (post_id, like_id) => async (dispatch) => {
+	const res = await fetch(`/api/posts/${post_id}/likes/${like_id}`, {
+		method: "DELETE",
+		headers: { "Content-Type": "application/json" },
+	});
+	const data = await res.json();
+	if (res.ok) {
+		dispatch(remove(data.like));
 	} else {
 		console.log(data);
 	}
@@ -96,17 +108,19 @@ const reducer = (state = initialState, action) => {
 				if (likes[like.post_id]) {
 					likes[like.post_id][like.id] = like;
 
-					like.liked
-						? (likes[like.post_id]["count"] += 1)
-						: (likes[like.post_id]["count"] += 0);
+					// like.liked
+					// 	? (likes[like.post_id]["count"] += 1)
+					// 	: (likes[like.post_id]["count"] += 0);
 				} else {
 					likes[like.post_id] = {};
 					likes[like.post_id][like.id] = like;
 
-					like.liked
-						? (likes[like.post_id]["count"] = 1)
-						: (likes[like.post_id]["count"] = 0);
+					// like.liked
+					// 	? (likes[like.post_id]["count"] = 1)
+					// 	: (likes[like.post_id]["count"] = 0);
 				}
+				console.log(like);
+				newState.likesArr.push(like.user_id);
 				return likes;
 			}, {});
 			console.log(newState.likes);

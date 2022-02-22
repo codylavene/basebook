@@ -12,6 +12,7 @@ const Posts = (props) => {
 	const postsObj = useSelector((state) => state.posts.posts);
 	const commentsObj = useSelector((state) => state.comments.comments);
 	const likesObj = useSelector((state) => state.likes.likes);
+	const likesArr = useSelector((state) => state.likes.likesArr);
 	const curr_user = useSelector((state) => state.session.user);
 	console.log(likesObj);
 	// console.log(Array.isArray(Object.entries(commentsObj)));
@@ -62,6 +63,7 @@ const Posts = (props) => {
 								likes={
 									likesObj[post.id] ? likesObj[post.id] : {}
 								}
+								likesArr={likesArr}
 							/>
 						))}
 			</div>

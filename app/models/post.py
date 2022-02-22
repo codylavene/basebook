@@ -34,9 +34,9 @@ class Post(db.Model):
         user = User.query.get(self.user_id)
         name = f'{user.first_name} {user.last_name}'
         comments = Comment.query.filter(Comment.post_id == self.id).all()
-        comments = [comment.to_frontend_dict() for comment in comments]
+        comments = [comment.id for comment in comments]
         all_likes = Like.query.filter(Like.post_id == self.id, Like.liked == True).all()
-        likes = [like.to_frontend_dict() for like in all_likes]
+        likes = [like.id for like in all_likes]
         user_liked = Like.query.filter(Like.post_id == self.id, Like.user_id == current_user.get_id()).first()
         print(user_liked)
         if user_liked:

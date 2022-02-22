@@ -22,6 +22,15 @@ def updateLike(post_id,like_id):
     db.session.commit()
     return {'like': like.to_frontend_dict()}
 
+@post_likes_routes.route('/<int:like_id>', methods=["DELETE"])
+@login_required
+def deleteLike(post_id,like_id):
+    like = Like.query.get(like_id)
+    # click.echo(click.style(f"{like}", bg='red', fg='white'))
+    db.session.delete(like)
+    db.session.commit()
+    return {'like': like.to_frontend_dict()}
+
 @post_likes_routes.route('/', methods=["POST"])
 @login_required
 def createLike(post_id):

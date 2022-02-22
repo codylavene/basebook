@@ -11,11 +11,16 @@ const UserHeader = ({
 	isPendingFriend,
 	setIsPendingFriend,
 }) => {
+	const [loading, setLoading] = useState(false);
 	console.log("<><><><><><><>========++++++++", isPendingFriend);
 	const dispatch = useDispatch();
 	const curr_user = useSelector((state) => state.session.user);
 	useEffect(() => {
+		setLoading(true);
 		dispatch(requestActions.getRequests());
+		setTimeout(() => {
+			setLoading(false);
+		}, 200);
 	}, []);
 	console.log(curr_user.id);
 	console.log(user.id);
@@ -50,7 +55,10 @@ const UserHeader = ({
 					</div>
 					<h2 className="user-header--user-name">{user.full_name}</h2>
 					<div className="friend-status--btn">
-						{curr_user.id !== user.id &&
+						{loading ? (
+							<i className="fa-solid fa-spinner fa-spin-pulse"></i>
+						) : (
+							curr_user.id !== user.id &&
 							(isPendingFriend ? (
 								<button onClick={declineRequest}>
 									<i className="fa-solid fa-user-xmark"></i>{" "}
@@ -72,7 +80,8 @@ const UserHeader = ({
 									<i className="fa-solid fa-user-plus"></i>{" "}
 									Add Friend
 								</button>
-							))}
+							))
+						)}
 					</div>
 				</div>
 			</div>

@@ -58,9 +58,9 @@ class User(db.Model, UserMixin):
     def to_frontend_dict(self):
         from app.models import Post, Like, Request
         user_posts = Post.query.filter(Post.user_id == self.id).all()
-        posts = [post.to_frontend_dict() for post in user_posts]
+        posts = [post.id for post in user_posts]
         user_likes = Like.query.filter(Like.user_id == self.id).all()
-        likes = [like.to_dict() for like in user_likes]
+        likes = [like.id for like in user_likes]
         rec_requests = Request.query.filter(Request.receiver_id == self.id).all()
         sent_requests = Request.query.filter(Request.sender_id == self.id).all()
         return {
@@ -74,6 +74,6 @@ class User(db.Model, UserMixin):
             'posts': posts,
             'likes': likes,
             'friends': [friend.to_dict() for friend in self.friends],
-            'rec_requests': [request.to_frontend_dict() for request in rec_requests],
-            'sent_requests': [request.to_frontend_dict() for request in sent_requests],
+            'rec_requests': [request.sender_id for request in rec_requests],
+            'sent_requests': [request.receiver_id for request in sent_requests],
         }
