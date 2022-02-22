@@ -36,7 +36,7 @@ const Profile = (props) => {
 			setUser(user);
 		};
 		getUser();
-	}, [userId]);
+	}, []);
 	useEffect(() => {
 		dispatch(postActions.getPosts());
 	}, [user.posts]);

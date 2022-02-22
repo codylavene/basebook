@@ -10,9 +10,8 @@ import "./Posts.css";
 const Posts = (props) => {
 	const dispatch = useDispatch();
 	const postsObj = useSelector((state) => state.posts.posts);
-	const commentsObj = useSelector((state) => state.comments.comments);
+	// const commentsObj = useSelector((state) => state.comments.comments);
 	const likesObj = useSelector((state) => state.likes.likes);
-	const likesArr = useSelector((state) => state.likes.likesArr);
 	const curr_user = useSelector((state) => state.session.user);
 	console.log(likesObj);
 	// console.log(Array.isArray(Object.entries(commentsObj)));
@@ -55,15 +54,13 @@ const Posts = (props) => {
 							<Post
 								post={post}
 								key={post.id}
-								comments={
-									commentsObj[post.id]
-										? commentsObj[post.id]
-										: {}
-								}
-								likes={
-									likesObj[post.id] ? likesObj[post.id] : {}
-								}
-								likesArr={likesArr}
+								// comments={
+								// 	post.comments
+								// 	// commentsObj[post.id]
+								// 	// 	? commentsObj[post.id]
+								// 	// 	: {}
+								// }
+								likes={post.likes}
 							/>
 						))}
 			</div>

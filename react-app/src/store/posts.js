@@ -168,16 +168,17 @@ const reducer = (state = initialState, action) => {
 			return newState;
 		}
 		case CREATE: {
-			const newState = {
-				...state,
-				posts: { ...state.posts, [action.post.id]: action.post },
-			};
+			const newState = {};
+			// const newState = {
+			// 	...state,
+			// 	posts: { ...state.posts, [action.post.id]: action.post },
+			// };
+			newState.posts[action.post.id] = action.post;
 			return newState;
 		}
 		case EDIT: {
 			const newState = { ...state };
 			newState.posts[action.post.id] = action.post;
-
 			return newState;
 		}
 		case DELETE: {

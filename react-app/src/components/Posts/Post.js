@@ -9,17 +9,20 @@ import * as postActions from "../../store/posts";
 import * as commentActions from "../../store/comments";
 import * as likeActions from "../../store/likes";
 
-const Post = ({ post, comments, likes, likesArr }) => {
+const Post = ({ post, /*comments,*/ likes }) => {
 	const dispatch = useDispatch();
 	const commentRef = useRef(null);
+	const comments = useSelector((state) => state.comments.comments);
+	// const likesObj = useSelector((state) => state.likes.likes);
 	const [showComments, setShowComments] = useState(false);
 	const [showButtons, setShowButtons] = useState(false);
-	const [loading, setLoading] = useState(false);
+	// const [loading, setLoading] = useState(false);
 	const curr_user = useSelector((state) => state.session.user);
-	const [liked, setLiked] = useState(post.liked_status.liked);
-	const [likeCount, setLikeCount] = useState(likesArr.length);
-	const [likeId, setLikeId] = useState(post.liked_status.like_id);
-	const [beenLiked, setBeenLiked] = useState(likeId ? true : false);
+	const status = curr_user.likes.indexOf(post.id) >= 0;
+	const [liked, setLiked] = useState(status);
+	const [likeCount, setLikeCount] = useState(likes?.length);
+	const [likeId, setLikeId] = useState(post.liked_status?.like_id);
+	// const [beenLiked, setBeenLiked] = useState(likeId ? true : false);
 	// console.log(comments);
 	// useEffect(() => {
 	// 	dispatch(likeActions.getLikes());
@@ -30,14 +33,13 @@ const Post = ({ post, comments, likes, likesArr }) => {
 			await dispatch(likeActions.deleteLike(post.id, likeId));
 			// dispatch(likeActions.getLikes());
 			setLiked(false);
-			setLikeCount(likeCount + 1);
+			setLikeCount(likeCount - 1);
 		} else {
 			const id = await dispatch(likeActions.addLike(post.id));
 			// dispatch(likeActions.getLikes());
 			setLiked(true);
-			// setBeenLiked(true);
 			setLikeId(id);
-			setLikeCount(likeCount - 1);
+			setLikeCount(likeCount + 1);
 		}
 		// setTimeout(() => {
 		// 	// setLoading(false);
@@ -82,33 +84,33 @@ const Post = ({ post, comments, likes, likesArr }) => {
 						Object.values(likes[post.id])?.length === 1
 							? "like"
 							: "likes"} */}
-						{loading ? (
+						{/* {loading ? (
 							<i className="fa-solid fa-spinner fa-spin-pulse"></i>
 						) : (
 							`${likeCount ? likeCount : "0"} ${
 								likeCount === 1 ? "like" : "likes"
 							}`
-						)}
+                            )} */}
+						{likeCount ? likeCount : "0"}{" "}
+						{likeCount === 1 ? "like" : "likes"}
 					</span>
 				</div>
 				<div
 					className="comments-count"
 					onClick={() => setShowComments(!showComments)}
 				>
-					{Object.values(comments)?.length}{" "}
+					{post.comments.length}{" "}
+					{post.comments.length === 1 ? "comment" : "comments"}
+					{/* {Object.values(comments)?.length}{" "}
 					{Object.values(comments)?.length === 1
 						? "comment"
-						: "comments"}
+						: "comments"} */}
 				</div>
 			</div>
 			{showComments &&
-				Object.values(comments).map((comment) => {
+				post.comments.map((id) => {
 					return (
-						<Comment
-							key={comment.id}
-							comment={comment}
-							post={post}
-						/>
+						<Comment key={id} comment={comments[id]} post={post} />
 					);
 				})}
 			<div className="like-comment-action--container">

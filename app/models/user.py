@@ -60,7 +60,7 @@ class User(db.Model, UserMixin):
         user_posts = Post.query.filter(Post.user_id == self.id).all()
         posts = [post.id for post in user_posts]
         user_likes = Like.query.filter(Like.user_id == self.id).all()
-        likes = [like.id for like in user_likes]
+        likes = [like.post_id for like in user_likes]
         rec_requests = Request.query.filter(Request.receiver_id == self.id).all()
         sent_requests = Request.query.filter(Request.sender_id == self.id).all()
         return {

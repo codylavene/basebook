@@ -12,9 +12,9 @@ function User({ user }) {
 	// const [user, setUser] = useState(user);
 	const { userId } = useParams();
 	const curr_user = useSelector((state) => state.session.user);
-
+	const posts = useSelector((state) => state.session.posts);
 	const comments = useSelector((state) => state.comments.comments);
-	const likesObj = useSelector((state) => state.likes.likes);
+	const likes = useSelector((state) => state.likes.likes);
 	useEffect(() => {
 		dispatch(profileActions.loadProfile(userId));
 		// dispatch(commentActions.getComments());
@@ -36,7 +36,7 @@ function User({ user }) {
 		console.log("NOPE");
 		return null;
 	}
-
+	console.log(user.posts);
 	return (
 		<div className="user-profile--container">
 			<div className="profile-details--container">
@@ -51,22 +51,18 @@ function User({ user }) {
 				</div>
 			</div>
 			<div className="profile-posts--container">
-				{user.posts?.length > 0 &&
-					user?.posts
-						?.sort(
-							(a, b) =>
-								new Date(b.posted_at) - new Date(a.posted_at)
-						)
-						.map((post) => (
+				{user.posts.length > 0 &&
+					user.posts
+						// ?.sort(
+						// 	(a, b) =>
+						// 		new Date(b.posted_at) - new Date(a.posted_at)
+						// )
+						.map((id) => (
 							<Post
-								post={post}
-								key={post.id}
-								comments={
-									comments[post.id] ? comments[post.id] : {}
-								}
-								likes={
-									likesObj[post.id] ? likesObj[post.id] : {}
-								}
+								post={posts[id]}
+								key={id}
+								// comments={post.comments}
+								likes={posts[id].likes}
 							/>
 						))}
 			</div>

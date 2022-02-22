@@ -89,12 +89,13 @@ const reducer = (state = initialState, action) => {
 				// const newComment = {};
 				// const id = comment.id;
 				// newComment[id] = comment;
-				if (comments[comment.post_id]) {
-					comments[comment.post_id][comment.id] = comment;
-				} else {
-					comments[comment.post_id] = {};
-					comments[comment.post_id][comment.id] = comment;
-				}
+				// if (comments[comment.post_id]) {
+				// 	comments[comment.post_id][comment.id] = comment;
+				// } else {
+				// 	comments[comment.post_id] = {};
+				// 	comments[comment.post_id][comment.id] = comment;
+				// }
+				comments[comment.id] = comment;
 				return comments;
 			}, {});
 			return newState;
@@ -104,26 +105,29 @@ const reducer = (state = initialState, action) => {
 			// const comment = {};
 			// const id = action.comment.id;
 			// comment[id] = action.comment;
-			if (newState.comments[action.comment.post_id]) {
-				newState.comments[action.comment.post_id][action.comment.id] =
-					action.comment;
-			} else {
-				newState.comments[action.comment.post_id] = {};
-				newState.comments[action.comment.post_id][action.comment.id] =
-					action.comment;
-			}
+			// if (newState.comments[action.comment.post_id]) {
+			// 	newState.comments[action.comment.post_id][action.comment.id] =
+			// 		action.comment;
+			// } else {
+			// 	newState.comments[action.comment.post_id] = {};
+			// 	newState.comments[action.comment.post_id][action.comment.id] =
+			// 		action.comment;
+			// }
+			newState.comments[action.comment.id] = action.comment;
 			return newState;
 		}
 		case EDIT: {
 			const newState = { ...state };
-			newState.comments[action.comment.post_id][action.comment.id] =
-				action.comment;
+			// newState.comments[action.comment.post_id][action.comment.id] =
+			// 	action.comment;
+			newState.comments[action.comment.id] = action.comment;
 
 			return newState;
 		}
 		case DELETE: {
 			const newState = { ...state };
-			delete newState.comments[action.comment.post_id][action.comment.id];
+			// delete newState.comments[action.comment.post_id][action.comment.id];
+			delete newState.comments[action.comment.id];
 			return newState;
 		}
 
