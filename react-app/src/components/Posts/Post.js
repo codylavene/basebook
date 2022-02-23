@@ -17,17 +17,10 @@ const Post = ({ post, comments, likes }) => {
 	const [loading, setLoading] = useState(false);
 	const curr_user = useSelector((state) => state.session.user);
 	// const likes = useSelector((state) => state.session.likes.likes);
-	console.log(likes);
 	const [liked, setLiked] = useState(post.liked_status.liked);
 	const [likeCount, setLikeCount] = useState(likes?.count);
 	const [likeId, setLikeId] = useState(post.liked_status.like_id);
 	const [beenLiked, setBeenLiked] = useState(likeId ? true : false);
-	// console.log(comments);
-	// useEffect(() => {
-	// 	dispatch(likeActions.getLikes());
-	// }, []);
-	console.log(likes?.count);
-	console.log(post.id);
 	const toggleLike = async () => {
 		setLoading(true);
 		if (beenLiked) {

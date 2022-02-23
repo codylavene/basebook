@@ -1,10 +1,10 @@
 // constants
-const LOAD_ALL_PROFILES = "profiles/LOAD_ALL_PROFILES";
+const LOAD_ALL = "profiles/LOAD_ALL_PROFILES";
 const SET_PROFILE = "profiles/SET_PROFILE";
 const REMOVE_PROFILE = "profiles/REMOVE_PROFILE";
 
 const load = (users) => ({
-	type: LOAD_ALL_PROFILES,
+	type: LOAD_ALL,
 	users,
 });
 const set = (user) => ({
@@ -15,12 +15,12 @@ const set = (user) => ({
 // const removeProfile = () => ({
 // 	type: REMOVE_PROFILE,
 // });
-// export const loadAllProfiles = () => async (dispatch) => {
-// 	const res = await fetch(`/api/users/`);
-// 	const users = await res.json();
-// 	load(users);
-// 	return users;
-// };
+export const loadAllProfiles = () => async (dispatch) => {
+	const res = await fetch(`/api/users/`);
+	const data = await res.json();
+	load(data.users);
+	return data.users;
+};
 export const loadProfile = (id) => async (dispatch) => {
 	const res = await fetch(`/api/users/${id}`);
 	const user = await res.json();
@@ -36,14 +36,16 @@ export default function reducer(state = initialState, action) {
 		case SET_PROFILE: {
 			return action.user;
 		}
-		// case LOAD_ALL_PROFILES: {
-		// 	const newState = { ...state };
-		// 	newState.allProfiles = action.users.reduce((users, user) => {
-		// 		users[user.id] = user;
-		// 		return users;
-		// 	}, {});
-		// 	return newState;
-		// }
+		case LOAD_ALL: {
+			const newState = { ...state };
+			console.log("HERE");
+			newState.allProfiles = action.users.reduce((users, user) => {
+				console.log(user);
+				users[user.id] = user;
+				return users;
+			}, {});
+			return newState;
+		}
 		default:
 			return state;
 	}

@@ -1,13 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import FriendCard from "./FriendCard";
 
 const Friends = ({ user }) => {
 	return (
 		<>
-			<Link to={`/users/${user.id}/requests`}>Friend Requests</Link>
-			<div>
-				{user.friends?.length > 0 &&
-					user.friends.map((friend) => <h2>{friend.id}</h2>)}
+			<div className="friends-container--profile">
+				<h2>Friends</h2>
+				<div className="friends--cards">
+					{user.friends?.length > 0 &&
+						user.friends.map((friend) => (
+							<FriendCard friend={friend} key={friend.id} />
+						))}
+				</div>
 			</div>
 		</>
 	);
