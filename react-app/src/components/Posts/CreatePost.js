@@ -2,18 +2,23 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as postActions from "../../store/posts";
 import { authenticate } from "../../store/session";
-const CreatePost = ({ setShowModal }) => {
+const CreatePost = ({ setShowModal, createPostRef }) => {
 	const dispatch = useDispatch();
 	const [post, setPost] = useState("");
 	const [disabled, setDisabled] = useState(true);
+	const [loading, setLoading] = useState(false);
 	const curr_user = useSelector((state) => state.session.user);
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		if (post.length > 0 && post.length < 540) {
+			setLoading(true);
 			await dispatch(postActions.addPost(post));
-			dispatch(postActions.getPosts());
-			setPost("");
-			setShowModal(false);
+			await dispatch(postActions.getPosts());
+			setTimeout(() => {
+				setPost("");
+				setLoading(false);
+				setShowModal(false);
+			}, 300);
 		}
 	};
 	useEffect(() => {
@@ -46,10 +51,16 @@ const CreatePost = ({ setShowModal }) => {
 				<textarea
 					placeholder={`What's on your mind, ${curr_user.first_name}?`}
 					value={post}
+					// ref={createPostRef}
+					autoFocus={true}
 					onChange={(e) => setPost(e.target.value)}
 				></textarea>
 				<button disabled={disabled} id="create-edit-post">
-					Post
+					{loading ? (
+						<i className="fa-solid fa-spinner fa-spin-pulse"></i>
+					) : (
+						"Post"
+					)}
 				</button>
 			</form>
 		</div>

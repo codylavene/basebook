@@ -22,7 +22,7 @@ const UserHeader = ({
 		}, 200);
 	}, []);
 	console.log("USER HEADER -- CURR USER ID", curr_user.id);
-	console.log("USER HEADER -- USER ID", user.id);
+	console.log("USER HEADER -- USER ID", user.posts);
 	const sendRequest = async () => {
 		await dispatch(requestActions.sendRequest(user.id));
 		dispatch(requestActions.getRequests());

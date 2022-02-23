@@ -13,7 +13,7 @@ import Friends from "./Friends";
 import Requests from "./Requests";
 const Profile = (props) => {
 	const curr_user = useSelector((state) => state.session.user);
-	console.log(curr_user.friends);
+
 	const dispatch = useDispatch();
 	const [user, setUser] = useState({});
 	const [isFriend, setIsFriend] = useState(false);
@@ -24,9 +24,7 @@ const Profile = (props) => {
 	const rec_reqs = useSelector((state) => state.requests.requests.received);
 	const posts = useSelector((state) => state.session.posts);
 	const users = useSelector((state) => state.profile.allProfiles);
-	console.log(sent_reqs);
-	console.log(rec_reqs);
-	console.log({ posts });
+
 	const comments = useSelector((state) => state.comments.comments);
 
 	useEffect(() => {
@@ -41,11 +39,14 @@ const Profile = (props) => {
 		};
 		getUser();
 	}, [userId]);
-	console.log(user);
+	useEffect(() => {
+		dispatch(postActions.getPosts());
+	}, []);
 	useEffect(() => {}, [dispatch]);
 	document.title = `${user?.full_name} | basebook`;
 	useEffect(() => {
 		setLoading(true);
+
 		const checkIfFriends = () => {
 			curr_user.friends.forEach((friend) => {
 				if (friend.id === user.id) {
@@ -61,7 +62,7 @@ const Profile = (props) => {
 				curr_user.sent_requests.forEach((req) => {
 					if (req.receiver_id === user.id) {
 						setIsPendingFriend(true);
-						console.log("<><><><><>", isPendingFriend);
+
 						return true;
 					}
 				});
@@ -69,7 +70,11 @@ const Profile = (props) => {
 			}
 			return false;
 		};
-		checkForRequests();
+		if (!user) {
+			setTimeout(() => {
+				checkForRequests();
+			}, 200);
+		}
 		setLoading(false);
 	});
 	if (!user) {

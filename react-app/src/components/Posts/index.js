@@ -11,7 +11,7 @@ const Posts = (props) => {
 	const dispatch = useDispatch();
 	const postsObj = useSelector((state) => state.posts.posts);
 	const commentsObj = useSelector((state) => state.comments.comments);
-	// const likesObj = useSelector((state) => state.likes.likes);
+	const likes_by_post = useSelector((state) => state.likes.likes_by_post_id);
 	const curr_user = useSelector((state) => state.session.user);
 	document.title = "basebook";
 	const posts = Object.values(postsObj);
@@ -57,7 +57,7 @@ const Posts = (props) => {
 								// 		? commentsObj[post.id]
 								// 		: {}
 								// }
-								likes={post.likes}
+								likes={likes_by_post[post.id]}
 							/>
 						))}
 			</div>

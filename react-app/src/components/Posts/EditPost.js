@@ -56,6 +56,11 @@ const EditPost = ({ setShowModal, post, setShowButtons }) => {
 					placeholder={`What's on your mind, ${curr_user.first_name}?`}
 					value={newPost}
 					onChange={(e) => setNewPost(e.target.value)}
+					onFocus={(e) =>
+						(e.target.selectionStart = e.target.selectionEnd =
+							e.target.value.length)
+					}
+					autoFocus={true}
 				></textarea>
 				<button disabled={disabled} id="create-edit-post">
 					Save

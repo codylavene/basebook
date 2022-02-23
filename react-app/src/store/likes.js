@@ -99,7 +99,7 @@ export const deleteLike = (post_id, like_id) => async (dispatch) => {
 // 		console.log("Uh Oh");
 // 	}
 // };
-const initialState = { likes: {} };
+const initialState = { likes: {}, likes_by_post_id: {} };
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
 		case LOAD: {
@@ -121,6 +121,12 @@ const reducer = (state = initialState, action) => {
 				// }
 				// console.log(like);
 				// newState.likesArr.push(like.user_id);
+				if (newState.likes_by_post_id[like.post_id]) {
+					// newState.likes_by_post_id[like.post_id] = [];
+					newState.likes_by_post_id[like.post_id].push(like.id);
+				} else {
+					newState.likes_by_post_id[like.post_id] = [like.id];
+				}
 				likes[like.id] = like;
 				return likes;
 			}, {});
@@ -140,6 +146,15 @@ const reducer = (state = initialState, action) => {
 			// newState.likes[action.like.post_id]["count"]
 			// 	? (newState.likes[action.like.post_id]["count"] += 1)
 			// 	: (newState.likes[action.like.post_id]["count"] = 1);
+			if (newState.likes_by_post_id[action.like.post_id]) {
+				newState.likes_by_post_id[action.like.post_id].push(
+					action.like.id
+				);
+			} else {
+				newState.likes_by_post_id[action.like.post_id] = [
+					action.like.id,
+				];
+			}
 			newState.likes[action.like.id] = action.like;
 			return newState;
 		}
@@ -155,6 +170,10 @@ const reducer = (state = initialState, action) => {
 			const newState = { ...state };
 			// delete newState.likes[action.like.post_id][action.like.id];
 			// newState.likes[action.like.post_id]["count"] -= 1;
+			const i = newState.likes_by_post_id[action.like.post_id].indexOf(
+				action.like.id
+			);
+			newState.likes_by_post_id[action.like.post_id].splice(i, 1);
 
 			delete newState.likes[action.like.id];
 			return newState;

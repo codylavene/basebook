@@ -8,15 +8,16 @@ import * as likeActions from "../../../store/likes";
 import * as postActions from "../../../store/posts";
 import Post from "../../Posts/Post";
 
-function User({ user, posts }) {
+function User({ user }) {
 	console.log(user);
 	const dispatch = useDispatch();
 	// const [user, setUser] = useState(user);
 	// const { userId } = useParams();
 	const curr_user = useSelector((state) => state.session.user);
 	// const user = useSelector((state) => state.profile.profile);
-	const allPosts = useSelector((state) => state.session.posts);
-	const comments = useSelector((state) => state.comments.comments);
+	const allPosts = useSelector((state) => state.posts.posts);
+	const comments = useSelector((state) => state.comments);
+	// console.log(comments);
 	const likes = useSelector((state) => state.likes.likes);
 	// useEffect(() => {
 	// 	dispatch(profileActions.loadProfile(userId));
@@ -26,7 +27,7 @@ function User({ user, posts }) {
 		dispatch(postActions.getPosts());
 	}, []);
 	console.log("USER JS -- USER POSTS", user.posts);
-	console.log("USER JS -- 'POSTS'", posts);
+	console.table(allPosts);
 	useEffect(() => {
 		(async () => {
 			// dispatch(commentActions.getComments());
@@ -57,19 +58,14 @@ function User({ user, posts }) {
 			</div>
 			<div className="profile-posts--container">
 				{user.posts?.length > 0 &&
-					user?.posts
-						// ?.sort(
-						// 	(a, b) =>
-						// 		new Date(b.posted_at) - new Date(a.posted_at)
-						// )
-						.map((id) => (
-							<Post
-								post={allPosts[id]}
-								key={id}
-								comments={allPosts[id].comments}
-								likes={allPosts[id].likes}
-							/>
-						))}
+					user.posts.map((id) => (
+						<Post
+							post={allPosts[id]}
+							key={id}
+							comments={allPosts[id]?.comments}
+							likes={allPosts[id]?.likes}
+						/>
+					))}
 			</div>
 		</div>
 	);

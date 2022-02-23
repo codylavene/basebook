@@ -80,25 +80,27 @@ export const deleteComment = (post_id, comment_id) => async (dispatch) => {
 		console.log("Uh Oh");
 	}
 };
-const initialState = { comments: {}, comment_ids: [] };
+const initialState = { comments: {}, comments_post_ids: {}, all_ids: [] };
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
 		case LOAD: {
 			const newState = { ...state };
-			newState.comments = action.comments.reduce((comments, comment) => {
-				// const newComment = {};
-				// const id = comment.id;
-				// newComment[id] = comment;
-				// if (comments[comment.post_id]) {
-				// 	comments[comment.post_id][comment.id] = comment;
-				// } else {
-				// 	comments[comment.post_id] = {};
-				// 	comments[comment.post_id][comment.id] = comment;
-				// }
-				comments[comment.id] = comment;
-				newState.comment_ids.push(comment.id);
-				return comments;
-			}, {});
+			newState.comments_post_ids = action.comments.reduce(
+				(comments, comment) => {
+					const newComment = {};
+					const id = comment.id;
+					newComment[id] = comment;
+					if (comments[comment.post_id]) {
+						comments[comment.post_id].push(comment.id);
+					} else {
+						comments[comment.post_id] = [comment.id];
+					}
+					newState.comments[comment.id] = comment;
+					newState.all_ids.push(comment.id);
+					return comments;
+				},
+				{}
+			);
 			return newState;
 		}
 		case CREATE: {
@@ -114,14 +116,28 @@ const reducer = (state = initialState, action) => {
 			// 	newState.comments[action.comment.post_id][action.comment.id] =
 			// 		action.comment;
 			// }
+			if (newState.comments_post_ids[action.comment.post_id]) {
+				newState.comments_post_ids[action.comment.post_id].push(
+					action.comment.id
+				);
+			} else {
+				newState.comments_post_ids[action.comment.post_id] = [
+					action.comment.id,
+				];
+			}
 			newState.comments[action.comment.id] = action.comment;
-			newState.comment_ids.push(action.comment.id);
+			newState.all_ids.push(action.comment.id);
 			return newState;
 		}
 		case EDIT: {
 			const newState = { ...state };
 			// newState.comments[action.comment.post_id][action.comment.id] =
 			// action.comment;
+			const i = newState.comments_post_ids[
+				action.comment.post_id
+			].indexOf(action.comment.id);
+			newState.comments_post_ids[action.comment.post_id].splice(i, 1);
+
 			newState.comments[action.comment.id] = action.comment;
 
 			return newState;
@@ -129,9 +145,15 @@ const reducer = (state = initialState, action) => {
 		case DELETE: {
 			const newState = { ...state };
 			// delete newState.comments[action.comment.post_id][action.comment.id];
+			const i = newState.all_ids.indexOf(action.comment.id);
+			newState.all_ids.splice(i, 1);
+
+			const idx = newState.comments_post_ids[
+				action.comment.post_id
+			].indexOf(action.comment.id);
+			newState.comments_post_ids[action.comment.post_id].splice(idx, 1);
+
 			delete newState.comments[action.comment.id];
-			const i = newState.comment_ids.indexOf(action.comment.id);
-			newState.comment_ids.splice(i, 1);
 			return newState;
 		}
 

@@ -226,14 +226,22 @@ const SignUpForm = ({ setShowModal }) => {
 					type={type}
 					placeholder="Mobile number or email"
 					onChange={updateContact}
-					// pattern={type === "tel" ? 1234567890 : "null"}
+					pattern={
+						type === "tel"
+							? "[0-9]{3}-[0-9]{3}-[0-9]{4}"
+							: /^[\w\d-]+@[a-zA-Z]+\.[a-zA-Z]{2,3}$/g
+					}
 					// onBlur={(e) => checkContact(e)}
 					value={contact}
 					required={true}
 					onInvalid={(e) =>
-						e.target.setCustomValidity(
-							"This doesn't seem to be a valid phone number or email"
-						)
+						type === "tel"
+							? e.target.setCustomValidity(
+									"Format your phone number as 555-555-5555"
+							  )
+							: e.target.setCustomValidity(
+									"This doesn't seem to be a valid phone number or email"
+							  )
 					}
 					onInput={(e) => e.target.setCustomValidity("")}
 					// style={{ borderColor: errors.contact ? "red" : "" }}

@@ -13,28 +13,32 @@ const Post = ({ post, /*comments,*/ likes }) => {
 	const dispatch = useDispatch();
 	const commentRef = useRef(null);
 	const comments = useSelector((state) => state.comments.comments);
-	const comment_ids = useSelector((state) => state.comments.comment_ids);
+	const comment_ids = useSelector((state) => state.comments.all_ids);
+	const comments_post_ids = useSelector(
+		(state) => state.comments.comments_post_ids
+	);
 	// const likesObj = useSelector((state) => state.likes.likes);
 	const [showComments, setShowComments] = useState(false);
 	const [showButtons, setShowButtons] = useState(false);
 	// const [loading, setLoading] = useState(false);
+	const likes_by_post = useSelector((state) => state.likes.likes_by_post_id);
 	const curr_user = useSelector((state) => state.session.user);
-	const status = curr_user.likes.indexOf(post.id) >= 0;
+	const status = curr_user.likes.indexOf(post?.id) >= 0;
 	const [liked, setLiked] = useState(status);
 	const [likeCount, setLikeCount] = useState(likes?.length);
-	const [likeId, setLikeId] = useState(post.liked_status?.like_id);
+	const [likeId, setLikeId] = useState(post?.liked_status?.like_id);
 	// const [beenLiked, setBeenLiked] = useState(likeId ? true : false);
-	console.log(comments);
+	// console.log(comments);
 	const toggleLike = async () => {
 		// setLoading(true);
 		if (liked) {
 			await dispatch(likeActions.deleteLike(post.id, likeId));
-			// dispatch(likeActions.getLikes());
+			dispatch(likeActions.getLikes());
 			setLiked(false);
 			setLikeCount(likeCount - 1);
 		} else {
 			const id = await dispatch(likeActions.addLike(post.id));
-			// dispatch(likeActions.getLikes());
+			dispatch(likeActions.getLikes());
 			setLiked(true);
 			setLikeId(id);
 			setLikeCount(likeCount + 1);
@@ -43,9 +47,17 @@ const Post = ({ post, /*comments,*/ likes }) => {
 	const focusComment = (e) => {
 		commentRef.current.focus();
 	};
+
+	// let commentCountMsg;
+	// const createCountMessage = () => {
+	// 	commentCountMsg = comments_post_ids[post.id]
+	// 		? `${comments_post_ids[post.id].length}
+	// 		${comments_post_ids[post.id].length === 1 ? "comment" : "comments"}`
+	// 		: "0 comments";
+	// };
 	return (
 		<div className="single-post-container">
-			{curr_user.id === post.user_id && (
+			{curr_user.id === post?.user_id && (
 				<i
 					className="fa-solid fa-ellipsis"
 					onClick={() => setShowButtons(!showButtons)}
@@ -63,13 +75,13 @@ const Post = ({ post, /*comments,*/ likes }) => {
 					/>
 				</div>
 			)}
-			<Link to={`/users/${post.user_id}`}>
+			<Link to={`/users/${post?.user_id}`}>
 				<div className="user-info--container">
 					<div className="image-placeholder"></div>
-					<h4>{post.name}</h4>
+					<h4>{post?.name}</h4>
 				</div>
 			</Link>
-			<div className="post-body">{post.post_body}</div>
+			<div className="post-body">{post?.post_body}</div>
 			<div className="like-comment-count">
 				<div className="likes-count">
 					<span>
@@ -81,16 +93,18 @@ const Post = ({ post, /*comments,*/ likes }) => {
 					className="comments-count"
 					onClick={() => setShowComments(!showComments)}
 				>
-					{post?.comments?.length}{" "}
-					{post?.comments?.length === 1 ? "comment" : "comments"}
-					{/* {Object.values(comments)?.length}{" "}
-					{Object.values(comments)?.length === 1
-						? "comment"
-						: "comments"} */}
+					{" "}
+					{comments_post_ids[post?.id]
+						? `${comments_post_ids[post?.id].length} ${
+								comments_post_ids[post?.id].length === 1
+									? "comment"
+									: "comments"
+						  }`
+						: "0 comments"}
 				</div>
 			</div>
 			{showComments &&
-				post.comments.map((id) => {
+				comments_post_ids[post.id]?.map((id) => {
 					return (
 						<Comment key={id} comment={comments[id]} post={post} />
 					);
