@@ -18,9 +18,10 @@ const SignUpForm = ({ setShowModal }) => {
 	const [password, setPassword] = useState("");
 	const [type, setType] = useState("tel");
 	const [repeatPassword, setRepeatPassword] = useState("");
+	const [pattern, setPattern] = useState("");
 	const user = useSelector((state) => state.session.user);
 	const dispatch = useDispatch();
-	const phoneRegex = /^\d{10}$/g;
+	const phoneRegex = /^\d{3}-\d{3}-\d{4}$/g;
 	const emailRegex = /^[\w\d-]+@[a-zA-Z]+\.[a-zA-Z]{2,3}$/g;
 	const months = [
 		"Jan",
@@ -57,14 +58,16 @@ const SignUpForm = ({ setShowModal }) => {
 	const onSignUp = async (e) => {
 		e.preventDefault();
 		e.stopPropagation();
-		// const err = { ...errors };
+		const err = { ...errors };
 		// if (!firstName || !/^\w{2,100}$/g.test(firstName))
 		// 	err.firstName = "Whats your name? Cannot include symbols.";
 		// if (!lastName || !/^\w{2,100}$/g.test(lastName))
-		// 	err.lastName = "Whats your name? Cannot include symbols.";
-		// if (!emailRegex.test(contact) && !phoneRegex.test(contact)) {
+		// // 	err.lastName = "Whats your name? Cannot include symbols.";
+		// if (!emailRegex.test(contact) || !phoneRegex.test(contact)) {
 		// 	err.contact =
 		// 		"Hmm... This doesn't seem to be a valid phone number or email";
+		// 	setErrors(...err);
+		// 	return;
 		// }
 		// if (password.length < 8 && repeatPassword.length < 8) {
 		// 	err.password = "Password must be 8 characters or longer";
@@ -94,10 +97,16 @@ const SignUpForm = ({ setShowModal }) => {
 			// if (Object.values(err).length) setErrors(err);
 		}
 	};
-	useEffect(() => {
-		if (contact && /[a-zA-Z]/g.test(contact[0])) setType("email");
-		else setType("tel");
-	}, [contact]);
+	// useEffect(() => {
+	// 	if (contact && /[a-zA-z]/g.test(contact[0])) {
+	// 		setType("email");
+	// 		setPattern(emailRegex);
+	// 	} else {
+	// 		setType("tel");
+	// 		setPattern("[0-9]{3}-[0-9]{3}-[0-9]{4}");
+	// 		// /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
+	// 	}
+	// }, [contact]);
 	const updateFirstName = (e) => {
 		setFirstName(e.target.value);
 	};
@@ -185,67 +194,48 @@ const SignUpForm = ({ setShowModal }) => {
 			</div>
 
 			<form onSubmit={onSignUp} className="signup-form">
-				<div className="errors">
-					{/* {errors.map((error, ind) => (
-						<div key={ind}>{error}</div>
-					))} */}
-				</div>
+				<div className="errors"></div>
 				<div className="name">
 					<input
 						type="text"
 						placeholder="First name"
 						onChange={updateFirstName}
-						// onBlur={(e) => checkFirstName(e)}
 						value={firstName}
 						required={true}
 						onInvalid={(e) =>
 							e.target.setCustomValidity(
-								"What should we call you?"
+								"What's your first name?"
 							)
 						}
+						title={"What's your first name?"}
 						onInput={(e) => e.target.setCustomValidity("")}
-						// style={{ borderColor: checkFirstName() ? "red" : "" }}
 					></input>
-					{/* <div>{errors.firstName}</div> */}
 					<input
 						type="text"
 						placeholder="Last name"
 						onChange={updateLastName}
 						// onBlur={(e) => checkLastName(e)}
 						value={lastName}
+						title={"What's your last name"}
 						required={true}
 						onInvalid={(e) =>
-							e.target.setCustomValidity(
-								"What should we call you?"
-							)
+							e.target.setCustomValidity("What's your last name?")
 						}
 						onInput={(e) => e.target.setCustomValidity("")}
-						// style={{ borderColor: errors.lastName ? "red" : "" }}
 					></input>
 				</div>
 				<input
-					type={type}
-					placeholder="Mobile number or email"
+					type={"email"}
+					placeholder="Email Address"
 					onChange={updateContact}
-					pattern={
-						type === "tel"
-							? "[0-9]{3}-[0-9]{3}-[0-9]{4}"
-							: /^[\w\d-]+@[a-zA-Z]+\.[a-zA-Z]{2,3}$/g
-					}
-					// onBlur={(e) => checkContact(e)}
 					value={contact}
 					required={true}
 					onInvalid={(e) =>
-						type === "tel"
-							? e.target.setCustomValidity(
-									"Format your phone number as 555-555-5555"
-							  )
-							: e.target.setCustomValidity(
-									"This doesn't seem to be a valid phone number or email"
-							  )
+						e.target.setCustomValidity(
+							"This doesn't seem to be a valid email"
+						)
 					}
 					onInput={(e) => e.target.setCustomValidity("")}
-					// style={{ borderColor: errors.contact ? "red" : "" }}
 				></input>
 				<div className="errors">
 					{errors.length > 0 && errors[0].split(" : ")[1]}
@@ -255,6 +245,7 @@ const SignUpForm = ({ setShowModal }) => {
 					placeholder="New password"
 					onChange={updatePassword}
 					// onBlur={(e) => checkPassword(e)}
+					title={"Enter a password of at least 8 characters"}
 					value={password}
 					required={true}
 					minLength={8}
@@ -270,6 +261,7 @@ const SignUpForm = ({ setShowModal }) => {
 					type="password"
 					placeholder="Confirm password"
 					onChange={updateRepeatPassword}
+					title={"Confirm your password"}
 					onBlur={(e) =>
 						e.target.setCustomValidity(
 							password === repeatPassword

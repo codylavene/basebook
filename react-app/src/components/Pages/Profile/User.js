@@ -6,6 +6,7 @@ import * as profileActions from "../../../store/profile";
 import * as commentActions from "../../../store/comments";
 import * as likeActions from "../../../store/likes";
 import Post from "../../Posts/Post";
+import EditDetailsModal from "./EditDetailsModal";
 
 function User({ user }) {
 	const dispatch = useDispatch();
@@ -36,39 +37,76 @@ function User({ user }) {
 		console.log("NOPE");
 		return null;
 	}
-
+	const months = [
+		"January",
+		"February",
+		"March",
+		"April",
+		"May",
+		"June",
+		"July",
+		"August",
+		"September",
+		"October",
+		"November",
+		"December",
+	];
+	const date = new Date(user.joined_at);
+	const year = date.getFullYear();
+	const numMonth = date.getMonth();
+	const month = months[numMonth];
+	const joined = `${month} ${year}`;
 	return (
 		<div className="user-profile--container">
-			<div className="profile-details--container">
-				<div className="profile-details--wrapper">
-					<h2>Intro</h2>
-					<div>{user.full_name}</div>
-					<button>Add Bio</button>
-					<div>From: </div>
-					<div>Joined: </div>
-					<button>Edit details</button>
-					<button>Add Hobbies</button>
+			<div className="user-profile--wrapper">
+				<div className="profile-details--container">
+					<div className="profile-details--wrapper">
+						<h2>Intro</h2>
+						{user?.details?.bio ? (
+							<div className="user-details--bio">
+								<span>{user.details?.bio}</span>
+							</div>
+						) : curr_user.id !== user.id ? (
+							""
+						) : (
+							<button>Add Bio</button>
+						)}
+						<div>
+							<i className="fa-solid fa-location-dot"></i> From{" "}
+							{user.details?.city}
+						</div>
+						<div>
+							<i className="fa-solid fa-clock"></i> Joined{" "}
+							{joined}
+						</div>
+						{curr_user.id === user.id && <EditDetailsModal />}
+					</div>
 				</div>
-			</div>
-			<div className="profile-posts--container">
-				{user.posts?.length > 0 &&
-					user?.posts
-						?.sort(
-							(a, b) =>
-								new Date(b.posted_at) - new Date(a.posted_at)
-						)
-						.map((post) => (
-							<Post
-								post={post}
-								key={post.id}
-								comments={
-									comments[post.id] ? comments[post.id] : {}
-								}
-								likes={
-									likesObj[post.id] ? likesObj[post.id] : {}
-								}
-							/>
-						))}
+				<div className="profile-posts--container">
+					{user.posts?.length > 0 &&
+						user?.posts
+							?.sort(
+								(a, b) =>
+									new Date(b.posted_at) -
+									new Date(a.posted_at)
+							)
+							.map((post) => (
+								<Post
+									post={post}
+									key={post.id}
+									comments={
+										comments[post.id]
+											? comments[post.id]
+											: {}
+									}
+									likes={
+										likesObj[post.id]
+											? likesObj[post.id]
+											: {}
+									}
+								/>
+							))}
+				</div>
 			</div>
 		</div>
 	);

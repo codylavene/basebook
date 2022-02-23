@@ -261,6 +261,7 @@ footer {
 	left: 0;
 	right: 0;
 	height: 176px;
+	min-height: 176px;
 	/* padding: 20px; */
 }
 

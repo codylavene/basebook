@@ -1,12 +1,13 @@
 .user-header--container {
 	position: relative;
 	margin-top: 45px;
-	margin-bottom: 15px;
+	/* margin-bottom: 15px; */
 	width: 100%;
 	height: 625px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	justify-content: space-between;
 	background-image: linear-gradient(
 		to top,
 		#ffffff,
@@ -82,8 +83,8 @@
 .user-header--nav {
 	display: flex;
 	justify-content: flex-start;
-	position: absolute;
-	bottom: 0;
+	/* position: sticky;
+	top: 0; */
 	width: 75%;
 	max-width: 1150px;
 	height: fit-content;
@@ -106,23 +107,30 @@
 }
 .user-profile--container {
 	width: 100%;
-	max-width: 1300px;
+	/* max-width: 1300px; */
+	padding-top: 10px;
 	height: fit-content;
 	display: flex;
 	justify-content: center;
 	align-items: flex-start;
 	margin: auto;
 	gap: 10px;
+	background-color: var(--splash-bg);
 }
-
+.user-profile--wrapper {
+	max-width: 1800px;
+	width: 80%;
+	display: flex;
+	align-items: start;
+}
 .profile-posts--container {
 	display: flex;
-	flex-basis: 1800px;
+	flex-basis: 1000px;
 	flex-grow: 3;
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: flex-start;
-	width: 100%;
+	width: 50%;
 }
 .profile-posts--container > .create-post--container {
 	margin: auto;
@@ -131,15 +139,16 @@
 	justify-content: flex-start;
 }
 .profile-details--container {
-	width: 100%;
+	width: 50%;
 	display: flex;
-	flex-grow: 1;
+	/* flex-grow: 1; */
 
 	flex-direction: column;
 	align-items: flex-end;
 }
 .profile-details--wrapper {
 	width: 80%;
+	max-width: 600px;
 	height: fit-content;
 	background-color: var(--main-white);
 	margin-top: 10px;
@@ -192,4 +201,28 @@
 .friend-status--btn > button:hover {
 	background-color: var(--secondary-btn-hover);
 	cursor: pointer;
+}
+
+.details--form {
+	width: 500px;
+	height: fit-content;
+	padding: 20px;
+	background-color: var(--main-white);
+}
+.details--form > form {
+	display: flex;
+	height: 100%;
+	width: 100%;
+	flex-direction: column;
+	justify-content: space-evenly;
+}
+.details--form > form > input {
+	height: 40px;
+}
+.details-form--head {
+	display: flex;
+	text-align: center;
+	width: 100%;
+	border-bottom: 1px solid var(--footer-text);
+	padding: 8px 0px 16px;
 }

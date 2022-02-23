@@ -16,6 +16,7 @@ def users():
 @user_routes.route('/<int:id>')
 @login_required
 def user(id):
+    click.echo(click.style(f"\n\n\n{'ENTER ROUTE'}\n\n", bg='red', fg='white'))
     user = User.query.get(id)
-    # click.echo(click.style(f"\n\n\n{user}\n\n", bg='red', fg='white'))
+    click.echo(click.style(f"\n\n\n{user.to_frontend_dict()}\n\n", bg='red', fg='white'))
     return user.to_frontend_dict()

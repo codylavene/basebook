@@ -14,15 +14,23 @@ const UserHeader = ({
 	console.log("<><><><><><><>========++++++++", isPendingFriend);
 	const dispatch = useDispatch();
 	const curr_user = useSelector((state) => state.session.user);
+	const [loading, setLoading] = useState(false);
 	useEffect(() => {
-		dispatch(requestActions.getRequests());
+		setLoading(true);
+		dispatch(requestActions.getRequests()).then(() => {
+			setTimeout(() => {
+				setLoading(false);
+			}, 300);
+		});
 	}, []);
 	console.log(curr_user.id);
 	console.log(user.id);
 	const sendRequest = async () => {
+		setLoading(true);
 		await dispatch(requestActions.sendRequest(user.id));
-		dispatch(requestActions.getRequests());
+		await dispatch(requestActions.getRequests());
 		setIsPendingFriend(true);
+		setLoading(false);
 	};
 	const declineRequest = async () => {
 		console.log(sent_reqs);
@@ -50,7 +58,10 @@ const UserHeader = ({
 					</div>
 					<h2 className="user-header--user-name">{user.full_name}</h2>
 					<div className="friend-status--btn">
-						{curr_user.id !== user.id &&
+						{loading ? (
+							<i className="fa-solid fa-spinner fa-spin-pulse"></i>
+						) : (
+							curr_user.id !== user.id &&
 							(isPendingFriend ? (
 								<button onClick={declineRequest}>
 									<i className="fa-solid fa-user-xmark"></i>{" "}
@@ -72,7 +83,8 @@ const UserHeader = ({
 									<i className="fa-solid fa-user-plus"></i>{" "}
 									Add Friend
 								</button>
-							))}
+							))
+						)}
 					</div>
 				</div>
 			</div>
