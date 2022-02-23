@@ -28,10 +28,10 @@ function User({ user }) {
 			dispatch(likeActions.getLikes());
 		})();
 	}, []);
-	const message =
-		curr_user.id === +userId
-			? "What's on your mind?"
-			: `Write something to ${user?.first_name}...`;
+	// const message =
+	// 	curr_user.id === +userId
+	// 		? "What's on your mind?"
+	// 		: `Write something to ${user?.first_name}...`;
 	if (!user) {
 		console.log("NOPE");
 		return null;
@@ -51,13 +51,7 @@ function User({ user }) {
 				</div>
 			</div>
 			<div className="profile-posts--container">
-				<div className="create-post--container">
-					<div className="create-post--wrapper">
-						<div className="image-placeholder"></div>
-						<CreatePostModal user={user} message={message} />
-					</div>
-				</div>
-				{user?.posts?.length > 0 &&
+				{user.posts?.length > 0 &&
 					user?.posts
 						?.sort(
 							(a, b) =>

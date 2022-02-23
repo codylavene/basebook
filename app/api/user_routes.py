@@ -9,6 +9,7 @@ user_routes = Blueprint('users', __name__)
 @login_required
 def users():
     users = User.query.all()
+    click.echo(click.style(f"\n\n\n{users}\n\n", bg='red', fg='white'))
     return {'users': [user.to_frontend_dict() for user in users]}
 
 

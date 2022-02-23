@@ -5,6 +5,7 @@ import basebook from "../../../assets/images/basebook.png";
 import "./Splash.css";
 import Footer from "./Footer";
 const SplashPage = (props) => {
+	document.title = "basebook - Log In or Sign Up";
 	return (
 		<>
 			<div className="splash-container">

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import * as commentActions from "../../store/comments";
 import * as postActions from "../../store/posts";
-const AddComment = ({ post }) => {
+const AddComment = ({ post, commentRef }) => {
 	const dispatch = useDispatch();
 	const [comment, setComment] = useState("");
 	const [loading, setLoading] = useState(false);
@@ -28,6 +28,7 @@ const AddComment = ({ post }) => {
 					placeholder="Write a comment..."
 					value={comment}
 					onChange={(e) => setComment(e.target.value)}
+					ref={commentRef}
 				></input>
 				<button className="add-comment--btn">
 					{loading ? (

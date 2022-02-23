@@ -1,33 +1,40 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-
+import * as profileActions from "../store/profile";
+import FriendCard from "./Pages/Profile/FriendCard";
+import "./Friends.css";
 function UsersList() {
-	const [users, setUsers] = useState([]);
+	const dispatch = useDispatch();
+	const [friends, setFriends] = useState([]);
+	const curr_user = useSelector((state) => state.session.user);
+	// const allUsers = useSelector((state) => state.profile.allProfiles);
 
 	useEffect(() => {
-		async function fetchData() {
-			const response = await fetch("/api/users/");
-			const responseData = await response.json();
-			setUsers(responseData.users);
-		}
-		fetchData();
+		setFriends(curr_user.friends);
 	}, []);
-
-	const userComponents = users.map((user) => {
-		return (
-			<li key={user.id}>
-				<NavLink to={`/users/${user.id}`}>
-					{`${user.first_name} ${user.last_name}`}
-				</NavLink>
-			</li>
-		);
-	});
+	console.log(friends);
+	console.log(curr_user.friends);
+	// const userComponents = Object.values(friends).map((friend) => {
+	// 	return (
+	// 		// <li key={friend.id}>
+	// 		// 	<NavLink to={`/users/${friend.id}`}>
+	// 		// 		{`${friend.first_name} ${friend.last_name}`}
+	// 		// 	</NavLink>
+	// 		// </li>
+	// 		<FriendCard />
+	// 	);
+	// });
 
 	return (
-		<>
-			<h1>User List: </h1>
-			<ul>{userComponents}</ul>
-		</>
+		<div className="friends--container" style={{ marginTop: 70 }}>
+			<h2>Friends</h2>
+			<div className="friends--cards">
+				{curr_user.friends.map((friend) => (
+					<FriendCard key={friend.id} friend={friend} />
+				))}
+			</div>
+		</div>
 	);
 }
 
