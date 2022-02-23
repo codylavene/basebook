@@ -19,6 +19,10 @@ function User({ user }) {
 	const comments = useSelector((state) => state.comments);
 	// console.log(comments);
 	const likes = useSelector((state) => state.likes.likes);
+	const likes_by_post = useSelector((state) => state.likes.likes_by_post_id);
+	const comments_post_ids = useSelector(
+		(state) => state.comments.comments_post_ids
+	);
 	// useEffect(() => {
 	// 	dispatch(profileActions.loadProfile(userId));
 	// 	// dispatch(commentActions.getComments());
@@ -27,7 +31,7 @@ function User({ user }) {
 		dispatch(postActions.getPosts());
 	}, []);
 	console.log("USER JS -- USER POSTS", user.posts);
-	console.table(allPosts);
+	// console.table(allPosts);
 	useEffect(() => {
 		(async () => {
 			// dispatch(commentActions.getComments());
@@ -62,8 +66,9 @@ function User({ user }) {
 						<Post
 							post={allPosts[id]}
 							key={id}
-							comments={allPosts[id]?.comments}
-							likes={allPosts[id]?.likes}
+							// comments={comments_post_ids[id]}
+							// likes={allPosts[id]?.likes}
+							likes={likes_by_post[id]}
 						/>
 					))}
 			</div>

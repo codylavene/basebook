@@ -57,7 +57,7 @@ const Posts = (props) => {
 								// 		? commentsObj[post.id]
 								// 		: {}
 								// }
-								likes={likes_by_post[post.id]}
+								likes={post.likes}
 							/>
 						))}
 			</div>
