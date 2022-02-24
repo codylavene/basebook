@@ -6,6 +6,7 @@ import * as profileActions from "../../../store/profile";
 import * as commentActions from "../../../store/comments";
 import * as likeActions from "../../../store/likes";
 import Post from "../../Posts/Post";
+import EditDetailsModal from "./EditDetailsModal";
 
 function User({ user }) {
 	const dispatch = useDispatch();
@@ -69,26 +70,6 @@ function User({ user }) {
 					{/* <button>Edit details</button> */}
 					{/* <button>Add Hobbies</button> */}
 				</div>
-			</div>
-			<div className="profile-posts--container">
-				{user.posts?.length > 0 &&
-					user?.posts
-						?.sort(
-							(a, b) =>
-								new Date(b.posted_at) - new Date(a.posted_at)
-						)
-						.map((post) => (
-							<Post
-								post={post}
-								key={post.id}
-								comments={
-									comments[post.id] ? comments[post.id] : {}
-								}
-								likes={
-									likesObj[post.id] ? likesObj[post.id] : {}
-								}
-							/>
-						))}
 			</div>
 		</div>
 	);

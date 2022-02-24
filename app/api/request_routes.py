@@ -11,8 +11,9 @@ request_routes = Blueprint('requests', __name__)
 def all_requests():
     click.echo(click.style(f"\n\n\n{'HELLO'}\n\n", bg='red', fg='white'))
     sent_requests = Request.query.filter(Request.sender_id == current_user.get_id()).all()
+    click.echo(click.style(f"\n\n\n{sent_requests}\n\n\n", bg='red', fg='white'))
     rec_requests = Request.query.filter(Request.receiver_id ==  current_user.get_id()).all()
-    click.echo(click.style(f"\n\n\n{rec_requests}\n\n{sent_requests}\n\n\n", bg='red', fg='white'))
+    click.echo(click.style(f"\n\n\n{rec_requests}\n\n\n", bg='red', fg='white'))
     return {'sent_requests': [request.to_frontend_dict() for request in sent_requests], "rec_requests": [request.to_frontend_dict() for request in rec_requests]}
 
 

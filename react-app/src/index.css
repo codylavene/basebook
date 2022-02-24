@@ -37,7 +37,7 @@ body {
 }
 
 body {
-	background-color: var(--splash-bg);
+	background-color: var(--main-white);
 }
 /* @media (prefers-color-scheme: light) {
 	:root {

@@ -10,7 +10,7 @@ def seed_users():
     db.session.add(demo)
     for _ in range(76):
         user = User(
-            first_name=fake.first_name(), last_name=fake.last_name(), contact=fake.numerify('%###-###-####'), birthdate=fake.date_of_birth(minimum_age=18),password=fake.password(length=12))
+            first_name=fake.first_name(), last_name=fake.last_name(), contact=fake.numerify('###-###-####'), birthdate=fake.date_of_birth(minimum_age=18),password=fake.password(length=12))
         db.session.add(user)
 
 

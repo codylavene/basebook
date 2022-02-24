@@ -34,7 +34,7 @@ class User(db.Model, UserMixin):
     comments = db.relationship("Comment", back_populates="user")
     likes = db.relationship("Like", back_populates="user")
     images = db.relationship("Image", back_populates="owner")
-
+    details = db.relationship("UserDetails", back_populates="user")
     @property
     def password(self):
         return self.hashed_password
@@ -54,15 +54,19 @@ class User(db.Model, UserMixin):
             'contact': self.contact,
             'birthdate': self.birthdate,
             'gender': self.gender,
+            'joined_at': self.joined_at,
         }
     def to_frontend_dict(self):
-        from app.models import Post, Like, Request
+        from app.models import Post, Like, Request, UserDetails
         user_posts = Post.query.filter(Post.user_id == self.id).all()
         posts = [post.to_frontend_dict() for post in user_posts]
         user_likes = Like.query.filter(Like.user_id == self.id).all()
         likes = [like.to_dict() for like in user_likes]
         rec_requests = Request.query.filter(Request.receiver_id == self.id).all()
         sent_requests = Request.query.filter(Request.sender_id == self.id).all()
+        details = UserDetails.query.filter(UserDetails.user_id == self.id).first()
+        if details:
+            details = details.to_dict()
         return {
             'id': self.id,
             'first_name': self.first_name,
@@ -71,10 +75,12 @@ class User(db.Model, UserMixin):
             'contact': self.contact,
             'birthdate': self.birthdate,
             'gender': self.gender,
+            'joined_at': self.joined_at,
             'posts': posts,
             'likes': likes,
             'joined_at': self.joined_at,
             'friends': [friend.to_dict() for friend in self.friends],
             'rec_requests': [request.to_frontend_dict() for request in rec_requests],
             'sent_requests': [request.to_frontend_dict() for request in sent_requests],
+            'details': details,
         }

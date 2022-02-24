@@ -1,7 +1,7 @@
 // constants
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
-
+const UPDATE_USER = "session/UPDATE_USER";
 const setUser = (user) => ({
 	type: SET_USER,
 	payload: user,
@@ -9,6 +9,11 @@ const setUser = (user) => ({
 
 const removeUser = () => ({
 	type: REMOVE_USER,
+});
+
+const updateUser = (user) => ({
+	type: UPDATE_USER,
+	payload: user,
 });
 
 const initialState = { user: null };
@@ -66,7 +71,20 @@ export const logout = () => async (dispatch) => {
 		dispatch(removeUser());
 	}
 };
-
+export const updateDetails = (details, userId) => async (dispatch) => {
+	const { bio, city, work, education } = details;
+	const res = await fetch(`/api/users/${userId}/details`, {
+		method: "PUT",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({ bio, city, work, education }),
+	});
+	if (res.ok) {
+		const data = await res.json();
+		dispatch(setUser(data));
+	} else {
+		return ["An error occured, please try again."];
+	}
+};
 export const signUp =
 	(first_name, last_name, contact, month, day, year, gender, password) =>
 	async (dispatch) => {
@@ -107,6 +125,8 @@ export default function reducer(state = initialState, action) {
 			return { user: action.payload };
 		case REMOVE_USER:
 			return { user: null };
+		case UPDATE_USER:
+			return { user: action.payload };
 		default:
 			return state;
 	}

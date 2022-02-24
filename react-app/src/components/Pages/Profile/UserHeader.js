@@ -14,26 +14,36 @@ const UserHeader = ({
 	console.log("<><><><><><><>========++++++++", isPendingFriend);
 	const dispatch = useDispatch();
 	const curr_user = useSelector((state) => state.session.user);
+	const [loading, setLoading] = useState(false);
+	const [pending, setPending] = useState(isPendingFriend);
 	useEffect(() => {
-		dispatch(requestActions.getRequests());
+		setLoading(true);
+		dispatch(requestActions.getRequests()).then(() => {
+			setTimeout(() => {
+				setLoading(false);
+			}, 300);
+		});
 	}, []);
 	console.log(curr_user.id);
 	console.log(user.id);
 	const sendRequest = async () => {
+		setLoading(true);
 		await dispatch(requestActions.sendRequest(user.id));
-		dispatch(requestActions.getRequests());
-		setIsPendingFriend(true);
+		await dispatch(requestActions.getRequests());
+		setPending(true);
+		setLoading(false);
 	};
 	const declineRequest = async () => {
 		console.log(sent_reqs);
 		const req = Object.values(sent_reqs).find(
 			(req) =>
-				req.sender_id === curr_user.id && req.receiver_id === user.id
+				req?.sender_id === curr_user?.id &&
+				req?.receiver_id === user?.id
 		);
-		console.log(req);
-		await dispatch(requestActions.declineRequest(req.id));
-		dispatch(requestActions.getRequests());
-		setIsPendingFriend(false);
+		console.table({ req });
+		await dispatch(requestActions.declineRequest(req?.id));
+		await dispatch(requestActions.getRequests());
+		setPending(false);
 	};
 
 	return (
@@ -50,14 +60,19 @@ const UserHeader = ({
 					</div>
 					<h2 className="user-header--user-name">{user.full_name}</h2>
 					<div className="friend-status--btn">
-						{curr_user.id !== user.id &&
-							(isPendingFriend ? (
-								<button onClick={declineRequest}>
-									<i className="fa-solid fa-user-xmark"></i>{" "}
-									Cancel Request
+						{loading ? (
+							<i className="fa-solid fa-spinner fa-spin-pulse"></i>
+						) : (
+							curr_user.id !== user.id &&
+							(isPendingFriend || pending ? (
+								// <button onClick={declineRequest}>
+								<button className="pending-btn">
+									{/* <i className="fa-solid fa-user-xmark"></i>{" "} */}
+									<i className="fa-solid fa-user-clock"></i>{" "}
+									Pending
 								</button>
 							) : isFriend ? (
-								<button>
+								<button className="pending-btn friends-btn">
 									<i className="fa-solid fa-user-check"></i>{" "}
 									Friends
 								</button>
@@ -72,7 +87,8 @@ const UserHeader = ({
 									<i className="fa-solid fa-user-plus"></i>{" "}
 									Add Friend
 								</button>
-							))}
+							))
+						)}
 					</div>
 				</div>
 			</div>
