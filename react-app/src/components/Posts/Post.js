@@ -8,6 +8,7 @@ import EditPostModal from "./EditPostModal";
 import * as postActions from "../../store/posts";
 import * as commentActions from "../../store/comments";
 import * as likeActions from "../../store/likes";
+import OutsideClickHandler from "react-outside-click-handler";
 
 const Post = ({ post, comments, likes }) => {
 	const dispatch = useDispatch();
@@ -50,16 +51,22 @@ const Post = ({ post, comments, likes }) => {
 				></i>
 			)}
 			{showButtons && (
-				<div className="edit-delete-btn--container">
-					<EditPostModal
-						post={post}
-						setShowButtons={setShowButtons}
-					/>
-					<DeletePostModal
-						post={post}
-						setShowButtons={setShowButtons}
-					/>
-				</div>
+				<OutsideClickHandler
+					onOutsideClick={() => {
+						setShowButtons(false);
+					}}
+				>
+					<div className="edit-delete-btn--container">
+						<EditPostModal
+							post={post}
+							setShowButtons={setShowButtons}
+						/>
+						<DeletePostModal
+							post={post}
+							setShowButtons={setShowButtons}
+						/>
+					</div>
+				</OutsideClickHandler>
 			)}
 			<Link to={`/users/${post.user_id}`}>
 				<div className="user-info--container">

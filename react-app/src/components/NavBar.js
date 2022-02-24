@@ -6,6 +6,8 @@ import LogoutButton from "./auth/LogoutButton";
 import b from "../assets/images/b.png";
 import "./NavBar.css";
 import Requests from "./Pages/Profile/Requests";
+import OutsideClickHandler from "react-outside-click-handler";
+
 const NavBar = () => {
 	const [userDrop, setShowUserDrop] = useState(false);
 	const [notifyDrop, setShowNotifyDrop] = useState(false);
@@ -78,9 +80,15 @@ const NavBar = () => {
 						<i className="fa-solid fa-bell"></i>
 					</div>
 					{notifyDrop && (
-						<div className="nav-dropdown">
-							<Requests />
-						</div>
+						<OutsideClickHandler
+							onOutsideClick={() => {
+								setShowNotifyDrop(false);
+							}}
+						>
+							<div className="nav-dropdown">
+								<Requests />
+							</div>
+						</OutsideClickHandler>
 					)}
 					<div
 						className="user-menu--drop"
@@ -89,20 +97,26 @@ const NavBar = () => {
 						<i className="fa-solid fa-caret-down"></i>
 					</div>
 					{userDrop && (
-						<div className="nav-dropdown">
-							<Link to={`/users/${curr_user.id}`}>
-								<div className="nav-link-to-curr_user">
-									<div className="image-placeholder"></div>
-									<div className="user-name">
-										{curr_user.full_name}
-										<span>See your profile</span>
+						<OutsideClickHandler
+							onOutsideClick={() => {
+								setShowUserDrop(false);
+							}}
+						>
+							<div className="nav-dropdown">
+								<Link to={`/users/${curr_user.id}`}>
+									<div className="nav-link-to-curr_user">
+										<div className="image-placeholder"></div>
+										<div className="user-name">
+											{curr_user.full_name}
+											<span>See your profile</span>
+										</div>
 									</div>
+								</Link>
+								<div className="drop--actions">
+									<LogoutButton />
 								</div>
-							</Link>
-							<div className="drop--actions">
-								<LogoutButton />
 							</div>
-						</div>
+						</OutsideClickHandler>
 					)}
 				</div>
 			</nav>

@@ -162,6 +162,7 @@ nav > div > a {
 	right: 0;
 	padding: 10px;
 	overflow-y: scroll;
+	overflow-x: hidden;
 }
 .nav-dropdown > a {
 	text-decoration: none;
