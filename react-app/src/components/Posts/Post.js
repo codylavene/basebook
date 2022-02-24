@@ -51,22 +51,22 @@ const Post = ({ post, comments, likes }) => {
 				></i>
 			)}
 			{showButtons && (
-				<OutsideClickHandler
-					onOutsideClick={() => {
-						setShowButtons(false);
-					}}
-				>
-					<div className="edit-delete-btn--container">
-						<EditPostModal
-							post={post}
-							setShowButtons={setShowButtons}
-						/>
-						<DeletePostModal
-							post={post}
-							setShowButtons={setShowButtons}
-						/>
-					</div>
-				</OutsideClickHandler>
+				// <OutsideClickHandler
+				// onOutsideClick={() => {
+				// setShowButtons(false);
+				// }}
+				// >
+				<div className="edit-delete-btn--container">
+					<EditPostModal
+						post={post}
+						setShowButtons={setShowButtons}
+					/>
+					<DeletePostModal
+						post={post}
+						setShowButtons={setShowButtons}
+					/>
+				</div>
+				// </OutsideClickHandler>
 			)}
 			<Link to={`/users/${post.user_id}`}>
 				<div className="user-info--container">
