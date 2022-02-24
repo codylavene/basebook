@@ -19,13 +19,13 @@ const Footer = (props) => {
 					>
 						LinkedIn
 					</a>
-					<a
+					{/* <a
 						href="https://codylavene.dev"
 						target="_blank"
 						rel="noreferrer"
 					>
 						Portfolio
-					</a>
+					</a> */}
 				</div>
 				<div className="footer--mid-text">
 					<div className="footer--links">
