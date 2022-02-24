@@ -97,9 +97,9 @@ const UserHeader = ({
 				<Link to={`/users/${user.id}`}>
 					<div>Posts</div>
 				</Link>
-				<Link to={`/users/${user.id}/about`}>
+				{/* <Link to={`/users/${user.id}/about`}>
 					<div>About</div>
-				</Link>
+				</Link> */}
 				{curr_user.id === user.id && (
 					<Link to={`/users/${user.id}/friends`}>
 						<div>Friends</div>

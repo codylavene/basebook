@@ -71,6 +71,26 @@ function User({ user }) {
 					{/* <button>Add Hobbies</button> */}
 				</div>
 			</div>
+			<div className="profile-posts--container">
+				{user.posts?.length > 0 &&
+					user?.posts
+						?.sort(
+							(a, b) =>
+								new Date(b.posted_at) - new Date(a.posted_at)
+						)
+						.map((post) => (
+							<Post
+								post={post}
+								key={post.id}
+								comments={
+									comments[post.id] ? comments[post.id] : {}
+								}
+								likes={
+									likesObj[post.id] ? likesObj[post.id] : {}
+								}
+							/>
+						))}
+			</div>
 		</div>
 	);
 }
