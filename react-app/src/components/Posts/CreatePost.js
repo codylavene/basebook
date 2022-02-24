@@ -46,6 +46,7 @@ const CreatePost = ({ setShowModal }) => {
 				<textarea
 					placeholder={`What's on your mind, ${curr_user.first_name}?`}
 					value={post}
+					autoFocus={true}
 					onChange={(e) => setPost(e.target.value)}
 					autoFocus={true}
 				></textarea>

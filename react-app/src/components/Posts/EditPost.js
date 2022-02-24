@@ -55,6 +55,11 @@ const EditPost = ({ setShowModal, post, setShowButtons }) => {
 				<textarea
 					placeholder={`What's on your mind, ${curr_user.first_name}?`}
 					value={newPost}
+					autoFocus={true}
+					onFocus={(e) =>
+						(e.target.selectionStart = e.target.selectionEnd =
+							e.target.value.length)
+					}
 					onChange={(e) => setNewPost(e.target.value)}
 					autoFocus={true}
 					onFocus={(e) =>
