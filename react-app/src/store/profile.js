@@ -34,7 +34,7 @@ const initialState = { profile: null, allProfiles: {} };
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case SET_PROFILE: {
-			return action.user;
+			return { profile: action.user };
 		}
 		case LOAD_ALL: {
 			const newState = { ...state };
