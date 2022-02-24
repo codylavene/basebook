@@ -36,18 +36,38 @@ function User({ user }) {
 		console.log("NOPE");
 		return null;
 	}
-
+	const months = [
+		"January",
+		"February",
+		"March",
+		"April",
+		"May",
+		"June",
+		"July",
+		"August",
+		"September",
+		"October",
+		"November",
+		"December",
+	];
+	const date = new Date(user.joined_at);
+	const year = date.getFullYear();
+	const numMonth = date.getMonth();
+	const month = months[numMonth];
+	const joined = `${month} ${year}`;
 	return (
 		<div className="user-profile--container">
 			<div className="profile-details--container">
 				<div className="profile-details--wrapper">
 					<h2>Intro</h2>
-					<div>{user.full_name}</div>
-					<button>Add Bio</button>
-					<div>From: </div>
-					<div>Joined: </div>
-					<button>Edit details</button>
-					<button>Add Hobbies</button>
+					<h3>{user.full_name}</h3>
+					{/* <button>Add Bio</button> */}
+					{/* <div>From: </div> */}
+					<div>
+						<i className="fa-solid fa-clock"></i> Joined {joined}
+					</div>
+					{/* <button>Edit details</button> */}
+					{/* <button>Add Hobbies</button> */}
 				</div>
 			</div>
 			<div className="profile-posts--container">

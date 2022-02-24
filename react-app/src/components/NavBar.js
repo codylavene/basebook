@@ -20,7 +20,10 @@ const NavBar = () => {
 							<img src={b} alt="logo" className="logo-b" />
 						</div>
 					</NavLink>
-					<div className="search--container">
+					<div
+						className="search--container"
+						style={{ display: "none" }}
+					>
 						<label>
 							<i className="fa-solid fa-magnifying-glass"></i>
 							<input

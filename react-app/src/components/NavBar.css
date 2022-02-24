@@ -219,6 +219,7 @@ nav > div > a {
 	cursor: pointer;
 }
 .user-menu--grid.inactive {
+	display: none;
 	color: rgba(0, 0, 0, 0.2);
 	background-color: rgba(0, 0, 0, 0.1);
 }

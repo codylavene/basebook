@@ -60,6 +60,7 @@
 }
 .user-header--profile-img > i {
 	position: absolute;
+	display: none;
 	bottom: 7px;
 	right: 7px;
 	font-size: 22px;
@@ -149,7 +150,7 @@
 	position: sticky;
 	top: 400px;
 	/* margin-left: 20px; */
-	height: 420px;
+	height: 170px;
 	/* flex-basis: 420px; */
 	display: flex;
 	flex-direction: column;

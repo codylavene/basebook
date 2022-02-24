@@ -47,6 +47,7 @@ const CreatePost = ({ setShowModal }) => {
 					placeholder={`What's on your mind, ${curr_user.first_name}?`}
 					value={post}
 					onChange={(e) => setPost(e.target.value)}
+					autoFocus={true}
 				></textarea>
 				<button disabled={disabled} id="create-edit-post">
 					Post
