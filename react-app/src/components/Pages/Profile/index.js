@@ -23,6 +23,8 @@ const Profile = (props) => {
 	const sent_reqs = useSelector((state) => state.requests.requests.sent);
 	const rec_reqs = useSelector((state) => state.requests.requests.received);
 	console.log(sent_reqs);
+	console.table(curr_user.sent_requests);
+	console.table(curr_user.rec_requests);
 	console.log(rec_reqs);
 	const comments = useSelector((state) => state.comments.comments);
 

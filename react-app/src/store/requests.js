@@ -80,13 +80,20 @@ const reducer = (state = initialState, action) => {
 		case LOAD: {
 			const newState = {
 				...state,
-				...state.requests,
-				...state.requests.sent,
-				...state.requests.received,
+				requests: {
+					...state.requests,
+					sent: {
+						...state.requests.sent,
+					},
+					received: {
+						...state.requests.received,
+					},
+				},
 			};
 			newState.requests.sent = action.data.sent_requests.reduce(
 				(sent, request) => {
 					sent[request.id] = request;
+					console.table(newState);
 					return sent;
 				},
 				{}
@@ -118,9 +125,15 @@ const reducer = (state = initialState, action) => {
 		case DELETE: {
 			const newState = {
 				...state,
-				...state.requests,
-				...state.requests.sent,
-				...state.requests.received,
+				requests: {
+					...state.requests,
+					sent: {
+						...state.requests.sent,
+					},
+					received: {
+						...state.requests.received,
+					},
+				},
 			};
 			console.table(state);
 			console.table(newState);
