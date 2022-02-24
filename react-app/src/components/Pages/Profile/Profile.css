@@ -218,6 +218,14 @@
 }
 .details--form > form > input {
 	height: 40px;
+	border-radius: 6px;
+	border: 1px solid #ccd0d5;
+	background-color: #f5f6f7;
+	padding: 11px;
+	font-size: 15px;
+	color: #1c1e21;
+	outline: none;
+	margin: 5px 0px;
 }
 .details-form--head {
 	display: flex;
@@ -225,4 +233,28 @@
 	width: 100%;
 	border-bottom: 1px solid var(--footer-text);
 	padding: 8px 0px 16px;
+	margin-bottom: 15px;
+}
+.details--form > form > textarea {
+	height: 80px;
+	resize: none;
+	border-radius: 6px;
+	border: 1px solid #ccd0d5;
+	background-color: #f5f6f7;
+	padding: 11px;
+	font-size: 15px;
+	color: #1c1e21;
+	outline: none;
+	margin-bottom: 5px;
+}
+.details--form > form > button {
+	padding: 4px 60px;
+	margin-top: 15px;
+	align-self: center;
+	height: 36px;
+	border: none;
+	font-size: 16px;
+	color: var(--main-white);
+	background-color: var(--main-blue);
+	border-radius: 7px;
 }

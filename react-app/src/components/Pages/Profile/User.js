@@ -79,7 +79,9 @@ function User({ user }) {
 							<i className="fa-solid fa-clock"></i> Joined{" "}
 							{joined}
 						</div>
-						{curr_user.id === user.id && <EditDetailsModal />}
+						{curr_user.id === user.id && (
+							<EditDetailsModal user={user} />
+						)}
 					</div>
 				</div>
 				<div className="profile-posts--container">
