@@ -186,9 +186,9 @@ const SignUpForm = ({ setShowModal }) => {
 
 			<form onSubmit={onSignUp} className="signup-form">
 				<div className="errors">
-					{/* {errors.map((error, ind) => (
+					{errors.map((error, ind) => (
 						<div key={ind}>{error}</div>
-					))} */}
+					))}
 				</div>
 				<div className="name">
 					<input
@@ -225,24 +225,25 @@ const SignUpForm = ({ setShowModal }) => {
 				</div>
 				<input
 					type={type}
-					placeholder="Mobile number or email"
+					placeholder="Email Address"
 					onChange={updateContact}
-					pattern={
-						type === "tel"
-							? "[0-9]{3}-[0-9]{3}-[0-9]{4}"
-							: /^[\w\d-]+@[a-zA-Z]+\.[a-zA-Z]{2,3}$/g
-					}
+					// pattern={
+					// 	type === "tel"
+					// 		? "[0-9]{3}-[0-9]{3}-[0-9]{4}"
+					// 		: /^[\w\d-]+@[a-zA-Z]+\.[a-zA-Z]{2,3}$/g
+					// }
 					// onBlur={(e) => checkContact(e)}
 					value={contact}
 					required={true}
 					onInvalid={(e) =>
-						type === "tel"
-							? e.target.setCustomValidity(
-									"Format your phone number as 555-555-5555"
-							  )
-							: e.target.setCustomValidity(
-									"This doesn't seem to be a valid phone number or email"
-							  )
+						// type === "tel"
+						// 	? e.target.setCustomValidity(
+						// 			"Format your phone number as 555-555-5555"
+						// 	  )
+						// :
+						e.target.setCustomValidity(
+							"This doesn't seem to be a valid phone number or email"
+						)
 					}
 					onInput={(e) => e.target.setCustomValidity("")}
 					// style={{ borderColor: errors.contact ? "red" : "" }}
