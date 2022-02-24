@@ -5,11 +5,11 @@ import { updateDetails } from "../../../store/profile";
 
 const EditDetailsForm = ({ user, setShowModal }) => {
 	const dispatch = useDispatch();
-	const [bio, setBio] = useState(user.details.bio);
-	const [city, setCity] = useState(user.details.city);
-	const [work, setWork] = useState(user.details.work);
+	const [bio, setBio] = useState(user?.details?.bio);
+	const [city, setCity] = useState(user?.details?.city);
+	const [work, setWork] = useState(user?.details?.work);
 	const [loading, setLoading] = useState(false);
-	const [education, setEducation] = useState(user.details.education);
+	const [education, setEducation] = useState(user?.details?.education);
 	console.log(user);
 	const onSubmit = async (e) => {
 		e.preventDefault();

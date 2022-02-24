@@ -202,7 +202,10 @@
 	background-color: var(--secondary-btn-hover);
 	cursor: pointer;
 }
-
+.friend-status--btn > button.pending-btn:hover {
+	cursor: auto;
+	background-color: var(--secondary-btn-bg);
+}
 .details--form {
 	width: 500px;
 	height: fit-content;

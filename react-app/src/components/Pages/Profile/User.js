@@ -67,9 +67,9 @@ function User({ user }) {
 								<span>{user.details?.bio}</span>
 							</div>
 						) : curr_user.id !== user.id ? (
-							""
+							"No Bio"
 						) : (
-							<button>Add Bio</button>
+							"You havent added a Bio, click 'edit details to add one!"
 						)}
 						<div>
 							<i className="fa-solid fa-location-dot"></i> From{" "}

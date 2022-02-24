@@ -3,9 +3,9 @@ const CREATE = "requests/ADD";
 const DELETE = "requests/DELETE";
 const EDIT = "requests/EDIT";
 
-const load = (requests) => ({
+const load = (data) => ({
 	type: LOAD,
-	requests,
+	data,
 });
 
 const create = (request) => ({
@@ -78,15 +78,20 @@ const initialState = { requests: { sent: {}, received: {} } };
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
 		case LOAD: {
-			const newState = { ...state };
-			newState.requests.sent = action.requests.sent_requests.reduce(
+			const newState = {
+				...state,
+				...state.requests,
+				...state.requests.sent,
+				...state.requests.received,
+			};
+			newState.requests.sent = action.data.sent_requests.reduce(
 				(sent, request) => {
 					sent[request.id] = request;
 					return sent;
 				},
 				{}
 			);
-			newState.requests.received = action.requests.rec_requests.reduce(
+			newState.requests.received = action.data.rec_requests.reduce(
 				(received, request) => {
 					received[request.id] = request;
 					return received;
@@ -111,12 +116,23 @@ const reducer = (state = initialState, action) => {
 		// 	return newState;
 		// }
 		case DELETE: {
-			const newState = { ...state };
+			const newState = {
+				...state,
+				...state.requests,
+				...state.requests.sent,
+				...state.requests.received,
+			};
+			console.table(state);
+			console.table(newState);
+			console.log(action.request.id);
 			if (newState.requests.sent[action.request.id]) {
+				console.log(newState.requests.sent[action.request.id]);
 				delete newState.requests.sent[action.request.id];
 			} else {
+				console.log(newState.requests.received[action.request.id]);
 				delete newState.requests.received[action.request.id];
 			}
+			console.table(newState);
 			return newState;
 		}
 

@@ -68,7 +68,13 @@ const Profile = (props) => {
 		};
 		checkForRequests();
 		setLoading(false);
-	});
+	}, [
+		curr_user.friends,
+		curr_user.sent_requests,
+		user.id,
+		isFriend,
+		isPendingFriend,
+	]);
 	if (!user) {
 		return null;
 	}
