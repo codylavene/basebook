@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loadProfile } from "../../../store/profile";
-import { updateDetails } from "../../../store/session";
+import { updateDetails } from "../../../store/profile";
 
 const EditDetailsForm = ({ user, setShowModal }) => {
 	const dispatch = useDispatch();
@@ -10,6 +10,7 @@ const EditDetailsForm = ({ user, setShowModal }) => {
 	const [work, setWork] = useState(user.details.work);
 	const [loading, setLoading] = useState(false);
 	const [education, setEducation] = useState(user.details.education);
+	console.log(user);
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		setLoading(true);

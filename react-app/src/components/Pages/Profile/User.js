@@ -19,7 +19,7 @@ function User({ user }) {
 	useEffect(() => {
 		dispatch(profileActions.loadProfile(userId));
 		// dispatch(commentActions.getComments());
-	}, [user.posts, dispatch, userId]);
+	}, [user.posts, dispatch, userId, user.details]);
 	// useEffect(() => {
 	// 	dispatch(commentActions.getComments());
 	// });

@@ -11,7 +11,10 @@ const set = (user) => ({
 	type: SET_PROFILE,
 	user,
 });
-
+// const updateUser = (user) => ({
+// 	type: UPDATE_USER,
+// 	payload: user,
+// });
 // const removeProfile = () => ({
 // 	type: REMOVE_PROFILE,
 // });
@@ -27,6 +30,20 @@ export const loadProfile = (id) => async (dispatch) => {
 	console.log(user);
 	set(user);
 	return user;
+};
+export const updateDetails = (details, userId) => async (dispatch) => {
+	const { bio, city, work, education } = details;
+	const res = await fetch(`/api/users/${userId}/details`, {
+		method: "PUT",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({ bio, city, work, education }),
+	});
+	if (res.ok) {
+		const data = await res.json();
+		dispatch(set(data));
+	} else {
+		return ["An error occured, please try again."];
+	}
 };
 
 const initialState = { profile: null, allProfiles: {} };

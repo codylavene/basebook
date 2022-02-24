@@ -29,7 +29,6 @@ def user(id):
 def update_user(id):
     form = UserDetailsForm()
     click.echo(click.style(f"\n\n\n{'ENTER ROUTE'}\n\n", bg='red', fg='white'))
-    user = User.query.get(id)
     details = UserDetails.query.filter(UserDetails.user_id == id).first()
     details.bio = form.data['bio']
     details.city = form.data['city']
@@ -37,5 +36,6 @@ def update_user(id):
     details.education = form.data['education']
     db.session.add(details)
     db.session.commit()
+    user = User.query.get(id)
     click.echo(click.style(f"\n\n\n{user.to_frontend_dict()}\n\n", bg='red', fg='white'))
     return user.to_frontend_dict()
