@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import CreatePostModal from "../../Posts/CreatePostModal";
 import * as profileActions from "../../../store/profile";
 import * as commentActions from "../../../store/comments";
+import * as postActions from "../../../store/posts";
 import * as likeActions from "../../../store/likes";
 import Post from "../../Posts/Post";
 import EditDetailsModal from "./EditDetailsModal";
@@ -13,16 +14,23 @@ function User({ user }) {
 	// const [user, setUser] = useState(user);
 	const { userId } = useParams();
 	const curr_user = useSelector((state) => state.session.user);
-
+	const posts = useSelector((state) => state.posts.posts);
 	const comments = useSelector((state) => state.comments.comments);
 	const likesObj = useSelector((state) => state.likes.likes);
+
+	const userPosts = Object.values(posts).filter(
+		(post) => post.user_id === user.id
+	);
+	console.table(userPosts);
+	console.table(user.posts);
 	useEffect(() => {
 		dispatch(profileActions.loadProfile(userId));
 		// dispatch(commentActions.getComments());
 	}, [user.posts, dispatch, userId]);
-	// useEffect(() => {
-	// 	dispatch(commentActions.getComments());
-	// });
+	useEffect(() => {
+		dispatch(profileActions.loadProfile(userId));
+		// dispatch(postActions.getPosts());
+	}, []);
 	useEffect(() => {
 		(async () => {
 			// dispatch(commentActions.getComments());
@@ -72,8 +80,8 @@ function User({ user }) {
 				</div>
 			</div>
 			<div className="profile-posts--container">
-				{user.posts?.length > 0 &&
-					user?.posts
+				{userPosts?.length > 0 &&
+					userPosts
 						?.sort(
 							(a, b) =>
 								new Date(b.posted_at) - new Date(a.posted_at)
