@@ -14,6 +14,15 @@ const AddDetailsForm = ({ user, setShowModal }) => {
 	console.log(user);
 	const onSubmit = async (e) => {
 		e.preventDefault();
+		if (
+			bio.length === 0 &&
+			city.length === 0 &&
+			work.length === 0 &&
+			education.length === 0
+		) {
+			setShowModal(false);
+			return;
+		}
 		setLoading(true);
 		const details = {
 			bio,

@@ -79,29 +79,29 @@ const NavBar = () => {
 					>
 						<i className="fa-solid fa-bell"></i>
 					</div>
-					{notifyDrop && (
-						<OutsideClickHandler
-							onOutsideClick={() => {
-								setShowNotifyDrop(false);
-							}}
-						>
+					<OutsideClickHandler
+						onOutsideClick={() => {
+							setShowNotifyDrop(false);
+						}}
+					>
+						{notifyDrop && (
 							<div className="nav-dropdown">
 								<Requests />
 							</div>
-						</OutsideClickHandler>
-					)}
+						)}
+					</OutsideClickHandler>
 					<div
 						className="user-menu--drop"
 						onClick={() => setShowUserDrop(!userDrop)}
 					>
 						<i className="fa-solid fa-caret-down"></i>
 					</div>
-					{userDrop && (
-						<OutsideClickHandler
-							onOutsideClick={() => {
-								setShowUserDrop(false);
-							}}
-						>
+					<OutsideClickHandler
+						onOutsideClick={() => {
+							setShowUserDrop(false);
+						}}
+					>
+						{userDrop && (
 							<div className="nav-dropdown">
 								<Link to={`/users/${curr_user.id}`}>
 									<div className="nav-link-to-curr_user">
@@ -116,8 +116,8 @@ const NavBar = () => {
 									<LogoutButton />
 								</div>
 							</div>
-						</OutsideClickHandler>
-					)}
+						)}
+					</OutsideClickHandler>
 				</div>
 			</nav>
 		</div>

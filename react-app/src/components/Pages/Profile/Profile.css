@@ -36,9 +36,13 @@
 	width: 90%;
 	min-width: 800px;
 	max-width: 1250px;
+	background-image: url("../../../assets/images/default-cover.jpg");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
 
 	height: 405px;
-	background-color: #000;
+	/* background-color: #000; */
 	border-bottom-left-radius: 10px;
 	border-bottom-right-radius: 10px;
 }
@@ -154,14 +158,15 @@
 	width: 75%;
 	max-width: 600px;
 	height: fit-content;
-	min-height: 300px;
+	min-height: 170px;
+	height: fit-content;
 	background-color: var(--main-white);
 	margin-top: 10px;
 	justify-self: flex-start;
 	position: -webkit-sticky;
 	position: sticky;
 	top: 400px;
-	height: 170px;
+	/* height: 170px; */
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
@@ -177,7 +182,15 @@
 	justify-content: center;
 	padding: 10px 0px;
 }
-
+.profile-details--wrapper > div {
+	margin: 10px 0px;
+}
+.profile-details--wrapper > .bio-container {
+	width: 100%;
+	margin: 24px 0px;
+	padding-bottom: 24px;
+	border-bottom: 2px solid var(--comment-bg);
+}
 .profile-details--wrapper > .edit-btn--container > button {
 	border: none;
 	background-color: var(--secondary-btn-bg);
@@ -192,6 +205,11 @@
 .profile-details--wrapper > button:hover {
 	background: var(--secondary-btn-hover);
 	cursor: pointer;
+}
+.friends-container--profile {
+	background-color: var(--splash-bg);
+	padding: 40px;
+	margin-top: 0px !important;
 }
 .friend-status--btn {
 	width: fit-content;

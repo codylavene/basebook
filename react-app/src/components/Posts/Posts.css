@@ -2,10 +2,65 @@
 	width: 100%;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: center;
 	background-color: var(--main-page-bg);
 	margin-top: 55px;
+	min-height: 100vh;
+}
+.post-load--container {
+	min-width: 570px;
+	max-width: 630px;
+	width: 90%;
+	height: 250px;
+	padding: 20px;
+	margin: 10px 10px;
+	border-radius: 8px;
+	background-color: #fff;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.user-load {
+	width: 200px;
+	height: 20px;
+	border-radius: 40px;
+	background: linear-gradient(
+		to right,
+		var(--splash-bg) 10%,
+		var(--main-gray) 20%,
+		var(--splash-bg) 30%
+	);
+	background-size: 900px 30px;
+	animation: load 1.3s linear infinite forwards;
+}
+.posts-load {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 200px;
+	justify-content: space-evenly;
+	align-items: center;
+}
+.line-load {
+	height: 10px;
+	width: 90%;
+	border-radius: 40px;
+	background: linear-gradient(
+		to right,
+		var(--splash-bg) 10%,
+		var(--main-gray) 20%,
+		var(--splash-bg) 30%
+	);
+	background-size: 900px 30px;
+	animation: load 1.3s linear infinite forwards;
+}
+@keyframes load {
+	0% {
+		background-position: -480px 0;
+	}
+	100% {
+		background-position: 480px 0;
+	}
 }
 
 .single-post-container {
@@ -164,11 +219,13 @@
 	right: 10px;
 	top: 12px;
 	z-index: 10;
+	font-size: 24px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
-.modal-head > .close-create-post:hover {
+.modal-head > .close-create-post:hover,
+.modal-head > .close-delete-comment:hover {
 	cursor: pointer;
 	background-color: var(--secondary-btn-hover);
 }

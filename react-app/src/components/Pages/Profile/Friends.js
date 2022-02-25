@@ -8,10 +8,13 @@ const Friends = ({ user }) => {
 			<div className="friends-container--profile">
 				<h2>Friends</h2>
 				<div className="friends--cards">
-					{user.friends?.length > 0 &&
+					{user.friends?.length > 0 ? (
 						user.friends.map((friend) => (
 							<FriendCard friend={friend} key={friend.id} />
-						))}
+						))
+					) : (
+						<div>You don't have any friends!</div>
+					)}
 				</div>
 			</div>
 		</>

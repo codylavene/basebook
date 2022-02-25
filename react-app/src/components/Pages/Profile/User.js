@@ -9,11 +9,13 @@ import * as sessionActions from "../../../store/session";
 import Post from "../../Posts/Post";
 import EditDetailsModal from "./EditDetailsModal";
 import AddDetailsModal from "./AddDetailsModal";
+import PostLoading from "../../Posts/PostLoading";
 
 function User({ user }) {
 	const dispatch = useDispatch();
 	// const [_user, setUser] = useState(user);
 	const [showEdit, setShowEdit] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const { userId } = useParams();
 	const curr_user = useSelector((state) => state.session.user);
 	const profile = useSelector((state) => state.profile.profile);
@@ -21,8 +23,12 @@ function User({ user }) {
 	const likesObj = useSelector((state) => state.likes.likes);
 	useEffect(() => {
 		const update = async () => {
+			setLoading(true);
 			await dispatch(profileActions.loadProfile(userId));
-			// dispatch(commentActions.getComments());
+			dispatch(commentActions.getComments());
+			setTimeout(() => {
+				setLoading(false);
+			}, 500);
 		};
 		update();
 	}, [user.posts, dispatch, userId, user.details]);
@@ -31,8 +37,12 @@ function User({ user }) {
 	// }, [user.details]);
 	useEffect(() => {
 		(async () => {
+			setLoading(true);
 			// dispatch(commentActions.getComments());
 			dispatch(likeActions.getLikes());
+			setTimeout(() => {
+				setLoading(false);
+			}, 500);
 		})();
 	}, []);
 	useEffect(() => {
@@ -76,30 +86,52 @@ function User({ user }) {
 			<div className="profile-details--container">
 				<div className="profile-details--wrapper">
 					<h2>Intro</h2>
-					<h3>{profile ? profile?.full_name : user?.full_name}</h3>
 					{/* <button>Add Bio</button> */}
-					<div>
+					<div className="bio-container">
 						{profile ? profile?.details?.bio : user?.details?.bio}
 					</div>
-					<div>
-						<i className="fa-solid fa-location-dot"></i> From{" "}
-						{profile ? profile?.details?.city : user?.details?.city}
-					</div>
-					<div>
-						<i className="fa-solid fa-briefcase"></i> Works at{" "}
-						{profile ? profile?.details?.work : user?.details?.work}
-					</div>
+					{profile?.details?.city || user?.details?.city ? (
+						<div>
+							<i className="fa-solid fa-location-dot"></i> From{" "}
+							{profile
+								? profile?.details?.city
+								: user?.details?.city}
+						</div>
+					) : (
+						""
+					)}
+					{profile?.details?.work || user?.details?.work ? (
+						<div>
+							<i className="fa-solid fa-briefcase"></i> Works at{" "}
+							{profile
+								? profile?.details?.work
+								: user?.details?.work}
+						</div>
+					) : (
+						""
+					)}
+					{profile?.details?.education || user?.details?.education ? (
+						<div>
+							<i className="fa-solid fa-graduation-cap"></i>{" "}
+							Studied at{" "}
+							{profile
+								? profile?.details?.education
+								: user?.details?.education}
+						</div>
+					) : (
+						""
+					)}
 					<div>
 						<i className="fa-solid fa-clock"></i> Joined {joined}
 					</div>
 					<div className="edit-btn--container">
 						{curr_user.id === user.id &&
-							(!user.details || !profile?.details ? (
-								<AddDetailsModal
+							(user.details || profile?.details ? (
+								<EditDetailsModal
 									user={profile ? profile : user}
 								/>
 							) : (
-								<EditDetailsModal
+								<AddDetailsModal
 									user={profile ? profile : user}
 								/>
 							))}
@@ -108,7 +140,10 @@ function User({ user }) {
 				</div>
 			</div>
 			<div className="profile-posts--container">
-				{user.posts?.length > 0 &&
+				{loading ? (
+					<PostLoading />
+				) : (
+					user.posts?.length > 0 &&
 					user?.posts
 						?.sort(
 							(a, b) =>
@@ -125,7 +160,8 @@ function User({ user }) {
 									likesObj[post.id] ? likesObj[post.id] : {}
 								}
 							/>
-						))}
+						))
+				)}
 			</div>
 		</div>
 	);
