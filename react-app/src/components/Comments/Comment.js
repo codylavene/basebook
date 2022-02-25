@@ -34,26 +34,25 @@ const Comment = ({ comment, post }) => {
 							</div>
 						</Link>
 						{showButtons && (
-							<OutsideClickHandler
-								onOutsideClick={() => setShowButtons(false)}
-							>
-								<div className="edit-delete-btn--container">
-									{/* <EditComment comment={comment} post={post} /> */}
-									<button
-										onClick={() => {
-											setShowEdit(true);
-											setShowButtons(false);
-										}}
-									>
-										Edit
-									</button>
-									<DeleteCommentModal
-										comment={comment}
-										post={post}
-										setShowButtons={setShowButtons}
-									/>
-								</div>
-							</OutsideClickHandler>
+							// <OutsideClickHandler
+							// 	onOutsideClick={() => setShowButtons(false)}
+							// >
+							<div className="edit-delete-btn--container">
+								<button
+									onClick={() => {
+										setShowEdit(true);
+										setShowButtons(false);
+									}}
+								>
+									Edit
+								</button>
+								<DeleteCommentModal
+									comment={comment}
+									post={post}
+									setShowButtons={setShowButtons}
+								/>
+							</div>
+							// </OutsideClickHandler>
 						)}
 						<div className="single-comment--body">
 							{comment.comment_body}

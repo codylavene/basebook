@@ -4,12 +4,12 @@ import { loadProfile } from "../../../store/profile";
 import * as sessionActions from "../../../store/session";
 import * as profileActions from "../../../store/profile";
 
-const EditDetailsForm = ({ user, setShowModal }) => {
+const AddDetailsForm = ({ user, setShowModal }) => {
 	const dispatch = useDispatch();
-	const [bio, setBio] = useState(user?.details?.bio);
-	const [city, setCity] = useState(user?.details?.city);
-	const [work, setWork] = useState(user?.details?.work);
-	const [education, setEducation] = useState(user?.details?.education);
+	const [bio, setBio] = useState("");
+	const [city, setCity] = useState("");
+	const [work, setWork] = useState("");
+	const [education, setEducation] = useState("");
 	const [loading, setLoading] = useState(false);
 	console.log(user);
 	const onSubmit = async (e) => {
@@ -22,7 +22,7 @@ const EditDetailsForm = ({ user, setShowModal }) => {
 			education,
 		};
 		// await dispatch(sessionActions.updateDetails(details, user.id));
-		await dispatch(profileActions.updateDetails(details, user.id));
+		await dispatch(profileActions.addDetails(details, user.id));
 		dispatch(profileActions.loadProfile(user.id));
 		setTimeout(() => {
 			setLoading(false);
@@ -33,7 +33,7 @@ const EditDetailsForm = ({ user, setShowModal }) => {
 		<div className="details--form">
 			<div className="modal-head details-form--head">
 				<div className="modal-head--text-wrapper">
-					<div className="modal-head--main">Edit details</div>
+					<div className="modal-head--main">Add details</div>
 				</div>
 				<div className="close-modal">
 					<i
@@ -66,7 +66,7 @@ const EditDetailsForm = ({ user, setShowModal }) => {
 				<div>Education</div>
 				<input
 					type="text"
-					placeholder="Where did you go to school?"
+					placeholder="Where did / do you go to school?"
 					onChange={(e) => setEducation(e.target.value)}
 					value={education}
 				></input>
@@ -82,4 +82,4 @@ const EditDetailsForm = ({ user, setShowModal }) => {
 	);
 };
 
-export default EditDetailsForm;
+export default AddDetailsForm;

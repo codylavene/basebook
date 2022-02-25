@@ -45,6 +45,20 @@ export const updateDetails = (details, userId) => async (dispatch) => {
 		return ["An error occured, please try again."];
 	}
 };
+export const addDetails = (details, userId) => async (dispatch) => {
+	const { bio, city, work, education } = details;
+	const res = await fetch(`/api/users/${userId}/details`, {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({ bio, city, work, education }),
+	});
+	if (res.ok) {
+		const data = await res.json();
+		dispatch(set(data));
+	} else {
+		return ["An error occured, please try again."];
+	}
+};
 
 const initialState = { profile: null, allProfiles: {} };
 

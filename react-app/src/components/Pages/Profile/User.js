@@ -8,6 +8,7 @@ import * as likeActions from "../../../store/likes";
 import * as sessionActions from "../../../store/session";
 import Post from "../../Posts/Post";
 import EditDetailsModal from "./EditDetailsModal";
+import AddDetailsModal from "./AddDetailsModal";
 
 function User({ user }) {
 	const dispatch = useDispatch();
@@ -85,15 +86,24 @@ function User({ user }) {
 						{profile ? profile?.details?.city : user?.details?.city}
 					</div>
 					<div>
-						<i className="fa-solid fa-location-dot"></i> From{" "}
+						<i className="fa-solid fa-briefcase"></i> Works at{" "}
 						{profile ? profile?.details?.work : user?.details?.work}
 					</div>
 					<div>
 						<i className="fa-solid fa-clock"></i> Joined {joined}
 					</div>
-					{curr_user.id === user.id && (
-						<EditDetailsModal user={profile ? profile : user} />
-					)}
+					<div className="edit-btn--container">
+						{curr_user.id === user.id &&
+							(!user.details || !profile?.details ? (
+								<AddDetailsModal
+									user={profile ? profile : user}
+								/>
+							) : (
+								<EditDetailsModal
+									user={profile ? profile : user}
+								/>
+							))}
+					</div>
 					{/* <button>Add Hobbies</button> */}
 				</div>
 			</div>

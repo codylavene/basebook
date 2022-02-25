@@ -84,7 +84,10 @@
 	width: 40px;
 	height: 40px;
 	border-radius: 50%;
-	background-color: #000;
+	/* background-color: #000; */
+	background-image: url("../../assets/images/default_pfp.png");
+	background-position: center;
+	background-size: contain;
 	margin-right: 10px;
 }
 .post-body {

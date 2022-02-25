@@ -142,6 +142,9 @@ nav > div > a {
 }
 
 .image-placeholder.nav-user-image {
+	background-image: url("../assets/images/default_pfp.png");
+	background-position: center;
+	background-size: contain;
 	width: 28px;
 	height: 28px;
 }
@@ -186,6 +189,9 @@ nav > div > a {
 .nav-dropdown > a > .nav-link-to-curr_user > .image-placeholder {
 	width: 60px;
 	height: 60px;
+	background-image: url("../assets/images/default_pfp.png");
+	background-position: center;
+	background-size: contain;
 }
 .nav-dropdown > a > .nav-link-to-curr_user > .user-name {
 	display: flex;
