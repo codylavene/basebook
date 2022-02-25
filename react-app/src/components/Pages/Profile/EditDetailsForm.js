@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loadProfile } from "../../../store/profile";
-import { updateDetails } from "../../../store/profile";
+import * as sessionActions from "../../../store/session";
+import * as profileActions from "../../../store/profile";
 
 const EditDetailsForm = ({ user, setShowModal }) => {
 	const dispatch = useDispatch();
 	const [bio, setBio] = useState(user?.details?.bio);
 	const [city, setCity] = useState(user?.details?.city);
 	const [work, setWork] = useState(user?.details?.work);
-	const [loading, setLoading] = useState(false);
 	const [education, setEducation] = useState(user?.details?.education);
+	const [loading, setLoading] = useState(false);
 	console.log(user);
 	const onSubmit = async (e) => {
 		e.preventDefault();
@@ -20,8 +21,9 @@ const EditDetailsForm = ({ user, setShowModal }) => {
 			work,
 			education,
 		};
-		await dispatch(updateDetails(details, user.id));
-		await dispatch(loadProfile(user.id));
+		// await dispatch(sessionActions.updateDetails(details, user.id));
+		await dispatch(profileActions.updateDetails(details, user.id));
+		dispatch(profileActions.loadProfile(user.id));
 		setTimeout(() => {
 			setLoading(false);
 			setShowModal(false);

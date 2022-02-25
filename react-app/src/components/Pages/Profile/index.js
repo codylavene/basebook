@@ -13,12 +13,16 @@ import Friends from "./Friends";
 import Requests from "./Requests";
 const Profile = (props) => {
 	const curr_user = useSelector((state) => state.session.user);
+	const { userId } = useParams();
 	console.log(curr_user.friends);
 	const dispatch = useDispatch();
-	const [user, setUser] = useState({});
+	const profile = useSelector((state) => state.profile.profile);
+	const [user, setUser] = useState(
+		curr_user.id === userId ? curr_user : profile ? profile : {}
+	);
+	console.table(user);
 	const [isFriend, setIsFriend] = useState(false);
 	const [isPendingFriend, setIsPendingFriend] = useState(false);
-	const { userId } = useParams();
 	const [loading, setLoading] = useState(false);
 	const sent_reqs = useSelector((state) => state.requests.requests.sent);
 	const rec_reqs = useSelector((state) => state.requests.requests.received);
@@ -34,14 +38,16 @@ const Profile = (props) => {
 	useEffect(() => {
 		const getUser = async () => {
 			const user = await dispatch(profileActions.loadProfile(userId));
-			dispatch(commentActions.getComments());
+
 			setUser(user);
+			// }
+			console.log(user);
 		};
 		getUser();
 	}, [userId]);
 	useEffect(() => {
 		dispatch(postActions.getPosts());
-	}, [user.posts]);
+	}, [user.posts, dispatch]);
 	document.title = `${user?.full_name} | basebook`;
 	useEffect(() => {
 		setLoading(true);

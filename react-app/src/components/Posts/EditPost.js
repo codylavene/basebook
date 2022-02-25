@@ -62,11 +62,6 @@ const EditPost = ({ setShowModal, post, setShowButtons }) => {
 							e.target.value.length)
 					}
 					onChange={(e) => setNewPost(e.target.value)}
-					autoFocus={true}
-					onFocus={(e) =>
-						(e.target.selectionStart = e.target.selectionEnd =
-							e.target.value.length)
-					}
 				></textarea>
 				<button disabled={disabled} id="create-edit-post">
 					Save

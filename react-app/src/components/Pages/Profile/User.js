@@ -5,30 +5,44 @@ import CreatePostModal from "../../Posts/CreatePostModal";
 import * as profileActions from "../../../store/profile";
 import * as commentActions from "../../../store/comments";
 import * as likeActions from "../../../store/likes";
+import * as sessionActions from "../../../store/session";
 import Post from "../../Posts/Post";
 import EditDetailsModal from "./EditDetailsModal";
 
 function User({ user }) {
 	const dispatch = useDispatch();
-	// const [user, setUser] = useState(user);
+	// const [_user, setUser] = useState(user);
+	const [showEdit, setShowEdit] = useState(false);
 	const { userId } = useParams();
 	const curr_user = useSelector((state) => state.session.user);
-
+	const profile = useSelector((state) => state.profile.profile);
 	const comments = useSelector((state) => state.comments.comments);
 	const likesObj = useSelector((state) => state.likes.likes);
 	useEffect(() => {
-		dispatch(profileActions.loadProfile(userId));
-		// dispatch(commentActions.getComments());
-	}, [user.posts, dispatch, userId]);
+		const update = async () => {
+			await dispatch(profileActions.loadProfile(userId));
+			// dispatch(commentActions.getComments());
+		};
+		update();
+	}, [user.posts, dispatch, userId, user.details]);
 	// useEffect(() => {
-	// 	dispatch(commentActions.getComments());
-	// });
+	// 	dispatch(sessionActions.updateDetails());
+	// }, [user.details]);
 	useEffect(() => {
 		(async () => {
 			// dispatch(commentActions.getComments());
 			dispatch(likeActions.getLikes());
 		})();
 	}, []);
+	useEffect(() => {
+		// const getUser = async () => {
+		// 	const user = await dispatch(profileActions.loadProfile(userId));
+		// 	// dispatch(commentActions.getComments());
+		// 	setUser(user);
+		// 	console.log(user);
+		// };
+		// getUser();
+	}, [userId]);
 	// const message =
 	// 	curr_user.id === +userId
 	// 		? "What's on your mind?"
@@ -61,13 +75,25 @@ function User({ user }) {
 			<div className="profile-details--container">
 				<div className="profile-details--wrapper">
 					<h2>Intro</h2>
-					<h3>{user.full_name}</h3>
+					<h3>{profile ? profile?.full_name : user?.full_name}</h3>
 					{/* <button>Add Bio</button> */}
-					{/* <div>From: </div> */}
+					<div>
+						{profile ? profile?.details?.bio : user?.details?.bio}
+					</div>
+					<div>
+						<i className="fa-solid fa-location-dot"></i> From{" "}
+						{profile ? profile?.details?.city : user?.details?.city}
+					</div>
+					<div>
+						<i className="fa-solid fa-location-dot"></i> From{" "}
+						{profile ? profile?.details?.work : user?.details?.work}
+					</div>
 					<div>
 						<i className="fa-solid fa-clock"></i> Joined {joined}
 					</div>
-					{/* <button>Edit details</button> */}
+					{curr_user.id === user.id && (
+						<EditDetailsModal user={profile ? profile : user} />
+					)}
 					{/* <button>Add Hobbies</button> */}
 				</div>
 			</div>
