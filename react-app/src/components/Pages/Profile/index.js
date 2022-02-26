@@ -70,6 +70,13 @@ const Profile = (props) => {
 						return true;
 					}
 				});
+				curr_user.rec_requests.forEach((req) => {
+					if (req.sender_id === user.id) {
+						setIsPendingFriend(true);
+						console.log("<><><><><>", isPendingFriend);
+						return true;
+					}
+				});
 				return false;
 			}
 			return false;
