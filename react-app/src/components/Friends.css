@@ -9,11 +9,12 @@
 }
 .friends-page--wrapper {
 	width: 100%;
-	height: 100vh;
-	padding: 10px;
+	min-height: 100vh;
+	padding: 10px 0px 50px;
 	background-color: var(--splash-bg);
 }
 .friends--container > h2 {
+	color: var(--primary-text);
 }
 
 .friends--cards {
@@ -25,7 +26,7 @@
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 	border-radius: 8px;
 	margin-top: 15px;
-	/* justify-content: center; */
+	justify-content: center;
 	align-items: center;
 	flex-wrap: wrap;
 }
@@ -38,7 +39,7 @@
 	align-items: center;
 	/* justify-content: space-around; */
 	border-radius: 7px;
-	background-color: #fff;
+	background-color: var(--comment-bg);
 	border: 1px solid var(--splash-bg);
 	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
 	margin: 10px;
