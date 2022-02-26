@@ -14,8 +14,7 @@ function UsersList() {
 	useEffect(() => {
 		setFriends(curr_user.friends);
 	}, []);
-	console.log(friends);
-	console.log(curr_user.friends);
+
 	// const userComponents = Object.values(friends).map((friend) => {
 	// 	return (
 	// 		// <li key={friend.id}>

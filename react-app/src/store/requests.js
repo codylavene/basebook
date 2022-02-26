@@ -93,7 +93,7 @@ const reducer = (state = initialState, action) => {
 			newState.requests.sent = action.data.sent_requests.reduce(
 				(sent, request) => {
 					sent[request.id] = request;
-					console.table(newState);
+
 					return sent;
 				},
 				{}
@@ -135,17 +135,13 @@ const reducer = (state = initialState, action) => {
 					},
 				},
 			};
-			console.table(state);
-			console.table(newState);
-			console.log(action.request.id);
+
 			if (newState.requests.sent[action.request.id]) {
-				console.log(newState.requests.sent[action.request.id]);
 				delete newState.requests.sent[action.request.id];
 			} else {
-				console.log(newState.requests.received[action.request.id]);
 				delete newState.requests.received[action.request.id];
 			}
-			console.table(newState);
+
 			return newState;
 		}
 

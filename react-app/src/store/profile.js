@@ -27,7 +27,6 @@ export const loadAllProfiles = () => async (dispatch) => {
 export const loadProfile = (id) => async (dispatch) => {
 	const res = await fetch(`/api/users/${id}`);
 	const user = await res.json();
-	console.log(user);
 	set(user);
 	return user;
 };
@@ -69,9 +68,8 @@ export default function reducer(state = initialState, action) {
 		}
 		case LOAD_ALL: {
 			const newState = { ...state };
-			console.log("HERE");
+
 			newState.allProfiles = action.users.reduce((users, user) => {
-				console.log(user);
 				users[user.id] = user;
 				return users;
 			}, {});

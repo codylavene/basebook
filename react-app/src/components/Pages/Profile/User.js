@@ -65,7 +65,6 @@ function User({ user }) {
 	// 		? "What's on your mind?"
 	// 		: `Write something to ${user?.first_name}...`;
 	if (!user) {
-		console.log("NOPE");
 		return null;
 	}
 	const months = [

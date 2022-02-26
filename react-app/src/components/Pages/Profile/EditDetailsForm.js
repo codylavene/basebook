@@ -15,7 +15,7 @@ const EditDetailsForm = ({ user, setShowModal }) => {
 	const [workDisabled, setWorkDisabled] = useState(false);
 	const [educationDisabled, setEducationDisabled] = useState(false);
 	const [loading, setLoading] = useState(false);
-	console.log(user);
+
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		setLoading(true);

@@ -11,7 +11,7 @@ const AddDetailsForm = ({ user, setShowModal }) => {
 	const [work, setWork] = useState("");
 	const [education, setEducation] = useState("");
 	const [loading, setLoading] = useState(false);
-	console.log(user);
+
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		if (

@@ -89,14 +89,12 @@ const SignUpForm = ({ setShowModal }) => {
 				)
 			);
 			if (data) {
-				console.log(typeof data);
 				data.forEach(
 					(error) =>
 						(err[error.split(" : ")[0]] = error.split(" : ")[1])
 				);
 				setErrors(err);
 				// setErrors(Object.fromEntries(data.split(":")));
-				console.log(err);
 			} else {
 				setShowModal(false);
 			}

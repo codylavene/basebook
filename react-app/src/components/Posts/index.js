@@ -15,7 +15,7 @@ const Posts = (props) => {
 	const likesObj = useSelector((state) => state.likes.likes);
 	const curr_user = useSelector((state) => state.session.user);
 	const [loading, setLoading] = useState(false);
-	console.log(likesObj);
+
 	// console.log(Array.isArray(Object.entries(commentsObj)));
 	// const comments = commentsObj[post.id];
 	document.title = "basebook";

@@ -14,22 +14,19 @@ import Requests from "./Requests";
 const Profile = (props) => {
 	const curr_user = useSelector((state) => state.session.user);
 	const { userId } = useParams();
-	console.log(curr_user.friends);
+
 	const dispatch = useDispatch();
 	const profile = useSelector((state) => state.profile.profile);
 	const [user, setUser] = useState(
 		curr_user.id === userId ? curr_user : profile ? profile : {}
 	);
-	console.table(user);
+
 	const [isFriend, setIsFriend] = useState(false);
 	const [isPendingFriend, setIsPendingFriend] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const sent_reqs = useSelector((state) => state.requests.requests.sent);
 	const rec_reqs = useSelector((state) => state.requests.requests.received);
-	console.log(sent_reqs);
-	console.table(curr_user.sent_requests);
-	console.table(curr_user.rec_requests);
-	console.log(rec_reqs);
+
 	const comments = useSelector((state) => state.comments.comments);
 
 	useEffect(() => {
@@ -41,7 +38,6 @@ const Profile = (props) => {
 
 			setUser(user);
 			// }
-			console.log(user);
 		};
 		getUser();
 	}, [userId]);
@@ -67,14 +63,14 @@ const Profile = (props) => {
 				Object.values(sent_reqs).forEach((req) => {
 					if (req.receiver_id === user.id) {
 						setIsPendingFriend(true);
-						console.log("<><><><><>", isPendingFriend);
+
 						return true;
 					}
 				});
 				Object.values(rec_reqs).forEach((req) => {
 					if (req.sender_id === user.id) {
 						setIsPendingFriend(true);
-						console.log("<><><><><>", isPendingFriend);
+
 						return true;
 					}
 				});

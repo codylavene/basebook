@@ -63,7 +63,6 @@ const NavBar = () => {
 	// }, [notifyDrop]);
 	useEffect(() => {
 		const toggleDarkMode = (dark) => {
-			console.log(dark);
 			if (dark) {
 				document.documentElement.classList.remove("light");
 				document.documentElement.classList.add("dark");

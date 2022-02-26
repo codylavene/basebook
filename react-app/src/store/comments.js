@@ -74,7 +74,6 @@ export const deleteComment = (post_id, comment_id) => async (dispatch) => {
 
 	const data = await res.json();
 	if (res.ok) {
-		console.log(data.comment);
 		dispatch(remove(data.comment));
 	} else {
 		console.log("Uh Oh");

@@ -29,7 +29,6 @@ const LoginForm = () => {
 				(error) => (err[error.split(" : ")[0]] = error.split(" : ")[1])
 			);
 			setErrors(err);
-			console.log(data);
 		}
 		// }
 		// if (err.length) setErrors(err);
