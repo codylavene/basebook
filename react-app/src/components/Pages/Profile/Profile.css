@@ -317,6 +317,18 @@
 .details--form > form > div {
 	color: var(--secondary-text);
 	font-size: 12px;
+	width: 100%;
 	padding-left: 5px;
 	padding-top: 14px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.details--form > form > div > div {
+	display: flex;
+	align-items: center;
+}
+.details--form > form > div > div > i {
+	font-size: 18px;
+	margin-left: 15px;
 }

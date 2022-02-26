@@ -92,7 +92,7 @@ function User({ user }) {
 				<div className="profile-details--wrapper">
 					<h2>Intro</h2>
 					{/* <button>Add Bio</button> */}
-					<div className="bio-container">
+					{/* <div className="bio-container">
 						{profile ? profile?.details?.bio : user?.details?.bio}
 					</div>
 					{profile?.details?.city || user?.details?.city ? (
@@ -114,8 +114,8 @@ function User({ user }) {
 						</div>
 					) : (
 						""
-					)}
-					{profile?.details?.education || user?.details?.education ? (
+					)} */}
+					{/* {profile?.details?.education || user?.details?.education ? (
 						<div>
 							<i className="fa-solid fa-graduation-cap"></i>{" "}
 							Studied at{" "}
@@ -125,11 +125,11 @@ function User({ user }) {
 						</div>
 					) : (
 						""
-					)}
+					)} */}
 					<div>
 						<i className="fa-solid fa-clock"></i> Joined {joined}
 					</div>
-					<div className="edit-btn--container">
+					{/* <div className="edit-btn--container">
 						{curr_user.id === user.id &&
 							(user.details || profile?.details ? (
 								<EditDetailsModal
@@ -139,8 +139,8 @@ function User({ user }) {
 								<AddDetailsModal
 									user={profile ? profile : user}
 								/>
-							))}
-					</div>
+							))} */}
+					{/* </div> */}
 					{/* <button>Add Hobbies</button> */}
 				</div>
 			</div>

@@ -10,6 +10,10 @@ const EditDetailsForm = ({ user, setShowModal }) => {
 	const [city, setCity] = useState(user?.details?.city);
 	const [work, setWork] = useState(user?.details?.work);
 	const [education, setEducation] = useState(user?.details?.education);
+	const [bioDisabled, setBioDisabled] = useState(false);
+	const [cityDisabled, setCityDisabled] = useState(false);
+	const [workDisabled, setWorkDisabled] = useState(false);
+	const [educationDisabled, setEducationDisabled] = useState(false);
 	const [loading, setLoading] = useState(false);
 	console.log(user);
 	const onSubmit = async (e) => {
@@ -24,6 +28,10 @@ const EditDetailsForm = ({ user, setShowModal }) => {
 		// 	setShowModal(false);
 		// 	return;
 		// }
+		if (bio.length === 0 || bioDisabled) setBio(null);
+		if (city.length === 0 || cityDisabled) setCity(null);
+		if (work.length === 0 || workDisabled) setWork(null);
+		if (education.length === 0 || educationDisabled) setEducation(null);
 		const details = {
 			bio,
 			city,
@@ -57,27 +65,31 @@ const EditDetailsForm = ({ user, setShowModal }) => {
 					placeholder="In a short message, tell everyone about you! this will be displayed on your profile."
 					onChange={(e) => setBio(e.target.value)}
 					value={bio}
+					disabled={bioDisabled}
 				></textarea>
-				<div>Current City</div>
+				<div>Current City </div>
 				<input
 					type="text"
 					placeholder="Where are you from?"
 					onChange={(e) => setCity(e.target.value)}
 					value={city}
+					disabled={cityDisabled}
 				></input>
-				<div>Employment</div>
+				<div>Employment </div>
 				<input
 					type="text"
 					placeholder="Where do you work?"
 					onChange={(e) => setWork(e.target.value)}
 					value={work}
+					disabled={workDisabled}
 				></input>
-				<div>Education</div>
+				<div>Education </div>
 				<input
 					type="text"
 					placeholder="Where did you go to school?"
 					onChange={(e) => setEducation(e.target.value)}
 					value={education}
+					disabled={educationDisabled}
 				></input>
 				<button>
 					{loading ? (
