@@ -142,38 +142,44 @@ const NavBar = () => {
 					<div className="user-menu--grid inactive">
 						<i className="fa-brands fa-facebook-messenger"></i>
 					</div>
-					<div
-						className="user-menu--grid"
-						onClick={() => setShowNotifyDrop(!notifyDrop)}
-						aria-haspopup="true"
-						aria-expanded={notifyDrop}
-					>
-						<i className="fa-solid fa-bell"></i>
-					</div>
 					<OutsideClickHandler
 						onOutsideClick={() => {
 							setShowNotifyDrop(false);
 						}}
 					>
+						<div
+							className="user-menu--grid"
+							onClick={() => {
+								// setShowUserDrop(false);
+								setShowNotifyDrop(!notifyDrop);
+							}}
+							aria-haspopup="true"
+							aria-expanded={notifyDrop}
+						>
+							<i className="fa-solid fa-bell"></i>
+						</div>
 						{notifyDrop && (
 							<div className="nav-dropdown">
 								<Requests />
 							</div>
 						)}
 					</OutsideClickHandler>
-					<div
-						className="user-menu--drop"
-						onClick={() => setShowUserDrop(!userDrop)}
-						aria-haspopup="true"
-						aria-expanded={userDrop}
-					>
-						<i className="fa-solid fa-caret-down"></i>
-					</div>
 					<OutsideClickHandler
 						onOutsideClick={() => {
 							setShowUserDrop(false);
 						}}
 					>
+						<div
+							className="user-menu--drop"
+							onClick={() => {
+								setShowUserDrop(!userDrop);
+								// setShowNotifyDrop(false);
+							}}
+							aria-haspopup="true"
+							aria-expanded={userDrop}
+						>
+							<i className="fa-solid fa-caret-down"></i>
+						</div>
 						{userDrop && (
 							<div className="nav-dropdown">
 								<Link to={`/users/${curr_user.id}`}>
