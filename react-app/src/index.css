@@ -1,4 +1,4 @@
-:root {
+:root.light {
 	--base-font: system-ui, sans-serif;
 	--main-white: #fff;
 	--main-white-text: #fff;
@@ -85,7 +85,7 @@ body {
 		background-color: var(--main-white);
 	}
 } */
-.dark {
+:root.dark {
 	--base-font: system-ui, sans-serif;
 	--main-white: #242526;
 	--main-white-text: #fff;

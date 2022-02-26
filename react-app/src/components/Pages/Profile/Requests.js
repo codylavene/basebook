@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import * as requestActions from "../../../store/requests";
 import * as sessionActions from "../../../store/session";
 
-const Requests = ({}) => {
+const Requests = () => {
 	const curr_user = useSelector((state) => state.session.user);
 	const dispatch = useDispatch();
 	const onAccept = async (req_id, sender_id) => {

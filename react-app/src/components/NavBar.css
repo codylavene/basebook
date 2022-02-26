@@ -13,6 +13,7 @@ nav {
 	align-items: center;
 	height: fit-content;
 	padding: 0px 10px;
+	padding-left: 20px;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 	position: fixed;
 	top: 0;
@@ -157,15 +158,16 @@ nav > div > a {
 }
 
 .nav-dropdown {
-	width: 360px;
-	height: 430px;
+	width: 390px;
+	height: fit-content;
+	max-height: 430px;
 	position: absolute;
 	box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 	background-color: var(--main-white);
 	border-radius: 10px;
 	top: 43px;
 	right: 0;
-	padding: 10px;
+	padding: 20px 10px;
 	overflow-y: scroll;
 	overflow-x: hidden;
 }

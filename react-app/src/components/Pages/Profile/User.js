@@ -19,8 +19,13 @@ function User({ user }) {
 	const { userId } = useParams();
 	const curr_user = useSelector((state) => state.session.user);
 	const profile = useSelector((state) => state.profile.profile);
+	const posts = useSelector((state) => state.posts.posts);
 	const comments = useSelector((state) => state.comments.comments);
 	const likesObj = useSelector((state) => state.likes.likes);
+
+	const userPosts = Object.values(posts).filter(
+		(post) => post.user_id === user.id
+	);
 	useEffect(() => {
 		const update = async () => {
 			setLoading(true);
@@ -143,8 +148,8 @@ function User({ user }) {
 				{loading ? (
 					<PostLoading />
 				) : (
-					user.posts?.length > 0 &&
-					user?.posts
+					userPosts?.length > 0 &&
+					userPosts
 						?.sort(
 							(a, b) =>
 								new Date(b.posted_at) - new Date(a.posted_at)

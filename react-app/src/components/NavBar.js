@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import LogoutButton from "./auth/LogoutButton";
@@ -8,18 +8,74 @@ import "./NavBar.css";
 import Requests from "./Pages/Profile/Requests";
 import OutsideClickHandler from "react-outside-click-handler";
 import { ToggleSlider } from "react-toggle-slider";
+
+/*--------------------------------------------------------------------*/
 const NavBar = () => {
 	const [userDrop, setShowUserDrop] = useState(false);
 	const [notifyDrop, setShowNotifyDrop] = useState(false);
-	const [dark, setDark] = useState(
-		window.matchMedia("(prefers-color-scheme: dark)").matches
-	);
+	const [dark, setDark] = useState(() => {
+		const theme = localStorage.getItem("theme");
+		const prefersDark = window.matchMedia(
+			"(prefers-color-scheme: dark)"
+		).matches;
+		if (theme === "dark") return true;
+		else if (theme === "light") return false;
+		else return prefersDark;
+	});
 	const dispatch = useDispatch();
-	/*--------------------------------------------------------------------*/
+	const userDropRef = useRef(null);
+	const requestsDropRef = useRef(null);
+	// useEffect(() => {
+	// 	console.log({ userDropRef });
+	// 	console.log({ userDrop });
+	// 	const handleOutsideClick = (e) => {
+	// 		if (
+	// 			userDropRef.current &&
+	// 			!userDropRef.current.contains(e.target)
+	// 		) {
+	// 			if (!userDrop) {
+	// 				return setShowUserDrop(false);
+	// 			} else {
+	// 				return setShowUserDrop(true);
+	// 			}
+	// 		}
+	// 	};
+
+	// 	document.addEventListener("click", handleOutsideClick);
+
+	// 	return () => document.removeEventListener("click", handleOutsideClick);
+	// }, [userDrop]);
+	// useEffect(() => {
+	// 	console.log({ requestsDropRef });
+	// 	console.log({ notifyDrop });
+	// 	const handleOutsideClick = (e) => {
+	// 		if (
+	// 			requestsDropRef.current &&
+	// 			!requestsDropRef.current.contains(e.target)
+	// 		) {
+	// 			setShowNotifyDrop(false);
+	// 		}
+	// 	};
+
+	// 	window.addEventListener("click", handleOutsideClick);
+
+	// 	return () => window.removeEventListener("click", handleOutsideClick);
+	// }, [notifyDrop]);
 	useEffect(() => {
-		// const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
 		const toggleDarkMode = (dark) => {
-			document.documentElement.classList.toggle("dark", dark);
+			console.log(dark);
+			if (dark) {
+				document.documentElement.classList.remove("light");
+				document.documentElement.classList.add("dark");
+				localStorage.setItem("theme", "dark");
+				// setDark(false);
+			} else {
+				document.documentElement.classList.add("light");
+				document.documentElement.classList.remove("dark");
+				localStorage.setItem("theme", "light");
+				// setDark(true);
+			}
+			// localStorage.setItem("theme", dark ? "dark" : "light");
 		};
 		toggleDarkMode(dark);
 	}, [dark]);
@@ -89,6 +145,8 @@ const NavBar = () => {
 					<div
 						className="user-menu--grid"
 						onClick={() => setShowNotifyDrop(!notifyDrop)}
+						aria-haspopup="true"
+						aria-expanded={notifyDrop}
 					>
 						<i className="fa-solid fa-bell"></i>
 					</div>
@@ -106,6 +164,8 @@ const NavBar = () => {
 					<div
 						className="user-menu--drop"
 						onClick={() => setShowUserDrop(!userDrop)}
+						aria-haspopup="true"
+						aria-expanded={userDrop}
 					>
 						<i className="fa-solid fa-caret-down"></i>
 					</div>
@@ -131,18 +191,40 @@ const NavBar = () => {
 								<div className="drop--actions">
 									<div className="dark-mode-toggle">
 										<div>
-											<i className="fa-solid fa-moon"></i>
+											{dark ? (
+												<i className="fa-solid fa-moon"></i>
+											) : (
+												<i className="fa-solid fa-sun"></i>
+											)}
 											<div>Dark Mode</div>
 										</div>
+										{/* {dark ? (
+											<i
+												class="fa-solid fa-toggle-on"
+												onClick={() => setDark(false)}
+												style={{
+													fontSize: 36,
+													color: "var(--main-blue)",
+													marginRight: 20,
+												}}
+											></i>
+										) : (
+											<i
+												class="fa-solid fa-toggle-off"
+												onClick={() => setDark(true)}
+												style={{
+													fontSize: 36,
+													color: "var(--secondary-text)",
+													marginRight: 20,
+												}}
+											></i>
+										)} */}
 										<ToggleSlider
-											active={
-												window.matchMedia(
-													"(prefers-color-scheme: dark)"
-												).matches
-											}
+											active={dark}
 											barBackgroundColorActive={"#1877f2"}
 											barBackgroundColor={"#e4e6eb"}
-											handleSize={20}
+											handleSize={18}
+											draggable={false}
 											padding={5}
 											onToggle={() => setDark(!dark)}
 										/>

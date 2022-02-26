@@ -227,6 +227,7 @@
 	font-weight: 500;
 	background-color: var(--secondary-btn-bg);
 	border-radius: 7px;
+	color: var(--primary-text);
 }
 .friend-status--btn > button:hover {
 	background-color: var(--secondary-btn-hover);

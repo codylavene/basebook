@@ -81,7 +81,7 @@ const UserHeader = ({
 									onClick={sendRequest}
 									style={{
 										backgroundColor: "var(--main-blue)",
-										color: "var(--main-white)",
+										color: "var(--main-white-text)",
 									}}
 								>
 									<i className="fa-solid fa-user-plus"></i>{" "}
