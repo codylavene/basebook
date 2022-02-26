@@ -51,6 +51,7 @@ const Profile = (props) => {
 	document.title = `${user?.full_name} | basebook`;
 	useEffect(() => {
 		setLoading(true);
+		dispatch(requestActions.getRequests());
 		const checkIfFriends = () => {
 			curr_user.friends.forEach((friend) => {
 				if (friend.id === user.id) {
@@ -63,21 +64,21 @@ const Profile = (props) => {
 		checkIfFriends();
 		const checkForRequests = () => {
 			if (!isFriend || !checkIfFriends()) {
-				curr_user.sent_requests.forEach((req) => {
+				Object.values(sent_reqs).forEach((req) => {
 					if (req.receiver_id === user.id) {
 						setIsPendingFriend(true);
 						console.log("<><><><><>", isPendingFriend);
 						return true;
 					}
 				});
-				curr_user.rec_requests.forEach((req) => {
+				Object.values(rec_reqs).forEach((req) => {
 					if (req.sender_id === user.id) {
 						setIsPendingFriend(true);
 						console.log("<><><><><>", isPendingFriend);
 						return true;
 					}
 				});
-				return false;
+				// return false;
 			}
 			return false;
 		};
@@ -89,6 +90,7 @@ const Profile = (props) => {
 		user.id,
 		isFriend,
 		isPendingFriend,
+		curr_user.rec_requests,
 	]);
 	if (!user) {
 		return null;

@@ -254,6 +254,7 @@ nav > div > a {
 	border-bottom: 1px solid var(--divider);
 	padding: 8px 0px 14px;
 	margin-bottom: 10px;
+	font-size: 20px;
 	color: var(--primary-text);
 }
 .friend-requests--wrapper > .single-request {

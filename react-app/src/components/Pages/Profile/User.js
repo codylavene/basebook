@@ -36,7 +36,7 @@ function User({ user }) {
 			}, 500);
 		};
 		update();
-	}, [user.posts, dispatch, userId, user.details]);
+	}, [user.posts, dispatch, userId]);
 	// useEffect(() => {
 	// 	dispatch(sessionActions.updateDetails());
 	// }, [user.details]);
