@@ -58,7 +58,7 @@ const SignUpForm = ({ setShowModal }) => {
 	const onSignUp = async (e) => {
 		e.preventDefault();
 		e.stopPropagation();
-		const err = { ...errors };
+		const err = {};
 		// if (!firstName || !/^\w{2,100}$/g.test(firstName))
 		// 	err.firstName = "Whats your name? Cannot include symbols.";
 		// if (!lastName || !/^\w{2,100}$/g.test(lastName))
@@ -89,7 +89,14 @@ const SignUpForm = ({ setShowModal }) => {
 				)
 			);
 			if (data) {
-				setErrors(data);
+				console.log(typeof data);
+				data.forEach(
+					(error) =>
+						(err[error.split(" : ")[0]] = error.split(" : ")[1])
+				);
+				setErrors(err);
+				// setErrors(Object.fromEntries(data.split(":")));
+				console.log(err);
 			} else {
 				setShowModal(false);
 			}
@@ -195,38 +202,46 @@ const SignUpForm = ({ setShowModal }) => {
 
 			<form onSubmit={onSignUp} className="signup-form">
 				<div className="errors">
-					{errors.map((error, ind) => (
+					{/* {errors.map((error, ind) => (
 						<div key={ind}>{error}</div>
-					))}
+					))} */}
 				</div>
 				<div className="name">
-					<input
-						type="text"
-						placeholder="First name"
-						onChange={updateFirstName}
-						value={firstName}
-						required={true}
-						onInvalid={(e) =>
-							e.target.setCustomValidity(
-								"What's your first name?"
-							)
-						}
-						title={"What's your first name?"}
-						onInput={(e) => e.target.setCustomValidity("")}
-					></input>
-					<input
-						type="text"
-						placeholder="Last name"
-						onChange={updateLastName}
-						// onBlur={(e) => checkLastName(e)}
-						value={lastName}
-						title={"What's your last name"}
-						required={true}
-						onInvalid={(e) =>
-							e.target.setCustomValidity("What's your last name?")
-						}
-						onInput={(e) => e.target.setCustomValidity("")}
-					></input>
+					<div>
+						<input
+							type="text"
+							placeholder="First name"
+							onChange={updateFirstName}
+							value={firstName}
+							required={true}
+							onInvalid={(e) =>
+								e.target.setCustomValidity(
+									"What's your first name?"
+								)
+							}
+							title={"What's your first name?"}
+							onInput={(e) => e.target.setCustomValidity("")}
+						></input>
+						<div className="errors">{errors?.first_name}</div>
+					</div>
+					<div>
+						<input
+							type="text"
+							placeholder="Last name"
+							onChange={updateLastName}
+							// onBlur={(e) => checkLastName(e)}
+							value={lastName}
+							title={"What's your last name"}
+							required={true}
+							onInvalid={(e) =>
+								e.target.setCustomValidity(
+									"What's your last name?"
+								)
+							}
+							onInput={(e) => e.target.setCustomValidity("")}
+						></input>
+						<div className="errors">{errors?.last_name}</div>
+					</div>
 				</div>
 				<input
 					type={type}
@@ -252,9 +267,7 @@ const SignUpForm = ({ setShowModal }) => {
 					}
 					onInput={(e) => e.target.setCustomValidity("")}
 				></input>
-				<div className="errors">
-					{errors.length > 0 && errors[0].split(" : ")[1]}
-				</div>
+				<div className="errors">{errors?.contact}</div>
 				<input
 					type="password"
 					placeholder="New password"
@@ -272,6 +285,7 @@ const SignUpForm = ({ setShowModal }) => {
 					onInput={(e) => e.target.setCustomValidity("")}
 					// style={{ borderColor: errors.password ? "red" : "" }}
 				></input>
+				<div className="errors">{errors?.password}</div>
 				<input
 					type="password"
 					placeholder="Confirm password"

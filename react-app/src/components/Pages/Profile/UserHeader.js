@@ -21,7 +21,7 @@ const UserHeader = ({
 		dispatch(requestActions.getRequests()).then(() => {
 			setTimeout(() => {
 				setLoading(false);
-			}, 300);
+			}, 500);
 		});
 	}, []);
 	console.log(curr_user.id);
@@ -61,7 +61,10 @@ const UserHeader = ({
 					<h2 className="user-header--user-name">{user.full_name}</h2>
 					<div className="friend-status--btn">
 						{loading ? (
-							<i className="fa-solid fa-spinner fa-spin-pulse"></i>
+							<i
+								className="fa-solid fa-spinner fa-spin-pulse"
+								style={{ color: "var(--secondary-text)" }}
+							></i>
 						) : (
 							curr_user.id !== user.id &&
 							(isPendingFriend || pending ? (
@@ -81,7 +84,7 @@ const UserHeader = ({
 									onClick={sendRequest}
 									style={{
 										backgroundColor: "var(--main-blue)",
-										color: "var(--main-white)",
+										color: "var(--main-white-text)",
 									}}
 								>
 									<i className="fa-solid fa-user-plus"></i>{" "}

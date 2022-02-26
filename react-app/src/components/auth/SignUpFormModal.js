@@ -16,7 +16,7 @@ const SignUpFormModal = ({ post, comment }) => {
 				Create New Account
 			</button>
 			{showModal && (
-				<Modal onClose={() => setShowModal(false)}>
+				<Modal onClose={() => setShowModal(false)} splash={true}>
 					<SignUpForm setShowModal={setShowModal} />
 				</Modal>
 			)}

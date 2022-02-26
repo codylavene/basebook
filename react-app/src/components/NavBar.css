@@ -1,7 +1,7 @@
 nav {
 	position: sticky;
 	top: 0;
-	background-color: #fff;
+	background-color: var(--nav-bar);
 	z-index: 300;
 	height: fit-content;
 }
@@ -13,6 +13,7 @@ nav {
 	align-items: center;
 	height: fit-content;
 	padding: 0px 10px;
+	padding-left: 20px;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 	position: fixed;
 	top: 0;
@@ -94,7 +95,7 @@ nav > div > a {
 	border-radius: 12px;
 }
 .nav-btn--wrapper:hover {
-	background-color: var(--splash-bg);
+	background-color: var(--comment-bg);
 }
 .nav-btn--container {
 	display: flex;
@@ -118,7 +119,7 @@ nav > div > a {
 	border-radius: 40px;
 }
 .user-profile-link--container:hover {
-	background-color: var(--splash-bg);
+	background-color: var(--comment-bg);
 	cursor: pointer;
 }
 .user-menu--drop {
@@ -132,6 +133,7 @@ nav > div > a {
 	justify-content: center;
 	align-items: center;
 	background-color: var(--secondary-btn-bg);
+	color: var(--secondary-text);
 	padding: 15px;
 	border-radius: 50%;
 }
@@ -139,9 +141,13 @@ nav > div > a {
 	justify-content: space-around;
 	font-size: 22px;
 	letter-spacing: 1.5px;
+	color: var(--secondary-text);
 }
 
 .image-placeholder.nav-user-image {
+	background-image: url("../assets/images/default_pfp.png");
+	background-position: center;
+	background-size: contain;
 	width: 28px;
 	height: 28px;
 }
@@ -152,16 +158,18 @@ nav > div > a {
 }
 
 .nav-dropdown {
-	width: 360px;
-	height: 430px;
+	width: 390px;
+	height: fit-content;
+	max-height: 430px;
 	position: absolute;
 	box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 	background-color: var(--main-white);
 	border-radius: 10px;
 	top: 43px;
 	right: 0;
-	padding: 10px;
+	padding: 20px 10px;
 	overflow-y: scroll;
+	overflow-x: hidden;
 }
 .nav-dropdown > a {
 	text-decoration: none;
@@ -185,6 +193,9 @@ nav > div > a {
 .nav-dropdown > a > .nav-link-to-curr_user > .image-placeholder {
 	width: 60px;
 	height: 60px;
+	background-image: url("../assets/images/default_pfp.png");
+	background-position: center;
+	background-size: contain;
 }
 .nav-dropdown > a > .nav-link-to-curr_user > .user-name {
 	display: flex;
@@ -196,13 +207,14 @@ nav > div > a {
 	color: var(--secondary-text);
 }
 .nav-dropdown > .drop--actions {
-	border-top: 1px solid #ced0d4;
+	border-top: 1px solid var(--divider);
 	padding: 10px 0px;
 }
 .nav-dropdown > .drop--actions > .logout-btn {
 	width: 100%;
 	height: 52px;
 	background-color: var(--main-white);
+	color: var(--secondary-text);
 	border: none;
 	font-size: 17px;
 	text-align: left;
@@ -211,6 +223,7 @@ nav > div > a {
 .nav-dropdown > .drop--actions > .logout-btn > i {
 	padding: 10px;
 	background-color: var(--secondary-btn-bg);
+	color: var(--secondary-text);
 	border-radius: 50%;
 	margin-right: 20px;
 }
@@ -231,15 +244,18 @@ nav > div > a {
 	width: 100%;
 	/* height: 100%; */
 	overflow-y: scroll;
+	overflow-x: hidden;
 	justify-content: center;
 	text-align: center;
 	/* padding-right: 17px; */
 }
 .friend-requests--wrapper > .requests--head {
 	width: 340px;
-	border-bottom: 1px solid var(--secondary-text);
+	border-bottom: 1px solid var(--divider);
 	padding: 8px 0px 14px;
 	margin-bottom: 10px;
+	font-size: 20px;
+	color: var(--primary-text);
 }
 .friend-requests--wrapper > .single-request {
 	display: flex;
@@ -248,7 +264,7 @@ nav > div > a {
 	padding: 7px 0px;
 	justify-content: space-between;
 	align-items: center;
-	border-bottom: 1px solid #ced0d4;
+	border-bottom: 1px solid var(--divider);
 	font-size: 18px;
 }
 .single-request > .user-img--container > span > a {
@@ -276,13 +292,15 @@ nav > div > a {
 	font-size: 14px;
 	border: none;
 	border-radius: 7px;
+	margin-right: 8px;
 }
 button.decline-btn {
 	background-color: var(--secondary-btn-bg);
+	color: var(--primary-text);
 }
 button.accept-btn {
 	background-color: var(--main-blue);
-	color: var(--main-white);
+	color: var(--main-white-text);
 	margin-bottom: 7px;
 }
 button.decline-btn:hover {
@@ -292,4 +310,33 @@ button.decline-btn:hover {
 button.accept-btn:hover {
 	background-color: var(--main-blue-hover);
 	cursor: pointer;
+}
+.no-requests--message {
+	color: var(--primary-text);
+}
+
+.dark-mode-toggle {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+	align-items: center;
+	padding: 8px;
+	font-size: 17px;
+
+	border-radius: 7px;
+}
+.dark-mode-toggle > div > i {
+	padding: 10px;
+	background-color: var(--secondary-btn-bg);
+	color: var(--secondary-text);
+	border-radius: 50%;
+	margin-right: 20px;
+}
+.dark-mode-toggle > div {
+	font-size: 17px;
+	color: var(--secondary-text);
+	text-align: left;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
 }

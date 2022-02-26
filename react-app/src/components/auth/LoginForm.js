@@ -15,7 +15,7 @@ const LoginForm = () => {
 	const emailRegex = /^[\w\d-]+@[a-zA-Z]+\.[a-zA-Z]{2,3}$/g;
 	const onLogin = async (e) => {
 		e.preventDefault();
-		// const err = [];
+		const err = {};
 		// if (!emailRegex.test(contact) && !phoneRegex.test(contact)) {
 		// 	err.push(
 		// 		"Hmm... This doesn't seem to be a valid phone number or email"
@@ -25,7 +25,10 @@ const LoginForm = () => {
 		const data = await dispatch(login(contact, password));
 		if (data) {
 			// err.push(data);
-			setErrors(data);
+			data.forEach(
+				(error) => (err[error.split(" : ")[0]] = error.split(" : ")[1])
+			);
+			setErrors(err);
 			console.log(data);
 		}
 		// }
@@ -48,9 +51,9 @@ const LoginForm = () => {
 		<div className="login-form-card">
 			<form onSubmit={onLogin} className="login-form">
 				<div className="errors">
-					{errors.map((error, ind) => (
+					{/* {errors.map((error, ind) => (
 						<div key={ind}>{error}</div>
-					))}
+					))} */}
 				</div>
 				<input
 					type="text"
@@ -59,7 +62,7 @@ const LoginForm = () => {
 					onChange={updateContact}
 					required
 				/>
-				{/* {errors[0]?.email && <div>{errors[0].email}</div>} */}
+				<div className="errors">{errors?.contact}</div>
 				<input
 					type="password"
 					placeholder="Password"
@@ -67,6 +70,7 @@ const LoginForm = () => {
 					onChange={updatePassword}
 					required
 				/>
+				<div className="errors">{errors?.password}</div>
 				<button type="submit" className="blue-btn login-btn">
 					Log In
 				</button>

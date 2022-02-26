@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as postActions from "../../store/posts";
 import * as commentActions from "../../store/comments";
@@ -7,12 +7,14 @@ import * as likeActions from "../../store/likes";
 import CreatePostModal from "./CreatePostModal";
 import Post from "./Post";
 import "./Posts.css";
+import PostLoading from "./PostLoading";
 const Posts = (props) => {
 	const dispatch = useDispatch();
 	const postsObj = useSelector((state) => state.posts.posts);
 	const commentsObj = useSelector((state) => state.comments.comments);
 	const likesObj = useSelector((state) => state.likes.likes);
 	const curr_user = useSelector((state) => state.session.user);
+	const [loading, setLoading] = useState(false);
 	console.log(likesObj);
 	// console.log(Array.isArray(Object.entries(commentsObj)));
 	// const comments = commentsObj[post.id];
@@ -20,9 +22,13 @@ const Posts = (props) => {
 	const posts = Object.values(postsObj);
 	useEffect(() => {
 		(async () => {
+			setLoading(true);
 			await dispatch(postActions.getPosts());
 			dispatch(commentActions.getComments());
 			dispatch(likeActions.getLikes());
+			setTimeout(() => {
+				setLoading(false);
+			}, 300);
 		})();
 	}, []);
 
@@ -44,7 +50,10 @@ const Posts = (props) => {
 				</div>
 			</div>
 			<div className="main-posts--wrapper">
-				{posts.length > 0 &&
+				{loading ? (
+					<PostLoading />
+				) : (
+					posts.length > 0 &&
 					posts
 						.sort(
 							(a, b) =>
@@ -63,7 +72,8 @@ const Posts = (props) => {
 									likesObj[post.id] ? likesObj[post.id] : {}
 								}
 							/>
-						))}
+						))
+				)}
 			</div>
 		</div>
 	);

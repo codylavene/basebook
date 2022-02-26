@@ -1,13 +1,14 @@
-:root {
+:root.light {
 	--base-font: system-ui, sans-serif;
 	--main-white: #fff;
+	--main-white-text: #fff;
 	--main-black: #000;
 	--main-blue: #1877f2;
-	--main-blue-hover: rgb(30, 111, 230);
+	--main-blue-hover: #1e6fe6;
 	--main-green: #00a400;
 	--signup-green: #42b72a;
 	--signup-green-hover: #36a420;
-	--main-green-hover: rgb(87, 162, 57);
+	--main-green-hover: #57a239;
 	--splash-bg: #f0f2f5;
 	--comment-bg: #f0f2f5;
 	--main-page-bg: #f0f2f5;
@@ -20,8 +21,14 @@
 	--secondary-btn-bg: #e4e6eb;
 	--secondary-btn-hover: #d8dade;
 	--like-comment-hover: #f2f2f2;
+	--main-gray: #d2d2d2;
 	--main-page-bg: #f0f2f5;
 	--error-red: #ff0000;
+	--divider: #ced0d4;
+	--hover-filter: #0000001a;
+	--nav-bar: #ffffff;
+	--input-grey: #f5f6f7;
+	--friend-bg: #fff;
 }
 
 * {
@@ -34,24 +41,83 @@ body {
 	width: 100%;
 	height: 100%;
 	overflow-y: scroll;
+	top: 0;
 }
 
 body {
 	background-color: var(--main-white);
 }
-/* @media (prefers-color-scheme: light) {
+
+/* @media (prefers-color-scheme: dark) {
 	:root {
-		--main-color: #ffffff;
+		--base-font: system-ui, sans-serif;
+		--main-white: #242526;
+		--main-white-text: #fff;
+		--main-black: #000;
+		--main-blue: #1877f2;
+		--main-blue-hover: rgb(30, 111, 230);
+		--main-green: #00a400;
+		--signup-green: #42b72a;
+		--signup-green-hover: #36a420;
+		--main-green-hover: rgb(87, 162, 57);
+		--splash-bg: #18191a;
+		--comment-bg: #3a3b3c;
+		--main-page-bg: #18191a;
+		--splash-text: #1c1e21;
+		--footer-text: #737373;
+
+		--modal-bg: #000000cc;
+		--primary-text: #e4e6eb;
+		--secondary-text: #e4e6eb;
+		--primary-text: #e4e6eb;
+		--secondary-text: #b0b3b8;
+		--light-border: #ffffff33;
+		--secondary-btn-bg: #3a3b3c;
+		--secondary-btn-hover: #505050;
+		--like-comment-hover: #505050;
+		--main-gray: #242424;
+		--main-page-bg: #18191a;
+		--error-red: #ff0000;
+		--nav-bar: #242526;
+		--divider: #3f4042;
+		--hover-filter: #505050;
+		--input-grey: #3a3b3c;
 	}
 	body {
-		background-color: var(--main-color);
-	}
-}
-@media (prefers-color-scheme: dark) {
-	:root {
-		--main-color: #0f0f0f;
-	}
-	body {
-		background-color: var(--main-color);
+		background-color: var(--main-white);
 	}
 } */
+:root.dark {
+	--base-font: system-ui, sans-serif;
+	--main-white: #242526;
+	--main-white-text: #fff;
+	--main-black: #000;
+	--main-blue: #1877f2;
+	--main-blue-hover: rgb(30, 111, 230);
+	--main-green: #00a400;
+	--signup-green: #42b72a;
+	--signup-green-hover: #36a420;
+	--main-green-hover: rgb(87, 162, 57);
+	--splash-bg: #18191a;
+	--comment-bg: #3a3b3c;
+	--friend-bg: #3a3b3c;
+	--main-page-bg: #18191a;
+	--splash-text: #1c1e21;
+	--footer-text: #737373;
+	--modal-bg: #000000cc;
+	--primary-text: #e4e6eb;
+	--secondary-text: #e4e6eb;
+	--primary-text: #e4e6eb;
+	--secondary-text: #b0b3b8;
+	--light-border: #ffffff33;
+	--secondary-btn-bg: #3a3b3c;
+	--secondary-btn-hover: #505050;
+	--like-comment-hover: #505050;
+	--main-gray: #242424;
+	--main-page-bg: #18191a;
+	--error-red: #ff0000;
+	--nav-bar: #242526;
+	--divider: #3f4042;
+	--hover-filter: #505050;
+	--input-grey: #3a3b3c;
+}

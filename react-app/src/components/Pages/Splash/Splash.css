@@ -4,7 +4,7 @@
 	align-items: flex-start;
 	width: 100%;
 	height: 720px;
-	background-color: var(--splash-bg);
+	background-color: #f0f2f5;
 	padding-top: 42px;
 }
 .splash-right {
@@ -41,7 +41,7 @@
 	width: 90%;
 	font-size: 12px;
 	text-align: center;
-	color: var(--error-red);
+	color: #ff0000;
 }
 .basebook-wrapper,
 .basebook-wrapper > img {
@@ -77,13 +77,13 @@
 
 .blue-btn {
 	color: #fff;
-	background-color: var(--main-blue);
+	background-color: #1877f2;
 	border: none;
 	border-radius: 6px;
 }
 .blue-btn:hover {
 	cursor: pointer;
-	background-color: var(--main-blue-hover);
+	background-color: #1e6fe6;
 }
 
 .login-bottom-btns {
@@ -98,7 +98,7 @@
 .login-form > .demo-btn {
 	border: none;
 	background-color: #fff;
-	color: var(--main-blue);
+	color: #1877f2;
 	width: fit-content;
 	margin: 20px;
 	font-size: 15px;
@@ -109,7 +109,7 @@
 }
 .login-form > input {
 	background-color: #fff;
-	color: var(--primary-text);
+	color: #050505;
 	width: 100%;
 	height: 52px;
 	font-size: 15px;
@@ -122,8 +122,8 @@
 	outline: none;
 }
 .login-form > input:focus {
-	outline: 1px solid var(--main-blue);
-	box-shadow: 0 0 2px 1px var(--main-blue);
+	outline: 1px solid #1877f2;
+	box-shadow: 0 0 2px 1px #1877f2;
 }
 /* .login-form > input:required:invalid {
 	outline: 1px solid var(--error-red);
@@ -133,20 +133,20 @@
 	height: 48px;
 	font-size: 18px;
 	font-weight: 500;
-	background-color: var(--signup-green);
+	background-color: #42b72a;
 }
 .green-btn {
 	color: #fff;
-	background-color: var(--main-green);
+	background-color: #00a400;
 	border: none;
 	border-radius: 6px;
 }
 .green-btn:hover {
-	background-color: var(--main-green-hover);
+	background-color: #57a239;
 	cursor: pointer;
 }
 .login-bottom-btns > .show-signup-btn:hover {
-	background-color: var(--signup-green-hover);
+	background-color: #36a420;
 }
 .signup-form-card {
 	/* padding: 10px; */
@@ -176,12 +176,18 @@
 .signup-form > .name {
 	width: 90%;
 	display: flex;
+
 	justify-content: space-between;
 	align-items: center;
 }
-
-.signup-form > .name > input {
+.signup-form > .name > div {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	width: 48%;
+}
+.signup-form > .name > div > input {
+	width: 100%;
 	height: 40px;
 	border-radius: 6px;
 	border: 1px solid #ccd0d5;

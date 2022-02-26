@@ -10,6 +10,7 @@ const EditPost = ({ setShowModal, post, setShowButtons }) => {
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		if (newPost.length > 1 && newPost.length < 540) {
+			console.log(newPost);
 			await dispatch(postActions.editPost(newPost, post.id));
 			dispatch(postActions.getPosts());
 			setNewPost("");

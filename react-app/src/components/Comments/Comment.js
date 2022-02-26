@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import DeleteCommentModal from "./DeleteCommentModal";
 import EditComment from "./EditComment";
-
+import OutsideClickHandler from "react-outside-click-handler";
 const Comment = ({ comment, post }) => {
 	const curr_user = useSelector((state) => state.session.user);
 	const [showButtons, setShowButtons] = useState(false);
@@ -34,8 +34,10 @@ const Comment = ({ comment, post }) => {
 							</div>
 						</Link>
 						{showButtons && (
+							// <OutsideClickHandler
+							// 	onOutsideClick={() => setShowButtons(false)}
+							// >
 							<div className="edit-delete-btn--container">
-								{/* <EditComment comment={comment} post={post} /> */}
 								<button
 									onClick={() => {
 										setShowEdit(true);
@@ -50,6 +52,7 @@ const Comment = ({ comment, post }) => {
 									setShowButtons={setShowButtons}
 								/>
 							</div>
+							// </OutsideClickHandler>
 						)}
 						<div className="single-comment--body">
 							{comment.comment_body}

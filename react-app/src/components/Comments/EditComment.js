@@ -8,7 +8,7 @@ const EditComment = ({ setShowEdit, post, comment }) => {
 	const [loading, setLoading] = useState(false);
 	const onSubmit = async (e) => {
 		e.preventDefault();
-		if (newComment.length > 1 && newComment.length < 280) {
+		if (newComment.length > 0 && newComment.length < 280) {
 			setLoading(true);
 			await dispatch(
 				commentActions.editComment(newComment, post.id, comment.id)

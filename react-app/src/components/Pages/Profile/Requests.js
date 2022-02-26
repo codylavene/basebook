@@ -1,19 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import * as requestActions from "../../../store/requests";
 import * as sessionActions from "../../../store/session";
 
-const Requests = ({}) => {
+const Requests = () => {
 	const curr_user = useSelector((state) => state.session.user);
+
 	const dispatch = useDispatch();
+
 	const onAccept = async (req_id, sender_id) => {
 		await dispatch(requestActions.approveRequest(req_id, sender_id));
-
 		dispatch(sessionActions.authenticate());
 	};
 	const onDecline = async (req_id) => {
 		await dispatch(requestActions.declineRequest(req_id));
+
 		dispatch(sessionActions.authenticate());
 	};
 	return (

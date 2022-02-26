@@ -16,8 +16,6 @@ const updateUser = (user) => ({
 	payload: user,
 });
 
-const initialState = { user: null };
-
 export const authenticate = () => async (dispatch) => {
 	const response = await fetch("/api/auth/", {
 		headers: {
@@ -80,7 +78,7 @@ export const updateDetails = (details, userId) => async (dispatch) => {
 	});
 	if (res.ok) {
 		const data = await res.json();
-		dispatch(setUser(data));
+		dispatch(updateUser(data));
 	} else {
 		return ["An error occured, please try again."];
 	}
@@ -118,16 +116,23 @@ export const signUp =
 			return ["An error occurred. Please try again."];
 		}
 	};
-
+const initialState = { user: null };
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
-		case SET_USER:
+		case SET_USER: {
 			return { user: action.payload };
-		case REMOVE_USER:
+		}
+		case REMOVE_USER: {
 			return { user: null };
-		case UPDATE_USER:
-			return { user: action.payload };
-		default:
+		}
+		case UPDATE_USER: {
+			const newState = { ...state, user: { ...state.user } };
+			newState.user = action.payload;
+
+			return newState;
+		}
+		default: {
 			return state;
+		}
 	}
 }

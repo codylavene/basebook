@@ -39,3 +39,19 @@ def update_user(id):
     user = User.query.get(id)
     click.echo(click.style(f"\n\n\n{user.to_frontend_dict()}\n\n", bg='red', fg='white'))
     return user.to_frontend_dict()
+
+
+@user_routes.route('/<int:id>/details', methods=["POST"])
+@login_required
+def add_user_details(id):
+    form = UserDetailsForm()
+    click.echo(click.style(f"\n\n\n{'ENTER ROUTE'}\n\n", bg='red', fg='white'))
+    details = UserDetails(bio=form.data['bio'], user_id=id,
+    city=form.data['city'],
+    work=form.data['work'],
+    education=form.data['education'])
+    db.session.add(details)
+    db.session.commit()
+    user = User.query.get(id)
+    click.echo(click.style(f"\n\n\n{user.to_frontend_dict()}\n\n", bg='red', fg='white'))
+    return user.to_frontend_dict()
