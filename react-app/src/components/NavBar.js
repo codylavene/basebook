@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import LogoutButton from "./auth/LogoutButton";
 // import { ReactComponent as b } from "../assets/images/b.svg";
@@ -7,11 +7,24 @@ import b from "../assets/images/b.png";
 import "./NavBar.css";
 import Requests from "./Pages/Profile/Requests";
 import OutsideClickHandler from "react-outside-click-handler";
-
+import { ToggleSlider } from "react-toggle-slider";
 const NavBar = () => {
 	const [userDrop, setShowUserDrop] = useState(false);
 	const [notifyDrop, setShowNotifyDrop] = useState(false);
+	const [dark, setDark] = useState(
+		window.matchMedia("(prefers-color-scheme: dark)").matches
+	);
+	const dispatch = useDispatch();
+	/*--------------------------------------------------------------------*/
+	useEffect(() => {
+		// const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+		const toggleDarkMode = (dark) => {
+			document.documentElement.classList.toggle("dark", dark);
+		};
+		toggleDarkMode(dark);
+	}, [dark]);
 
+	/*--------------------------------------------------------------------*/
 	const curr_user = useSelector((state) => state.session.user);
 	return (
 		<div className="nav--container">
@@ -114,6 +127,26 @@ const NavBar = () => {
 								</Link>
 								<div className="drop--actions">
 									<LogoutButton />
+								</div>
+								<div className="drop--actions">
+									<div className="dark-mode-toggle">
+										<div>
+											<i className="fa-solid fa-moon"></i>
+											<div>Dark Mode</div>
+										</div>
+										<ToggleSlider
+											active={
+												window.matchMedia(
+													"(prefers-color-scheme: dark)"
+												).matches
+											}
+											barBackgroundColorActive={"#1877f2"}
+											barBackgroundColor={"#e4e6eb"}
+											handleSize={20}
+											padding={5}
+											onToggle={() => setDark(!dark)}
+										/>
+									</div>
 								</div>
 							</div>
 						)}

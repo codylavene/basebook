@@ -17,7 +17,9 @@
 .friends-container--profile > h2 {
 	color: var(--primary-text);
 }
-
+.friends--cards > div {
+	color: var(--primary-text);
+}
 .friends--cards {
 	width: 80%;
 	max-width: 1000px;

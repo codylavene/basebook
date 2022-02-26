@@ -183,6 +183,10 @@
 	justify-content: center;
 	padding: 10px 0px;
 }
+.profile-details--wrapper > .edit-btn--container > button:hover {
+	background-color: var(--secondary-btn-hover);
+	cursor: pointer;
+}
 .profile-details--wrapper > div {
 	margin: 10px 0px;
 }
@@ -202,10 +206,6 @@
 	color: var(--primary-text);
 	font-weight: 600;
 	font-size: 15px;
-}
-.profile-details--wrapper > button:hover {
-	background: var(--secondary-btn-hover);
-	cursor: pointer;
 }
 .friends-container--profile {
 	background-color: var(--splash-bg);
