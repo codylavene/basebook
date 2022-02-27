@@ -67,7 +67,7 @@ def sign_up():
             first_name=form.data['first_name'],
             last_name=form.data['last_name'],
             contact=form.data['contact'],
-            birthdate=date.fromisoformat(f"{form.data['year']}-{form.data['month'].zfill(2)}-{form.data['day'].zfill(2)}"),
+            birthdate=date.fromisoformat(f"{form.data['year']}-{str(int(form.data['month'])+1).zfill(2)}-{form.data['day'].zfill(2)}"),
             gender=form.data['gender'],
             password=form.data['password']
         )
