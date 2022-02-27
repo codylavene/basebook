@@ -206,6 +206,7 @@
 .modal-head > .modal-head--text-wrapper > .modal-head--main {
 	font-size: 32px;
 	font-weight: bold;
+	color: #050505;
 }
 .modal-head > .modal-head--text-wrapper > .modal-head--text {
 	font-size: 15px;

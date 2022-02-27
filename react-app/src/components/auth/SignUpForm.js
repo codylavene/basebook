@@ -12,7 +12,7 @@ const SignUpForm = ({ setShowModal }) => {
 
 	const [month, setMonth] = useState(new Date().getMonth());
 	const [day, setDay] = useState(new Date().getDate());
-	const [year, setYear] = useState(new Date().getFullYear());
+	const [year, setYear] = useState(new Date().getFullYear() - 16);
 	const [birthdate, setBirthdate] = useState(new Date(year, month, day));
 	const [gender, setGender] = useState("");
 	const [password, setPassword] = useState("");
