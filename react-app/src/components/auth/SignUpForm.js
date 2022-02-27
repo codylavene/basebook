@@ -242,7 +242,7 @@ const SignUpForm = ({ setShowModal }) => {
 					</div>
 				</div>
 				<input
-					type={type}
+					type={"email"}
 					placeholder="Email Address"
 					onChange={updateContact}
 					// pattern={
